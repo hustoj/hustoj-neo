@@ -2,27 +2,21 @@
 
 namespace App\Repositories\Criteria;
 
-use Bosnadev\Repositories\Contracts\RepositoryInterface as Repository;
-use Bosnadev\Repositories\Criteria\Criteria;
+use Czim\Repository\Contracts\BaseRepositoryInterface;
+use Czim\Repository\Contracts\CriteriaInterface;
 
-class SearchByColumn extends Criteria
+class SearchByColumn implements CriteriaInterface
 {
     protected $column = 'title';
     protected $term   = '';
 
-    function __construct($term, $column)
+    public function __construct($term, $column)
     {
         $this->column = $column;
         $this->term   = $term;
     }
 
-    /**
-     * @param                                $model
-     * @param Repository                     $repository
-     *
-     * @return mixed
-     */
-    public function apply($model, Repository $repository)
+    public function apply($model, BaseRepositoryInterface $repository)
     {
         $query = $model->where($this->column, 'LIKE', $this->getTerm());
 

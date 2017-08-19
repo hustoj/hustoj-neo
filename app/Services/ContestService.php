@@ -67,7 +67,7 @@ class ContestService
 
     public function openingContest()
     {
-        $this->repository->resetScope();
+        $this->repository->clearCriteria();
 
         $now = Carbon::now();
         $this->repository->pushCriteria(new Where('start_time', $now, '<'));

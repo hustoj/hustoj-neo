@@ -2,11 +2,10 @@
 
 namespace App\Repositories\Criteria;
 
-use Bosnadev\Repositories\Contracts\RepositoryInterface as Repository;
-use Bosnadev\Repositories\Contracts\RepositoryInterface;
-use Bosnadev\Repositories\Criteria\Criteria;
+use Czim\Repository\Contracts\BaseRepositoryInterface;
+use Czim\Repository\Contracts\CriteriaInterface;
 
-class Limit extends Criteria
+class Limit implements CriteriaInterface
 {
     private $limit;
 
@@ -15,13 +14,7 @@ class Limit extends Criteria
         $this->limit = $limit;
     }
 
-    /**
-     * @param                     $model
-     * @param RepositoryInterface $repository
-     *
-     * @return mixed
-     */
-    public function apply($model, Repository $repository)
+    public function apply($model, BaseRepositoryInterface $repository)
     {
         return $model->limit($this->limit);
     }

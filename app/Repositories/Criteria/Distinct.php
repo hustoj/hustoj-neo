@@ -2,11 +2,10 @@
 
 namespace App\Repositories\Criteria;
 
-use Bosnadev\Repositories\Contracts\RepositoryInterface;
-use Bosnadev\Repositories\Contracts\RepositoryInterface as Repository;
-use Bosnadev\Repositories\Criteria\Criteria;
+use Czim\Repository\Contracts\BaseRepositoryInterface;
+use Czim\Repository\Contracts\CriteriaInterface;
 
-class Distinct extends Criteria
+class Distinct implements CriteriaInterface
 {
     private $field;
 
@@ -15,13 +14,7 @@ class Distinct extends Criteria
         $this->field = $field;
     }
 
-    /**
-     * @param                     $model
-     * @param RepositoryInterface $repository
-     *
-     * @return mixed
-     */
-    public function apply($model, Repository $repository)
+    public function apply($model, BaseRepositoryInterface $repository)
     {
         return $model->distinct($this->field);
     }

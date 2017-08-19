@@ -2,11 +2,10 @@
 
 namespace App\Repositories\Criteria;
 
-use Bosnadev\Repositories\Contracts\RepositoryInterface as Repository;
-use Bosnadev\Repositories\Contracts\RepositoryInterface;
-use Bosnadev\Repositories\Criteria\Criteria;
+use Czim\Repository\Contracts\BaseRepositoryInterface;
+use Czim\Repository\Contracts\CriteriaInterface;
 
-class Like extends Criteria
+class Like implements CriteriaInterface
 {
     public $column;
     public $term;
@@ -14,18 +13,13 @@ class Like extends Criteria
     public function __construct($column, $term)
     {
         $this->column = $column;
-        $this->term = $term;
+        $this->term   = $term;
     }
 
-    /**
-     * @param                     $model
-     * @param RepositoryInterface $repository
-     *
-     * @return mixed
-     */
-    public function apply($model, Repository $repository)
+    public function apply($model, BaseRepositoryInterface $repository)
     {
         $term = sprintf('%%%s%%', $this->term);
+
         return $model->where($this->column, 'LIKE', $term);
     }
 }

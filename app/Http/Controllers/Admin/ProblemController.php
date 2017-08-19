@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Repositories\Criteria\Like;
-use App\Repositories\Criteria\LoadRelation;
+use App\Repositories\Criteria\WithRelation;
 use App\Repositories\Criteria\Where;
 use App\Repositories\ProblemRepository;
 use Illuminate\Filesystem\Filesystem;
@@ -25,7 +25,7 @@ class ProblemController extends DataController
             $this->repository->pushCriteria(new Like('source', request('source')));
         }
 
-        $this->repository->pushCriteria(new LoadRelation('author'));
+        $this->repository->pushCriteria(new WithRelation('author'));
 
         return parent::index();
     }

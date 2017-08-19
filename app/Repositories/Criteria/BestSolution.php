@@ -2,21 +2,12 @@
 
 namespace App\Repositories\Criteria;
 
-use Bosnadev\Repositories\Contracts\RepositoryInterface;
-use Bosnadev\Repositories\Contracts\RepositoryInterface as Repository;
-use Bosnadev\Repositories\Criteria\Criteria;
-use Illuminate\Database\Eloquent\Model;
+use Czim\Repository\Contracts\BaseRepositoryInterface;
+use Czim\Repository\Contracts\CriteriaInterface;
 
-class BestSolution extends Criteria
+class BestSolution implements CriteriaInterface
 {
-
-    /**
-     * @param Model               $model
-     * @param RepositoryInterface $repository
-     *
-     * @return mixed
-     */
-    public function apply($model, Repository $repository)
+    public function apply($model, BaseRepositoryInterface $repository)
     {
         app('db')->connection()->statement('SET sql_mode = \'\'');
         $rawCount = 'count(*) as att';

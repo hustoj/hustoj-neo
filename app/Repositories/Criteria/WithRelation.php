@@ -5,22 +5,22 @@ namespace App\Repositories\Criteria;
 use Czim\Repository\Contracts\BaseRepositoryInterface;
 use Czim\Repository\Contracts\CriteriaInterface;
 
-class GroupBy implements CriteriaInterface
+class WithRelation implements CriteriaInterface
 {
-    private $field;
+    private $relations;
 
     /**
-     * GroupBy constructor.
+     * LoadRelation constructor.
      *
-     * @param $field
+     * @param $relations
      */
-    public function __construct($field)
+    public function __construct($relations)
     {
-        $this->field = $field;
+        $this->relations = $relations;
     }
 
     public function apply($model, BaseRepositoryInterface $repository)
     {
-        return $model->groupBy($this->field);
+        return $model->with($this->relations);
     }
 }

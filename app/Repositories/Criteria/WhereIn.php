@@ -2,11 +2,10 @@
 
 namespace App\Repositories\Criteria;
 
-use Bosnadev\Repositories\Contracts\RepositoryInterface;
-use Bosnadev\Repositories\Contracts\RepositoryInterface as Repository;
-use Bosnadev\Repositories\Criteria\Criteria;
+use Czim\Repository\Contracts\BaseRepositoryInterface;
+use Czim\Repository\Contracts\CriteriaInterface;
 
-class WhereIn extends Criteria
+class WhereIn implements CriteriaInterface
 {
     private $column;
     private $values;
@@ -23,13 +22,7 @@ class WhereIn extends Criteria
         $this->values = $values;
     }
 
-    /**
-     * @param                     $model
-     * @param RepositoryInterface $repository
-     *
-     * @return mixed
-     */
-    public function apply($model, Repository $repository)
+    public function apply($model, BaseRepositoryInterface $repository)
     {
         return $model->whereIn($this->column, $this->values);
     }

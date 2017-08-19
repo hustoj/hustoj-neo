@@ -2,11 +2,10 @@
 
 namespace App\Repositories\Criteria;
 
-use Bosnadev\Repositories\Contracts\RepositoryInterface;
-use Bosnadev\Repositories\Contracts\RepositoryInterface as Repository;
-use Bosnadev\Repositories\Criteria\Criteria;
+use Czim\Repository\Contracts\BaseRepositoryInterface;
+use Czim\Repository\Contracts\CriteriaInterface;
 
-class OrderBy extends Criteria
+class OrderBy implements CriteriaInterface
 {
     private $field;
     private $order;
@@ -23,13 +22,7 @@ class OrderBy extends Criteria
         $this->order = $order;
     }
 
-    /**
-     * @param                     $model
-     * @param RepositoryInterface $repository
-     *
-     * @return mixed
-     */
-    public function apply($model, Repository $repository)
+    public function apply($model, BaseRepositoryInterface $repository)
     {
         return $model->orderBy($this->field, $this->order);
     }
