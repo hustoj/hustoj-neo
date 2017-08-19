@@ -63,7 +63,19 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'strict' => true,
-            'engine' => null,
+            'modes' => [],
+            'engine' => 'innodb',
+        ],
+        'old' => [
+            'driver' => 'mysql',
+            'host' => env('OLD_DB_HOST', 'localhost'),
+            'port' => env('OLD_DB_PORT', '3306'),
+            'database' => env('OLD_DB_DATABASE', 'forge'),
+            'username' => env('OLD_DB_USERNAME', 'forge'),
+            'password' => env('OLD_DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'fetch' => \PDO::FETCH_ASSOC,
+            'collation' => 'utf8_unicode_ci',
         ],
 
         'pgsql' => [

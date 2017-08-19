@@ -1,5 +1,7 @@
 <?php
 
+use App\Hustoj\Hashing\HashServiceProvider;
+
 return [
 
     /*
@@ -12,7 +14,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'hustoj',
 
     /*
     |--------------------------------------------------------------------------
@@ -40,6 +42,8 @@ return [
 
     'debug' => env('APP_DEBUG', false),
 
+    'data_path' => env('DATA_PATH'),
+
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -51,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://acm.hust.edu.cn'),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +68,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Shanghai',
 
     /*
     |--------------------------------------------------------------------------
@@ -120,7 +124,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -168,6 +172,7 @@ return [
          */
 
         //
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -177,6 +182,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        HashServiceProvider::class,
 
     ],
 
@@ -226,6 +232,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];

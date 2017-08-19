@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
+use App\Entities\Contest;
+use App\Entities\Problem;
+use App\Entities\Solution;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,9 +26,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        app('router')->model('solution', Solution::class);
+        app('router')->model('problem', Problem::class);
+        app('router')->model('contest', Contest::class);
     }
 
     /**
@@ -39,7 +44,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapAdminRoutes();
     }
 
     /**
@@ -74,6 +79,17 @@ class RouteServiceProvider extends ServiceProvider
             'prefix' => 'api',
         ], function ($router) {
             require base_path('routes/api.php');
+        });
+    }
+
+    private function mapAdminRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => $this->namespace,
+            'prefix' => 'admin',
+        ], function ($router) {
+            require base_path('routes/admin.php');
         });
     }
 }

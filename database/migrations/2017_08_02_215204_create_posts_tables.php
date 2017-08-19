@@ -1,0 +1,47 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreatePostsTables extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('posts', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->string('slug');
+            $table->integer('user_id');
+            $table->integer('priority')->default(0);
+            $table->integer('status')->default(0);
+            $table->text('content')->default('');
+            $table->timestamps();
+        });
+
+        Schema::create('comments', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id');
+            $table->integer('post_id');
+            $table->text('content');
+            $table->integer('status');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('posts');
+        Schema::drop('comments');
+    }
+}

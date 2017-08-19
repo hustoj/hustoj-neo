@@ -1,0 +1,78 @@
+.navbar-brand {
+  text-transform: uppercase;
+}
+.sep-20 {
+  height: 20px;
+}
+
+.problemset-pagination {
+  max-width: 600px;
+  float: left;
+}
+
+.problem-search {
+  float: right;
+}
+
+.problem-detail dt {
+  text-transform: uppercase;
+  font-size: 18px;
+}
+
+.problem-detail dd, .readability {
+  margin: 1em 20px 1em;
+  font-size: 1.465em;
+  font-family: "minion-pro-1", "minion-pro-2", "Palatino", Georgia, "Times New Roman", serif;
+  line-height: 1.7em;
+
+}
+
+.readability {
+  font-size: 1.3em;
+}
+
+.ucard {
+  width: 210px;
+  height: 140px;
+  margin-right: 15px;
+  float: left;
+
+}
+
+#footer {
+  margin-top: 50px;
+
+}
+
+.topic-header {
+  width: 120px;
+  display: inline-block;
+  float: left;
+
+}
+
+.topic-body {
+  padding: 10px;
+  width: 700px;
+  display: inline-block;
+  border-left: solid 1px lightgrey;
+  float: left;
+
+}
+
+.topic-body .date {
+  margin-top: 15px;
+  display: inline-block;
+
+}
+
+#recent .panel, .problem-detail .double-col .panel {
+  padding: 0;
+
+}
+
+.edit_list li span {
+  cursor: pointer;
+  float: right;
+
+}

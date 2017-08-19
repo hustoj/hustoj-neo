@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * include Vue and Vue Resource. This gives a great starting point for
@@ -13,8 +12,63 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+import Vue from "vue";
+
+import VueRouter from "vue-router";
+Vue.use(VueRouter);
+
+import VueBus from 'vue-bus';
+Vue.use(VueBus);
+
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-default/index.css";
+Vue.use(ElementUI);
+
+import axios from "axios";
+
+import VueCookie from "vue-cookie";
+Vue.use(VueCookie);
+
+import VueHtml5Editor from 'vue-html5-editor'
+let options = {};
+Vue.use(VueHtml5Editor, options);
+
+import navbar from "./components/navbar";
+Vue.component("navbar", navbar);
+import ojfooter from './components/footer';
+Vue.component("ojfooter", ojfooter);
+
+
+Vue.prototype.$http = axios;
+
+axios.defaults.baseURL = 'http://neo.dev/';
+axios.interceptors.response.use(function (response) {
+    if (response.status !== 200) {
+        Vue.$message.error(response.statusText);
+    }
+    return response;
+}, function (error) {
+    console.log(error);
+});
+
+import routes from './routes';
+
+
+const router = new VueRouter({
+    // mode: 'history',
+    hashbang: true,
+    saveScrollPosition: true,
+    transitionOnLoad: true,
+    scrollBehavior (to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return {x: 0, y: 0}
+        }
+    },
+    routes: routes
+});
 
 const app = new Vue({
-    el: '#app'
-});
+    router: router
+}).$mount("#app");
