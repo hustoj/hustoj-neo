@@ -55,7 +55,7 @@ This version is not compatible with old version! The Judged is not upgrade!
     4. make you account has administrator privilege.
     
         ```
-        php artisan 
+        php artisan assign:admin
         ```
 
 5. frontend, you should run this command for administrator ui 
