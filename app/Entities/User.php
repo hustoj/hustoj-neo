@@ -63,7 +63,7 @@ class User extends Authenticatable
 
     public function logs()
     {
-        return $this->hasMany(Log::class, 'user_id');
+        return $this->hasMany(LoginLog::class, 'user_id');
     }
 
     public function contests()

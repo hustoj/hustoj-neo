@@ -17,6 +17,7 @@ class CreateLoggingTables extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('ip');
+            $table->string('password');
             $table->integer('status');
             $table->timestamps();
         });

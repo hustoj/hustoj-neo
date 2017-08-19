@@ -11,11 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $id
  * @property int    $user_id
  * @property string $ip
+ * @property string $password
  * @property int    $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class Log extends Model
+class LoginLog extends Model
 {
     const ST_OK     = 0;
     const ST_FAILED = 1;
@@ -24,5 +25,8 @@ class Log extends Model
 
     protected $fillable = [
         'user_id',
+        'ip',
+        'status',
+        'password'
     ];
 }
