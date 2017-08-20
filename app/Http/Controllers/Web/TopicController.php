@@ -62,7 +62,7 @@ class TopicController extends Controller
         $this->repository->pushCriteria(new OrderBy('id', 'desc'));
         // 获取非比赛的clarity
         $this->repository->pushCriteria(new Where('contest_id', 1, '<'));
-        $topics = $this->repository->paginate(request('limit'));
+        $topics = $this->repository->paginate(request('per_page', 50));
 
         return view('web.topic.list')->with('topics', $topics);
     }
