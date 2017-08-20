@@ -68,6 +68,5 @@ class ContestMigration extends Migration
             $user = app(UserService::class)->findByName($perm->user_id);
             $contest->users()->attach($user);
         });
-
     }
 }

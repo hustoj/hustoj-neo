@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Console\Commands\Migrations\ArticleMigration;
 use App\Console\Commands\Migrations\ContestMigration;
 use App\Console\Commands\Migrations\LoginLogMigration;
+use App\Console\Commands\Migrations\OptionMigration;
 use App\Console\Commands\Migrations\ProblemMigration;
 use App\Console\Commands\Migrations\SolutionMigration;
 use App\Console\Commands\Migrations\TopicMigration;
@@ -35,6 +36,7 @@ class DatabaseMigration extends Command
         TopicMigration::class,
         ArticleMigration::class,
         LoginLogMigration::class,
+        OptionMigration::class,
     ];
 
     /**
