@@ -1,6 +1,7 @@
 .navbar-brand {
   text-transform: uppercase;
 }
+
 .sep-20 {
   height: 20px;
 }
@@ -24,7 +25,6 @@
   font-size: 1.465em;
   font-family: "minion-pro-1", "minion-pro-2", "Palatino", Georgia, "Times New Roman", serif;
   line-height: 1.7em;
-
 }
 
 .readability {
@@ -48,7 +48,10 @@
   width: 120px;
   display: inline-block;
   float: left;
-
+  .date {
+    margin-top: 15px;
+    display: block;
+  }
 }
 
 .topic-body {
@@ -57,13 +60,7 @@
   display: inline-block;
   border-left: solid 1px lightgrey;
   float: left;
-
-}
-
-.topic-body .date {
-  margin-top: 15px;
-  display: inline-block;
-
+  white-space: pre;
 }
 
 #recent .panel, .problem-detail .double-col .panel {

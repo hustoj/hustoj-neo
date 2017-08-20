@@ -13,12 +13,9 @@
         <div class="panel-body">
             <div class="topic-header">
                 <a href="{{ route('user.profile', ['username'=> $topic->user->username]) }}">{{ $topic->user->username }}</a>
-            </div>
-            <div class="topic-body">
-                {!! nl2br(e($topic->content)) !!}
-                <br/>
                 <small class="date">{{ $topic->created_at }}</small>
             </div>
+            <div class="topic-body">{!! e($topic->content) !!}</div>
 
         </div>
     </div>
@@ -27,12 +24,9 @@
             <div class="panel-body">
                 <div class="topic-header">
                     <a href="{{ route('user.profile', ['username'=> $topic->user->username]) }}">{{ $r->user->username }}</a>
-                </div>
-                <div class="topic-body">
-                    {!! nl2br(e($r->content)) !!}
-                    <br/>
                     <small class="date">{{ $topic->created_at }}</small>
                 </div>
+                <div class="topic-body">{!! e($r->content) !!}</div>
             </div>
         </div>
     @endforeach
