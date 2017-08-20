@@ -39,7 +39,6 @@ class SolutionMigration extends Migration
         });
 
         $command->info('Migrating Solutions Done');
-
     }
 
     private function transformSolution($oldSolution)

@@ -2,8 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Entities\Log;
+use App\Entities\LoginLog;
 use App\Entities\User;
+use App\Services\LoginLogService;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
 
@@ -12,42 +13,53 @@ class LoginListener
     public function handle($event)
     {
         if (!$event->user) {
+            // no such user in system, don't record it
             return;
         }
 
+        $password = app('hash')->make($event->credentials['password']);
         if($event instanceof Failed) {
-            $this->loggingFailed($event->user);
+            $this->loggingFailed($event->user, $password);
         }
 
         if($event instanceof Login) {
-            $this->loggingOk($event->user);
+            $this->loggingOk($event->user, $password);
         }
+
+        $this->cleanUserRecentLog($event->user);
     }
 
-    private function loggingFailed($user)
+    private function loggingFailed($user, $password)
     {
         $logging = $this->createLog($user);
-        $logging->status = Log::ST_FAILED;
+        $logging->status = LoginLog::ST_FAILED;
+        $logging->password = $password;
         $logging->save();
     }
 
-    private function loggingOk($user)
+    private function loggingOk($user, $password)
     {
         $logging = $this->createLog($user);
-        $logging->status = Log::ST_OK;
+        $logging->status = LoginLog::ST_OK;
+        $logging->password = $password;
         $logging->save();
     }
 
     /**
      * @param User $user
      *
-     * @return Log
+     * @return LoginLog
      */
     private function createLog($user)
     {
-        $logging = new Log();
+        $logging = new LoginLog();
         $logging->user_id = $user->id;
         $logging->ip = request()->getClientIp();
         return $logging;
+    }
+
+    private function cleanUserRecentLog($user)
+    {
+        app(LoginLogService::class)->cleanUserLog($user);
     }
 }
