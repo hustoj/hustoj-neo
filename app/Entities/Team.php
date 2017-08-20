@@ -16,14 +16,15 @@ class Team
 
     /** @var Contest */
     protected $contest;
+    private $number_of_problem;
 
     public function __construct(Contest $contest)
     {
         $this->contest = $contest;
 
-        $number_of_problem = $contest->problems->count();
+        $this->number_of_problem = $contest->problems->count();
 
-        for ($i = 0; $i < $number_of_problem; $i++) {
+        for ($i = 0; $i < $this->number_of_problem; $i++) {
             $this->wa_counts[$i] = 0;
             $this->time_ac[$i]   = null;
         }
@@ -53,7 +54,12 @@ class Team
         }
 
         if ($solution->isFailed()) {
-            $this->wa_counts[$solution->order]++;
+            if ($solution->order < $this->number_of_problem) {
+                $this->wa_counts[$solution->order]++;
+            } else {
+                app('log')->error('Solution Order is invalid', ['id' => $solution->id]);
+            }
+
         }
     }
 
