@@ -1,13 +1,13 @@
 <?php
 
-use App\Entities\Contest;
 use App\Entities\Solution;
 use App\Entities\User;
 use App\Services\ContestService;
 use Carbon\Carbon;
 
 if (!function_exists('can_attend')) {
-    function can_attend($contest) {
+    function can_attend($contest)
+    {
         /** @var User $user */
         $user = auth()->user();
         if (!$user) {
@@ -16,10 +16,8 @@ if (!function_exists('can_attend')) {
         if ($user->hasRole('admin')) {
             return true;
         }
-        return $contest->users()
-                       ->wherePivot('user_id', '=', $user->id)
-                       ->get()
-                       ->count();
+
+        return $contest->users()->wherePivot('user_id', '=', $user->id)->get()->count();
     }
 }
 
@@ -69,7 +67,7 @@ if (!function_exists('show_problem_id')) {
     }
 }
 
-if(!function_exists('opening_contest')) {
+if (!function_exists('opening_contest')) {
     function opening_contest()
     {
         return (new ContestService())->openingContest();
