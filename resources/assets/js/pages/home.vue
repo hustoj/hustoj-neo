@@ -98,7 +98,6 @@
                 let self = this;
                 function setBarChar(id, titles, data) {
                     let el_chart = self.charts[id];
-                    console.log(el_chart);
                     el_chart.setOption({
                         xAxis: {data: titles},
                         series: {data: data},

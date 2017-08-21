@@ -1,6 +1,6 @@
 <?php
 
-app('router')->get('/', ['as' => 'dashboard', 'uses' => 'Admin\HomeController@dashboard']);
+app('router')->get('/home', ['as' => 'admin.home', 'uses' => 'Admin\HomeController@dashboard']);
 app('router')->get('/home/chart', ['as' => 'home_data', 'uses' => 'Admin\HomeController@chart']);
 
 app('router')->resource('problems', 'Admin\ProblemController');

@@ -113,7 +113,7 @@
                         this.total = response.data.total;
                         document.body.scrollTop = 0;
                     } else {
-                        this.$message.warning(response.statusText)
+                        this.$message.warning(response.status)
                     }
                 }.bind(this));
             },

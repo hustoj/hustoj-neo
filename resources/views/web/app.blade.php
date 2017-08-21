@@ -13,9 +13,6 @@
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{asset('assets/site/css/half-slider.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/site/css/justifiedGallery.min.css')}}"/>
-    <link rel="stylesheet" href="{{asset('assets/site/css/bootstrap-theme.min.css')}}">
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,9 +41,10 @@
     </div>
     @include('web.partials.footer')
 	<!-- Scripts -->
-	<script src="{{asset('assets/site/js/jquery-2.1.3.min.js')}}"></script>
-	<script src="{{asset('assets/site/js/bootstrap.min.js')}}"></script>
-	<script src="{{asset('assets/site/js/bootstrap-hover-dropdown.min.js')}}"></script>
+    <script src="{{ asset('js/manifest.js')}}"></script>
+    <script src="{{ asset('js/vendor.js')}}"></script>
+    <script src="{{ asset('js/app.js')}}"></script>
+    <script src="{{ asset('js/libs.js')}}"></script>
     @yield('scripts')
     <div id="footer" class="text-center">
         © 2015 HUST ACMICPC TEAM. All Right Reserved.

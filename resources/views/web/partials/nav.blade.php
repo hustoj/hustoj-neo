@@ -30,7 +30,7 @@
             <ul class="nav navbar-nav pull-right">
                 @if ( auth()->check() )
                     @if (auth()->user()->hasRole('admin'))
-                        <li><a href="{{ url('admin') }}">@lang('site.admin_panel')</a></li>
+                        <li><a href="{{ url(route('admin.home')) }}">@lang('site.admin_panel')</a></li>
                     @endif
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"  href="#">
