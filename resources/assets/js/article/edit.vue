@@ -11,7 +11,7 @@
                 <vue-html5-editor name="article-content" :content="item.content" :height="300" @change="updateContent"></vue-html5-editor>
             </el-form-item>
             <el-form-item label="Draft">
-                <el-select v-model="item.draft">
+                <el-select v-model="item.status">
                     <el-option value="0" label="Draft"></el-option>
                     <el-option value="1" label="Published"></el-option>
                 </el-select>
@@ -67,9 +67,9 @@
                 self.item = JSON.parse(JSON.stringify(item));
                 if (item.id) {
                     self.title = 'Edit Article';
-                    self.item.draft = self.item.draft.toString();
+                    self.item.status = self.item.status.toString();
                 } else {
-                    self.item.draft = '0';
+                    self.item.status = '0';
                 }
                 self.dialogFormVisible = true;
             })

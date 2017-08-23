@@ -28,7 +28,7 @@ class Post extends Model
         'slug',
         'title',
         'content',
-        'draft',
+        'status',
     ];
 
     public function author()
