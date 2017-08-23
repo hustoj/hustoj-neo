@@ -72,6 +72,7 @@ class ContestService
         $now = Carbon::now();
         $this->repository->pushCriteria(new Where('start_time', $now, '<'));
         $this->repository->pushCriteria(new Where('end_time', $now, '>'));
+        $this->repository->pushCriteria(new Where('private', Contest::ST_PUBLIC));
 
         return $this->repository->all();
     }

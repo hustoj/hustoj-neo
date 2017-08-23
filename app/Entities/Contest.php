@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Contest extends Model
 {
     use SoftDeletes;
+    const ST_PRIVATE = 1;
+    const ST_PUBLIC = 0;
 
     protected $dates = [
         'start_time',
