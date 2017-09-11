@@ -14,7 +14,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'hustoj',
+    'name' => env('APP_NAME', 'hustoj'),
 
     /*
     |--------------------------------------------------------------------------
