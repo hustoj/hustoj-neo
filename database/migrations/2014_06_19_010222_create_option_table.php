@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateOptionTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -20,6 +19,8 @@ class CreateOptionTable extends Migration
             $table->string('description');
             $table->text('value');
             $table->timestamps();
+
+            $table->index('key');
         });
     }
 

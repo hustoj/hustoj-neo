@@ -30,12 +30,16 @@ class CreateContestTable extends Migration
             $table->integer('problem_id');
             $table->string('title');
             $table->integer('order');
+
+            $table->unique(['contest_id', 'problem_id']);
         });
 
         Schema::create('contest_user', function (Blueprint $table) {
             $table->integer('contest_id');
             $table->integer('user_id');
             $table->timestamps();
+
+            $table->unique(['contest_id', 'user_id']);
         });
     }
 

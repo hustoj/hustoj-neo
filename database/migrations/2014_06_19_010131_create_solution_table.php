@@ -38,6 +38,8 @@ class CreateSolutionTable extends Migration
             $table->integer('solution_id');
             $table->text('content')->nullable();
             $table->timestamps();
+
+            $table->index('solution_id');
         });
 
         Schema::create('runtime_info', function (Blueprint $table) {
@@ -45,11 +47,15 @@ class CreateSolutionTable extends Migration
             $table->integer('solution_id');
             $table->text('content')->nullable();
             $table->timestamps();
+
+            $table->index('solution_id');
         });
         Schema::create('source_code', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('solution_id');
             $table->text('code')->nullable();
+
+            $table->index('solution_id');
         });
     }
 

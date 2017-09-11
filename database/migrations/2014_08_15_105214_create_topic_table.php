@@ -22,6 +22,9 @@ class CreateTopicTable extends Migration
             $table->text('content');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index('user_id');
+            $table->index('problem_id');
         });
 
         Schema::create('replies', function (Blueprint $table) {
@@ -31,6 +34,8 @@ class CreateTopicTable extends Migration
             $table->text('content');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('topic_id');
         });
     }
 

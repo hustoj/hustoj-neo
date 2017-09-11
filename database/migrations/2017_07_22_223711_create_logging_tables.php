@@ -20,6 +20,8 @@ class CreateLoggingTables extends Migration
             $table->string('password');
             $table->integer('status');
             $table->timestamps();
+
+            $table->index('user_id');
         });
     }
 
