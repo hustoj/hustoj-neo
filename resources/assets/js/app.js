@@ -41,9 +41,14 @@ Vue.component("ojfooter", ojfooter);
 
 Vue.prototype.$http = axios;
 
-axios.defaults.baseURL = 'http://neo.dev/';
+const BASE_URL = 'http://neo.dev/';
+axios.defaults.baseURL = BASE_URL;
+axios.defaults.headers.common['Accept'] = 'application/json';
 axios.interceptors.response.use(function (response) {
     if (response.status !== 200) {
+        if (response.status == 401) {
+            window.location.href = BASE_URL;
+        }
         Vue.$message.error(response.statusText);
     }
     return response;
