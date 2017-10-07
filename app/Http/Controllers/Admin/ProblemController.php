@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Repositories\Criteria\Like;
-use App\Repositories\Criteria\WithRelation;
 use App\Repositories\Criteria\Where;
 use App\Repositories\ProblemRepository;
+use Czim\Repository\Criteria\Common\WithRelations;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 
@@ -25,7 +25,7 @@ class ProblemController extends DataController
             $this->repository->pushCriteria(new Like('source', request('source')));
         }
 
-        $this->repository->pushCriteria(new WithRelation('author'));
+        $this->repository->pushCriteria(new WithRelations(['author']));
 
         return parent::index();
     }
