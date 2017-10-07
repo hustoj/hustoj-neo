@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon  $updated_at
  *
  * @property Contest $contest
+ * @property User $user
+ * @property Problem $problem
  */
 class Solution extends Model
 {

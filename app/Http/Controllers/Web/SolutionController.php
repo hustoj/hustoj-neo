@@ -9,6 +9,7 @@ use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
 use App\Repositories\SolutionRepository;
 use App\Services\UserService;
+use Czim\Repository\Criteria\Common\WithRelations;
 
 class SolutionController extends Controller
 {
@@ -16,23 +17,28 @@ class SolutionController extends Controller
     {
         /** @var SolutionRepository $repository */
         $repository = app(SolutionRepository::class);
+
         if ($request->getUserName()) {
             $user = (new UserService())->findByName($request->getUserName());
             $repository->pushCriteria(new Where('user_id', $user->id));
         }
+
         if ($request->getProblemId()) {
             $repository->pushCriteria(new Where('problem_id', $request->getProblemId()));
         }
+
         if ($request->getLanguage() != -1) {
             $filter = new Where('language', $request->getLanguage());
             $repository->pushCriteria($filter);
         }
+
         if ($request->getStatus() != -1 && $request->getStatus() !== '') {
             $filter = new Where('result', $request->getStatus());
             $repository->pushCriteria($filter);
         }
 
         $per_page = 100;
+        $repository->pushCriteria(new WithRelations(['user']));
         $repository->pushCriteria(new OrderBy('id', 'desc'));
         $solutions = $repository->paginate($per_page);
 
