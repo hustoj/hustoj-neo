@@ -18,7 +18,6 @@ class HomeController extends Controller
     {
         $result = [];
 
-//        $from = Carbon::create(2013, 12, 30, 0, 0, 0);
         $from = Carbon::create(null, null, null, 0, 0, 0);
         $from = $from->subDays(request('from'));
 
