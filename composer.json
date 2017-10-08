@@ -1,7 +1,10 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "hustoj-neo",
+    "description": "HUST Online Judge System",
+    "keywords": [
+        "online judge",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -23,7 +26,10 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": [
+            "app/Support/helpers.php"
+        ]
     },
     "autoload-dev": {
         "classmap": [
