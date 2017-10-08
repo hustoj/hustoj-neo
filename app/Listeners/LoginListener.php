@@ -14,15 +14,23 @@ class LoginListener
     {
         if (!$event->user) {
             // no such user in system, don't record it
+            $information = [
+                'name' => $event->credentials['username'],
+                'ip' => request()->getClientIp(),
+                'ua' => request()->userAgent(),
+            ];
+            info('user is not existed:', $information);
+
             return;
         }
 
-        $password = app('hash')->make($event->credentials['password']);
-        if($event instanceof Failed) {
+        if ($event instanceof Failed) {
+            $password = app('hash')->make($event->credentials['password']);
             $this->loggingFailed($event->user, $password);
         }
 
-        if($event instanceof Login) {
+        if ($event instanceof Login) {
+            $password = '*'; // if login ok, then no credentials
             $this->loggingOk($event->user, $password);
         }
 
@@ -31,16 +39,16 @@ class LoginListener
 
     private function loggingFailed($user, $password)
     {
-        $logging = $this->createLog($user);
-        $logging->status = LoginLog::ST_FAILED;
+        $logging           = $this->createLog($user);
+        $logging->status   = LoginLog::ST_FAILED;
         $logging->password = $password;
         $logging->save();
     }
 
     private function loggingOk($user, $password)
     {
-        $logging = $this->createLog($user);
-        $logging->status = LoginLog::ST_OK;
+        $logging           = $this->createLog($user);
+        $logging->status   = LoginLog::ST_OK;
         $logging->password = $password;
         $logging->save();
     }
@@ -52,9 +60,10 @@ class LoginListener
      */
     private function createLog($user)
     {
-        $logging = new LoginLog();
+        $logging          = new LoginLog();
         $logging->user_id = $user->id;
-        $logging->ip = request()->getClientIp();
+        $logging->ip      = request()->getClientIp();
+
         return $logging;
     }
 
