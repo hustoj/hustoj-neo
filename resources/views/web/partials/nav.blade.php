@@ -16,7 +16,7 @@
                 <li {!! ((request()->is('problemset') || request()->is('problem/*')) ? ' class="active"' : '') !!}><a
                             href="{{ route('problem.index') }}">@lang('site.problemset')</a></li>
                 <li {!! (request()->is('contest*') ? ' class="active"' : '') !!}><a href="{{ route('contest.index') }}">@lang('site.contests')
-                        @if(count(opening_contest()))<span class="badge">{{ count(opening_contest()) }}@endif</span></a></li>
+                        @if(count(opening_contest()))<span class="badge">{{ count(opening_contest()) }}</span>@endif</a></li>
                 <li {!! (request()->is('status') ? ' class="active"' : '') !!}><a
                             href="{{ route('solution.index') }}">@lang('site.status')</a></li>
                 <li {!! (request()->is('rank') ? ' class="active"' : '') !!}><a

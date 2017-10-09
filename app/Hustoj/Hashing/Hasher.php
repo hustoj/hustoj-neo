@@ -15,7 +15,7 @@ class Hasher implements HashingContract
      */
     public function make($value, array $options = [])
     {
-        $salt = Arr::get($options, 'salt', null);
+        $salt = Arr::get($options, 'salt');
         if (!$salt) {
             $this->generateSalt();
         }
@@ -29,7 +29,7 @@ class Hasher implements HashingContract
     {
         $salt = sha1(mt_rand());
 
-        return $salt = substr($salt, 0, 4);
+        return substr($salt, 0, 4);
     }
 
     /**
