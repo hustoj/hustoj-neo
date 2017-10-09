@@ -34,7 +34,7 @@
                 <div class="col-md-10">
                     <input class="form-control" type="text" name="username" id="username"
                            value="{{ old('username', $user->username) }}" disabled="disabled"/>
-                    {{ $errors->first('username', '<span class="help-inline">:message</span>') }}
+                    {!! $errors->first('username', '<span class="help-inline">:message</span>') !!}
                 </div>
             </div>
             <!-- ./ username -->
@@ -46,7 +46,7 @@
                 <div class="col-md-10">
                     <input class="form-control" type="text" name="nick" id="nick"
                            value="{{ old('nick', $user->nick) }}"/>
-                    {{ $errors->first('nick', '<span class="help-inline">:message</span>') }}
+                    {!! $errors->first('nick', '<span class="help-inline">:message</span>') !!}
                 </div>
             </div>
             <!-- ./ nick -->
@@ -58,7 +58,7 @@
                 <div class="col-md-10">
                     <input class="form-control" type="text" name="email" id="email"
                            value="{{ old('email', $user->email) }}"/>
-                    {{ $errors->first('email', '<span class="help-inline">:message</span>') }}
+                    {!! $errors->first('email', '<span class="help-inline">:message</span>') !!}
                 </div>
             </div>
             <!-- ./ email -->
@@ -69,7 +69,7 @@
 
                 <div class="col-md-10">
                     <input class="form-control" type="password" name="password" id="password" value=""/>
-                    {{ $errors->first('password', '<span class="help-inline">:message</span>') }}
+                    {!! $errors->first('password', '<span class="help-inline">:message</span>') !!}
                 </div>
             </div>
             <!-- ./ password -->
@@ -82,7 +82,7 @@
                 <div class="col-md-10">
                     <input class="form-control" type="password" name="password_confirmation" id="password_confirmation"
                            value=""/>
-                    {{ $errors->first('password_confirmation', '<span class="help-inline">:message</span>') }}
+                    {!! $errors->first('password_confirmation', '<span class="help-inline">:message</span>') !!}
                 </div>
             </div>
             <!-- ./ password confirm -->
@@ -96,6 +96,5 @@
             </div>
         </div>
         <!-- ./ form actions -->
-    </form>
     </form>
 @stop

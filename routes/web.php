@@ -37,7 +37,7 @@ app('router')->post('/topic/{id}', ['as' => 'topic.reply', 'uses' => 'Web\TopicC
 
 app('router')->get('/rank', ['as' => 'user.index', 'uses' => 'Web\UserController@index']);
 app('router')->get('/profile/', ['as' => 'user.profile', 'uses' => 'Web\UserController@profile']);
-app('router')->post('/user/edit', ['as' => 'user.edit', 'uses' => 'Web\UserController@edit']);
+app('router')->post('/profile/edit', ['as' => 'user.edit', 'uses' => 'Web\UserController@edit']);
 app('router')->get('/user/{username}', ['as' => 'user.view', 'uses' => 'Web\UserController@show']);
 
 app('router')->get('/status', ['as' => 'solution.index', 'uses' => 'Web\SolutionController@index']);
