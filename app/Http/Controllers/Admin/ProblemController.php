@@ -66,7 +66,11 @@ class ProblemController extends DataController
 
         if ($problem) {
             $fs    = new Filesystem();
-            $files = $fs->files(config('app.data_path') . '/' . $id);
+            $path = config('app.data_path') . '/' . $id;
+            if (!$fs->exists($path)) {
+                $fs->makeDirectory($path);
+            }
+            $files = $fs->files($path);
 
             $result = [];
             foreach ($files as $file) {

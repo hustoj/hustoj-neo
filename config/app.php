@@ -42,7 +42,7 @@ return [
 
     'debug' => env('APP_DEBUG', false),
 
-    'data_path' => env('DATA_PATH'),
+    'data_path' => storage_path('data'),
 
     /*
     |--------------------------------------------------------------------------
