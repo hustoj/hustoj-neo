@@ -14,8 +14,8 @@ class EditRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'sometimes|confirmed'
+            'email'    => 'required|email',
+            'password' => 'sometimes|confirmed',
         ];
     }
 }

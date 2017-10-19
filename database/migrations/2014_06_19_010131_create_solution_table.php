@@ -71,5 +71,4 @@ class CreateSolutionTable extends Migration
         Schema::drop('runtime_info');
         Schema::drop('source_code');
     }
-
 }

@@ -26,7 +26,7 @@ class UserController extends Controller
     public function index()
     {
         $per_page = 100;
-        $offset   = (request('page', 1) - 1) * $per_page + 1;
+        $offset = (request('page', 1) - 1) * $per_page + 1;
         $this->repository->pushCriteria(new OrderBy('solved', 'desc'));
         $this->repository->pushCriteria(new OrderBy('submit', 'asc'));
         $users = $this->repository->paginate($per_page);

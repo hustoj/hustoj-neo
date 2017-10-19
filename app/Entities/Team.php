@@ -1,4 +1,6 @@
-<?php namespace App\Entities;
+<?php
+
+namespace App\Entities;
 
 use Carbon\Carbon;
 
@@ -10,7 +12,7 @@ class Team
 
     protected $user;
 
-    protected $number_of_ac     = 0;
+    protected $number_of_ac = 0;
     protected $number_of_submit = 0;
     protected $cost_time;
 
@@ -26,7 +28,7 @@ class Team
 
         for ($i = 0; $i < $this->number_of_problem; $i++) {
             $this->wa_counts[$i] = 0;
-            $this->time_ac[$i]   = null;
+            $this->time_ac[$i] = null;
         }
     }
 
@@ -41,7 +43,7 @@ class Team
     }
 
     /**
-     * 添加新的solution，统计数据
+     * 添加新的solution，统计数据.
      *
      * @param Solution $solution
      */
@@ -63,7 +65,7 @@ class Team
     }
 
     /**
-     * 获取通过的题目数
+     * 获取通过的题目数.
      *
      * @return int
      */
@@ -78,7 +80,7 @@ class Team
     }
 
     /**
-     * 获取题目的尝试次数
+     * 获取题目的尝试次数.
      *
      * @param $pid
      *
@@ -106,14 +108,14 @@ class Team
     }
 
     /**
-     * 获取总时间
+     * 获取总时间.
      *
      * @return int|mixed
      */
     public function getTotalTime()
     {
         if (null === $this->cost_time) {
-            $total             = 0;
+            $total = 0;
             $number_of_problem = $this->contest->problems->count();
             for ($i = 0; $i < $number_of_problem; $i++) {
                 $accepted_at = $this->getProblemAcceptTime($i);
@@ -132,13 +134,13 @@ class Team
     }
 
     /**
-     * 获取总罚时
+     * 获取总罚时.
      *
      * @return int|mixed
      */
     public function getTotalPenaltyTime()
     {
-        $total             = 0;
+        $total = 0;
         $number_of_problem = $this->contest->problems->count();
         for ($i = 0; $i < $number_of_problem; $i++) {
             $total += $this->getPenaltyOfProblem($i);
@@ -148,7 +150,7 @@ class Team
     }
 
     /**
-     * 获取单个题目的罚时
+     * 获取单个题目的罚时.
      *
      * @param $pid
      *

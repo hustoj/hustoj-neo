@@ -1,4 +1,6 @@
-<?php namespace App\Entities;
+<?php
+
+namespace App\Entities;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -6,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Problem
+ * Class Problem.
  *
  * @property int                   $id
  * @property string                $title
@@ -24,7 +26,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int                   $spj
  * @property string                $memo
  * @property int                   $user_id
- *
  * @property User                  $author
  * @property Solution[]|Collection $solutions
  * @property Carbon                $created_at
@@ -61,13 +62,13 @@ class Problem extends Model
     }
 
     /**
-     * is problem special judge
+     * is problem special judge.
      *
      * @return bool
      */
     public function isSpecialJudge()
     {
-        return (int)$this->spj === 1;
+        return (int) $this->spj === 1;
     }
 
     /**

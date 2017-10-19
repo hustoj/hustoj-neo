@@ -22,9 +22,8 @@ class Where implements CriteriaInterface
     {
         $this->field = $field;
         $this->value = $value;
-        $this->op    = $op;
+        $this->op = $op;
     }
-
 
     public function apply($model, BaseRepositoryInterface $repository)
     {

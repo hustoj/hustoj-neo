@@ -5,9 +5,8 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Option
+ * Class Option.
  *
- * @package App\Entities
  * @property int    $id
  * @property string $key
  * @property string $category

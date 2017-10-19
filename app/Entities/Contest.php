@@ -1,4 +1,6 @@
-<?php namespace App\Entities;
+<?php
+
+namespace App\Entities;
 
 use App\Services\StandingService;
 use Carbon\Carbon;
@@ -7,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Contest
+ * Class Contest.
  *
  * @property int                       $id
  * @property string                    $title
@@ -17,7 +19,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int                       $user_id
  * @property int                       $hidden
  * @property bool                      $private
- *
  * @property-read Collection|Problem[] $problems
  * @property-read Collection|User[]    $users
  */

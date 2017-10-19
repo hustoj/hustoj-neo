@@ -11,7 +11,7 @@ class ProblemMigration extends Migration
         $command->info('Migrating Problems...');
         $this->table('problem')->orderBy('problem_id', 'asc')->chunk(100, function ($objects) {
             $objects->map(function ($object) {
-                    $this->transform($object);
+                $this->transform($object);
             });
         });
         $command->info('Migrating Problems Done');
@@ -21,10 +21,10 @@ class ProblemMigration extends Migration
     {
         $problem = new Problem();
         $problem->fill(get_object_vars($object));
-        $problem->id          = $object->problem_id;
-        $problem->title       = $object->title;
+        $problem->id = $object->problem_id;
+        $problem->title = $object->title;
         $problem->description = $object->description;
-        $problem->created_at  = $object->in_date;
+        $problem->created_at = $object->in_date;
         if ($problem->submit === null) {
             $problem->submit = 0;
         }

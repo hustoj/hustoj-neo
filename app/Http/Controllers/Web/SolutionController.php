@@ -50,20 +50,21 @@ class SolutionController extends Controller
         if (!auth()->user()) {
             return redirect(route('problem.view', ['problem' => $problem->id]))->with('error', 'Login first');
         }
+
         return view('web.problem.submit', ['problem' => $problem]);
     }
 
     public function store()
     {
         $data = [
-            'user_id' => app('auth')->guard()->id(),
+            'user_id'    => app('auth')->guard()->id(),
             'problem_id' => request('problem_id', 0),
-            'language' => request('language'),
-            'ip' => request()->ip(),
-            'order' => request('order', 0),
+            'language'   => request('language'),
+            'ip'         => request()->ip(),
+            'order'      => request('order', 0),
             'contest_id' => request('contest_id', 0),
-            'code' => request('code', ''),
-            'result' => Solution::STATUS_PENDING,
+            'code'       => request('code', ''),
+            'result'     => Solution::STATUS_PENDING,
         ];
 
         /** @var SolutionRepository $repository */

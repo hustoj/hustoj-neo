@@ -6,9 +6,8 @@ use App\Entities\User;
 
 class UserRepository extends Repository
 {
-
     /**
-     * Specify Model class name
+     * Specify Model class name.
      *
      * @return mixed
      */

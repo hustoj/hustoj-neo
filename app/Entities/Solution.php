@@ -1,10 +1,12 @@
-<?php namespace App\Entities;
+<?php
+
+namespace App\Entities;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Solution
+ * Class Solution.
  *
  * @property int     $id
  * @property int     $problem_id
@@ -20,7 +22,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon  $judged_at
  * @property Carbon  $created_at
  * @property Carbon  $updated_at
- *
  * @property Contest $contest
  * @property User $user
  * @property Problem $problem
@@ -28,20 +29,20 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Solution extends Model
 {
-    const STATUS_PENDING         = 0;
+    const STATUS_PENDING = 0;
     const STATUS_PENDING_REJUDGE = 1;
-    const STATUS_COMPILE         = 2;
-    const STATUS_REJUDGING       = 3;
-    const STATUS_AC              = 4;
-    const STATUS_PE              = 5;
-    const STATUS_WA              = 6;
-    const STATUS_TLE             = 7;
-    const STATUS_MLE             = 8;
-    const STATUS_OLE             = 9;
-    const STATUS_RE              = 10;
-    const STATUS_CE              = 11;
-    const STATUS_COMPILE_OK      = 12;
-    const STATUS_TEST_RUN        = 13;
+    const STATUS_COMPILE = 2;
+    const STATUS_REJUDGING = 3;
+    const STATUS_AC = 4;
+    const STATUS_PE = 5;
+    const STATUS_WA = 6;
+    const STATUS_TLE = 7;
+    const STATUS_MLE = 8;
+    const STATUS_OLE = 9;
+    const STATUS_RE = 10;
+    const STATUS_CE = 11;
+    const STATUS_COMPILE_OK = 12;
+    const STATUS_TEST_RUN = 13;
 
     protected $fillable = [
         'problem_id',
@@ -59,20 +60,20 @@ class Solution extends Model
     ];
 
     public static $status = [
-        4 => 'Accepted',
-        5 => 'Presentation Error',
-        6 => 'Wrong Answer',
-        7 => 'Time Limit Exceed',
-        8 => 'Memory Limit Exceed',
-        9 => 'Output Limit Exceed',
+        4  => 'Accepted',
+        5  => 'Presentation Error',
+        6  => 'Wrong Answer',
+        7  => 'Time Limit Exceed',
+        8  => 'Memory Limit Exceed',
+        9  => 'Output Limit Exceed',
         10 => 'Runtime Error',
         11 => 'Compile Error',
         12 => 'Compile OK',
         13 => 'Test Running Done',
-        0 => 'Pending',
-        1 => 'Pending Rejudging',
-        2 => 'Compiling',
-        3 => 'Running &amp; Judging',
+        0  => 'Pending',
+        1  => 'Pending Rejudging',
+        2  => 'Compiling',
+        3  => 'Running &amp; Judging',
     ];
 
     public static $languages = [

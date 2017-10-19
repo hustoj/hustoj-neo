@@ -7,7 +7,6 @@ use Illuminate\Console\Command;
 
 class OptionMigration extends Migration
 {
-
     /**
      * @param Command $command
      */

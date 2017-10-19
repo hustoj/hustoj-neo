@@ -1,17 +1,18 @@
-<?php namespace App\Entities;
+<?php
+
+namespace App\Entities;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Reply
+ * Class Reply.
  *
  * @property int    $id
  * @property int    $user_id
  * @property int    $topic_id
  * @property string $content
- *
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */

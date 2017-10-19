@@ -10,7 +10,6 @@ class TopicService
 {
     /**
      * TopicService constructor.
-     *
      */
     public function __construct()
     {

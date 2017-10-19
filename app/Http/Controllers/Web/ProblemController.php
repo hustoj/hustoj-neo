@@ -33,7 +33,7 @@ class ProblemController extends Controller
             $this->repository->pushCriteria($searchByColumn);
         }
 
-        $perPage  = request('per_page', 100);
+        $perPage = request('per_page', 100);
         $problems = $this->repository->paginate($perPage);
 
         return view('web.problem.index', ['problems' => $problems]);

@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php
+
+namespace App\Http\Controllers\Admin;
 
 use App\Entities\User;
 use App\Repositories\Criteria\Where;
@@ -47,6 +49,7 @@ class UserController extends DataController
     {
         /** @var User $model */
         $model = $this->repository->findOrFail($id);
+
         try {
             $model->fill(request()->all());
             if (request('password')) {

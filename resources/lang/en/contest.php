@@ -3,14 +3,14 @@
 return [
     'contest_list'    => 'Contest List',
     'table'           => [
-        'id'    => 'ID',
-        'title' => 'Title',
-        'date'  => 'Date',
-        'private' => 'Private'
+        'id'      => 'ID',
+        'title'   => 'Title',
+        'date'    => 'Date',
+        'private' => 'Private',
     ],
     'table_list' => [
         'private' => 'Private',
-        'public' => 'Public'
+        'public'  => 'Public',
     ],
     // problems
     'nav'             => [
@@ -31,12 +31,12 @@ return [
         'user_id'  => 'User Id',
         'ac_count' => 'Accept Count',
         'submit'   => 'Submission',
-        'penalty'  => 'Penalty'
+        'penalty'  => 'Penalty',
     ],
     'title'           => [
-        'list' => 'Contest List'
+        'list' => 'Contest List',
     ],
-    'clarify' =>[
-        'clarify' => 'Clarify'
-    ]
+    'clarify' => [
+        'clarify' => 'Clarify',
+    ],
 ];

@@ -7,7 +7,6 @@ use App\Services\UserService;
 
 class ArticleMigration extends Migration
 {
-
     public function handle($command)
     {
         $command->info('Migrating Articles...');
@@ -21,13 +20,13 @@ class ArticleMigration extends Migration
 
     private function transformArticle($object)
     {
-        $post             = new Post();
-        $post->title      = $object->title;
-        $post->content    = $object->content;
+        $post = new Post();
+        $post->title = $object->title;
+        $post->content = $object->content;
         $author = app(UserService::class)->findByName($object->user_id);
-        $post->user_id    = $author->id;
+        $post->user_id = $author->id;
         $post->created_at = $object->time;
-        $post->priority   = $object->importance;
+        $post->priority = $object->importance;
         $post->save();
     }
 }

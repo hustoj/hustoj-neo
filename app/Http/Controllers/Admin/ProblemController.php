@@ -36,12 +36,13 @@ class ProblemController extends DataController
         $problem = $this->repository->find($id);
 
         if ($problem) {
-            $fs    = new Filesystem();
-            $path = config('app.data_path') . '/' . $id. '/'. $name;
+            $fs = new Filesystem();
+            $path = config('app.data_path').'/'.$id.'/'.$name;
             if ($fs->exists($path)) {
                 return response()->download($path, $name);
             }
         }
+
         return '';
     }
 
@@ -51,12 +52,13 @@ class ProblemController extends DataController
         $problem = $this->repository->find($id);
 
         if ($problem) {
-            $fs    = new Filesystem();
-            $path = config('app.data_path') . '/' . $id. '/'. $name;
+            $fs = new Filesystem();
+            $path = config('app.data_path').'/'.$id.'/'.$name;
             if ($fs->exists($path) && $fs->delete($path)) {
                 return ['code' => 0];
             }
         }
+
         return ['code' => -1];
     }
 
@@ -65,8 +67,8 @@ class ProblemController extends DataController
         $problem = $this->repository->find($id);
 
         if ($problem) {
-            $fs    = new Filesystem();
-            $path = config('app.data_path') . '/' . $id;
+            $fs = new Filesystem();
+            $path = config('app.data_path').'/'.$id;
             if (!$fs->exists($path)) {
                 $fs->makeDirectory($path);
             }
@@ -76,6 +78,7 @@ class ProblemController extends DataController
             foreach ($files as $file) {
                 $result[] = $fs->basename($file);
             }
+
             return $result;
         }
 
@@ -87,8 +90,8 @@ class ProblemController extends DataController
         $problem = $this->repository->find($id);
 
         if ($problem && request()->hasFile('files')) {
-            $fs   = new Filesystem();
-            $path = config('app.data_path') . '/' . $id;
+            $fs = new Filesystem();
+            $path = config('app.data_path').'/'.$id;
             if (!$fs->exists($path)) {
                 $fs->makeDirectory($path);
             }

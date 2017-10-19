@@ -1,4 +1,6 @@
-<?php namespace App\Hustoj\Hashing;
+<?php
+
+namespace App\Hustoj\Hashing;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -19,7 +21,7 @@ class HashServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('hash', function () {
-            return new Hasher;
+            return new Hasher();
         });
     }
 

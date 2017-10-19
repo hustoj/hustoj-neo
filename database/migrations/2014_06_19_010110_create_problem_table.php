@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateProblemTable extends Migration
 {
-
     protected $table = 'problems';
 
     /**
@@ -49,5 +48,4 @@ class CreateProblemTable extends Migration
     {
         Schema::drop($this->table);
     }
-
 }

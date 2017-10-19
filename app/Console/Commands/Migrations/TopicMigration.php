@@ -21,16 +21,16 @@ class TopicMigration extends Migration
 
     private function transform($item)
     {
-        $topic             = new Topic();
-        $topic->id         = $item->tid;
-        $topic->title      = $item->title;
+        $topic = new Topic();
+        $topic->id = $item->tid;
+        $topic->title = $item->title;
         $topic->contest_id = $item->cid;
         $topic->problem_id = $item->pid;
         if (!$topic->contest_id) {
             $topic->contest_id = 0;
         }
-        $user              = app(UserService::class)->findByName($item->author_id);
-        $topic->user_id    = $user->id;
+        $user = app(UserService::class)->findByName($item->author_id);
+        $topic->user_id = $user->id;
         $topic->save();
 
         $replies = $this->table('reply')->where('topic_id', $item->tid)->orderBy('rid', 'asc')->get();
@@ -43,12 +43,12 @@ class TopicMigration extends Migration
                 $isFirst = false;
                 continue;
             }
-            $newReply             = new Reply();
-            $newReply->topic_id   = $topic->id;
+            $newReply = new Reply();
+            $newReply->topic_id = $topic->id;
             $newReply->created_at = $reply->time;
-            $newReply->content    = $reply->content;
-            $author               = app(UserService::class)->findByName($reply->author_id);
-            $newReply->user_id    = $author->id;
+            $newReply->content = $reply->content;
+            $author = app(UserService::class)->findByName($reply->author_id);
+            $newReply->user_id = $author->id;
             $newReply->save();
         }
     }

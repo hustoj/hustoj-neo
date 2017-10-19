@@ -1,4 +1,6 @@
-<?php namespace App\Entities;
+<?php
+
+namespace App\Entities;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -7,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User;
 
 /**
- * Class Topic
+ * Class Topic.
  *
  * @property int                     $id
  * @property int                     $contest_id
@@ -17,7 +19,6 @@ use Illuminate\Foundation\Auth\User;
  * @property string                  $content
  * @property Carbon                  $created_at
  * @property Carbon                  $updated_at
- *
  * @property-read Reply[]|Collection $replies
  */
 class Topic extends Model

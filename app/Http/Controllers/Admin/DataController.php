@@ -30,12 +30,12 @@ abstract class DataController extends Controller
         return $this->repository->create(request()->all());
     }
 
-
     /**
      * @param $id
      *
-     * @return mixed
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     *
+     * @return mixed
      */
     public function update($id)
     {
