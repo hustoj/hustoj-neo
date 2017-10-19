@@ -59,8 +59,8 @@ if (!function_exists('show_ratio')) {
 if (!function_exists('display_penalize_time')) {
     function display_penalize_time($seconds)
     {
-        $hour        = $seconds / (Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR);
-        $minute      = $seconds % Carbon::SECONDS_PER_MINUTE;
+        $hour = $seconds / (Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR);
+        $minute = $seconds % Carbon::SECONDS_PER_MINUTE;
         $leftSeconds = $seconds % Carbon::SECONDS_PER_MINUTE;
 
         return sprintf('%d:%02d:%02d', $hour, $minute, $leftSeconds);
