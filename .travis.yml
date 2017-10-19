@@ -14,6 +14,6 @@ env:
 
 script:
     - composer install
-    - cp .env.production .env
+    - cp .env.example .env
     - php artisan key:generate
     - phpunit --coverage-text
