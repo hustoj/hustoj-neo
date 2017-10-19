@@ -6,7 +6,6 @@ use App\Entities\Contest;
 use App\Repositories\ContestRepository;
 use App\Repositories\Criteria\Like;
 use App\Repositories\Criteria\Where;
-use App\Services\ContestService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -42,6 +41,7 @@ class ContestController extends DataController
 
         return $contest->users;
     }
+
     public function store()
     {
         $model = new Contest();
@@ -62,7 +62,7 @@ class ContestController extends DataController
     }
 
     /**
-     * @param Contest $model;
+     * @param Contest $model ;
      */
     protected function updateOrSave($model)
     {

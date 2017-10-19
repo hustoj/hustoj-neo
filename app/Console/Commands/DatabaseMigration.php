@@ -50,5 +50,4 @@ class DatabaseMigration extends Command
             app($clz)->handle($this);
         }
     }
-
 }

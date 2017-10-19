@@ -45,6 +45,4 @@ class ProblemController extends Controller
 
         return view('web.problem.summary', ['summary' => $summary, 'perPage' => 50, 'problem' => $problem]);
     }
-
-
 }

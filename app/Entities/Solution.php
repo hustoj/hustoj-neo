@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Contest $contest
  * @property User $user
  * @property Problem $problem
+ * @property-read Source $source
  */
 class Solution extends Model
 {
@@ -158,13 +159,5 @@ class Solution extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    /**
-     * @return int
-     */
-    public function code_length()
-    {
-        return strlen($this->code);
     }
 }

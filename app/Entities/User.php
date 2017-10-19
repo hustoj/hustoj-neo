@@ -56,7 +56,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function last_access()
+    public function lastAccess()
     {
         return $this->logs()->orderBy('created_at', 'desc')->limit(1);
     }

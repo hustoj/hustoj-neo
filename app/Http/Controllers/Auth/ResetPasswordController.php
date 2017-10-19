@@ -35,6 +35,4 @@ class ResetPasswordController extends Controller
     {
         return view('web.auth.passwords.reset')->with(['token' => $token, 'email' => $request->email]);
     }
-
-
 }

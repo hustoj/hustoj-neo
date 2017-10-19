@@ -12,8 +12,8 @@ class ProblemMigration extends Migration
         $this->table('problem')->orderBy('problem_id', 'asc')->chunk(100, function ($objects) {
             $objects->map(function ($object) {
                     $this->transform($object);
-                });
             });
+        });
         $command->info('Migrating Problems Done');
     }
 

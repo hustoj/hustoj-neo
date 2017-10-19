@@ -33,6 +33,7 @@ class ContestController extends Controller
      */
     public function show($contest)
     {
+        /** @var Contest $contest */
         $contest = app(ContestRepository::class)->find($contest);
 
         $problems = $contest->problems()->orderBy('order')->get();

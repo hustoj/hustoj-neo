@@ -31,7 +31,7 @@ class SolutionService
     public function forContest($contest)
     {
         $this->repository->clearCriteria();
-        if($contest instanceof Contest) {
+        if ($contest instanceof Contest) {
             $contest = $contest->id;
         }
         $this->repository->pushCriteria(new Where('contest_id', $contest));
@@ -53,8 +53,9 @@ class SolutionService
     public function getSubmissionStats($from)
     {
         $this->repository->clearCriteria();
-        $this->repository->pushCriteria(new RawSelect('DATE_FORMAT(created_at,\'%Y-%m-%d\') as date, count(*) as number'));
-        $this->repository->pushCriteria(new Where('created_at', $from->format('Y-m-d h:i:s') , '>'));
+        $rawSql = 'DATE_FORMAT(created_at,\'%Y-%m-%d\') as date, count(*) as number';
+        $this->repository->pushCriteria(new RawSelect($rawSql));
+        $this->repository->pushCriteria(new Where('created_at', $from->format('Y-m-d h:i:s'), '>'));
         $this->repository->pushCriteria(new GroupBy('date'));
         $this->repository->pushCriteria(new OrderBy('created_at', 'desc'));
 

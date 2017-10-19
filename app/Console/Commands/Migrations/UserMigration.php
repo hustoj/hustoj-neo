@@ -9,13 +9,11 @@ class UserMigration extends Migration
     public function handle($command)
     {
         $command->info('Migrating Users...');
-        $this->table('users')
-             ->orderBy('reg_time', 'asc')
-             ->chunk(100, function ($objects) {
-                 foreach ($objects as $object) {
-                     $this->transform($object);
-                 }
-             });
+        $this->table('users')->orderBy('reg_time', 'asc')->chunk(100, function ($objects) {
+            foreach ($objects as $object) {
+                $this->transform($object);
+            }
+        });
         $command->info('Migrating Users Done');
     }
 

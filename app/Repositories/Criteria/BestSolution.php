@@ -13,7 +13,16 @@ class BestSolution implements CriteriaInterface
         $rawCount = 'count(*) as att';
         $rawGrade = 'min(10000000000000000000 + time_cost * 100000000000 + memory_cost * 100000) as score';
 
-        return $model->select('id', 'problem_id', 'user_id', 'language', 'memory_cost', 'time_cost', 'created_at',
-            \DB::raw($rawCount), \DB::raw($rawGrade));
+        return $model->select(
+            'id',
+            'problem_id',
+            'user_id',
+            'language',
+            'memory_cost',
+            'time_cost',
+            'created_at',
+            app('db')->raw($rawCount),
+            app('db')->raw($rawGrade)
+        );
     }
 }

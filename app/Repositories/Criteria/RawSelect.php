@@ -21,6 +21,6 @@ class RawSelect implements CriteriaInterface
 
     public function apply($model, BaseRepositoryInterface $repository)
     {
-        return $model->select(\DB::raw($this->rawSql));
+        return $model->select(app('db')->raw($this->rawSql));
     }
 }

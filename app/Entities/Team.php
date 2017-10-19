@@ -59,7 +59,6 @@ class Team
             } else {
                 app('log')->error('Solution Order is invalid', ['id' => $solution->id]);
             }
-
         }
     }
 

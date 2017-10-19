@@ -10,29 +10,29 @@ class UserController extends DataController
 {
     public function index()
     {
-        if(request('id')) {
+        if (request('id')) {
             $this->repository->pushCriteria(new Where('id', request('id')));
         }
 
-        if(request('name')) {
+        if (request('name')) {
             $this->repository->pushCriteria(new Where('username', request('name')));
         }
 
-        if(request('email')) {
+        if (request('email')) {
             $this->repository->pushCriteria(new Where('email', request('email')));
         }
 
-        if(request('disable') >= 0) {
+        if (request('disable') >= 0) {
             $this->repository->pushCriteria(new Where('disable', request('disable')));
         }
 
         /** @var Collection $models */
         $models = parent::index();
-        $models->load('last_access', 'roles');
+        $models->load('lastAccess', 'roles');
 
         foreach ($models as $model) {
-            $model->access = $model->last_access->first();
-            $model->addHidden('last_access');
+            $model->access = $model->lastAccess->first();
+            $model->addHidden('lastAccess');
 
             $model->roles_edit = $model->roles->map(function ($role) {
                 return $role->id;
@@ -49,7 +49,7 @@ class UserController extends DataController
         $model = $this->repository->findOrFail($id);
         try {
             $model->fill(request()->all());
-            if(request('password')) {
+            if (request('password')) {
                 $model->password = app('hash')->make(request('password'));
             }
             $model->save();

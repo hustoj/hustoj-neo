@@ -20,5 +20,4 @@ abstract class Migration
     {
         return app('db')->connection('old');
     }
-
 }

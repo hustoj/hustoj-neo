@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Listeners\DatabaseListener;
 use App\Listeners\LoginListener;
-use Illuminate\Auth\Events\Attempting;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Database\Events\QueryExecuted;
@@ -25,7 +24,7 @@ class EventServiceProvider extends ServiceProvider
             LoginListener::class,
         ],
         QueryExecuted::class => [
-            DatabaseListener::class
+            DatabaseListener::class,
         ],
     ];
 

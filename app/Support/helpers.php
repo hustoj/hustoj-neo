@@ -1,11 +1,17 @@
 <?php
 
+use App\Entities\Contest;
 use App\Entities\Solution;
 use App\Entities\User;
 use App\Services\ContestService;
 use Carbon\Carbon;
 
 if (!function_exists('can_attend')) {
+    /**
+     * @param Contest $contest
+     *
+     * @return bool
+     */
     function can_attend($contest)
     {
         /** @var User $user */

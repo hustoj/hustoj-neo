@@ -12,10 +12,10 @@ class TopicMigration extends Migration
     {
         $command->info('Migrating Topic...');
         $this->table('topic')->orderBy('tid', 'asc')->chunk(100, function ($items) {
-                foreach ($items as $item) {
-                    $this->transform($item);
-                }
-            });
+            foreach ($items as $item) {
+                $this->transform($item);
+            }
+        });
         $command->info('Migrating Topic Done');
     }
 
