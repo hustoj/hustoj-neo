@@ -10,7 +10,7 @@ php:
 
 env:
     global:
-        - APP_DEBUG=false DB_DATABASE=hustoj DB_USERNAME=root DB_USERNAME=
+        - APP_DEBUG=false DB_DATABASE=hustoj DB_USERNAME=root DB_PASSWORD=
 
 before_script:
   - "mysql -e 'create database `hustoj`;'"
