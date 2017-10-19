@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateTopicTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -49,5 +48,4 @@ class CreateTopicTable extends Migration
         Schema::drop('topics');
         Schema::drop('replies');
     }
-
 }

@@ -21,7 +21,7 @@ class HomeController extends Controller
         $from = Carbon::create(null, null, null, 0, 0, 0);
         $from = $from->subDays(request('from'));
 
-        $result['user']       = app(UserService::class)->getUserStats($from);
+        $result['user'] = app(UserService::class)->getUserStats($from);
         $result['submission'] = app(SolutionService::class)->getSubmissionStats($from);
 
         return $result;

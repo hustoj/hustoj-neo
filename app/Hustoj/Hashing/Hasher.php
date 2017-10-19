@@ -1,4 +1,6 @@
-<?php namespace App\Hustoj\Hashing;
+<?php
+
+namespace App\Hustoj\Hashing;
 
 use Illuminate\Contracts\Hashing\Hasher as HashingContract;
 use Illuminate\Support\Arr;
@@ -8,8 +10,8 @@ class Hasher implements HashingContract
     /**
      * Hash the given value.
      *
-     * @param  string $value
-     * @param  array  $options
+     * @param string $value
+     * @param array  $options
      *
      * @return string
      */
@@ -20,9 +22,9 @@ class Hasher implements HashingContract
             $this->generateSalt();
         }
 
-        $hashed_password = sha1(md5($value) . $salt, true);
+        $hashed_password = sha1(md5($value).$salt, true);
 
-        return base64_encode($hashed_password . $salt);
+        return base64_encode($hashed_password.$salt);
     }
 
     protected function generateSalt()
@@ -35,9 +37,9 @@ class Hasher implements HashingContract
     /**
      * Check the given plain value against a hash.
      *
-     * @param  string $value
-     * @param  string $hashedValue
-     * @param  array  $options
+     * @param string $value
+     * @param string $hashedValue
+     * @param array  $options
      *
      * @return bool
      */
@@ -49,16 +51,15 @@ class Hasher implements HashingContract
         }
 
         $origin_hash = base64_decode($hashedValue);
-        $salt        = substr($origin_hash, 20);
+        $salt = substr($origin_hash, 20);
 
         $hashed_password = $this->make($value, ['salt' => $salt]);
 
         return $hashed_password == $hashedValue;
     }
 
-
     /**
-     * detect password is old md5 password
+     * detect password is old md5 password.
      *
      * @param string $password
      *
@@ -79,8 +80,7 @@ class Hasher implements HashingContract
     }
 
     /**
-     *
-     * detect charactor is 0-9a-z
+     * detect charactor is 0-9a-z.
      *
      * @param $char
      *
@@ -102,8 +102,8 @@ class Hasher implements HashingContract
     /**
      * Check if the given hash has been hashed using the given options.
      *
-     * @param  string $hashedValue
-     * @param  array  $options
+     * @param string $hashedValue
+     * @param array  $options
      *
      * @return bool
      */

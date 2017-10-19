@@ -21,11 +21,11 @@ class UserMigration extends Migration
     {
         $user = new User();
         $user->fill(get_object_vars($object));
-        $user->username   = $object->user_id;
+        $user->username = $object->user_id;
         $user->created_at = $object->reg_time;
         $user->updated_at = $object->reg_time;
-        $user->password   = $object->password;
-        $user->defunct    = 0;
+        $user->password = $object->password;
+        $user->defunct = 0;
         if ($object->defunct === 'Y') {
             $user->defunct = 1;
         }

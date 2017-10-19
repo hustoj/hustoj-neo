@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
 use App\Entities\Topic;
+use App\Http\Controllers\Controller;
 use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
 use App\Repositories\TopicRepository;
@@ -23,9 +23,9 @@ class TopicController extends Controller
         $topic = $this->repository->find($id);
         if ($topic) {
             $reply = [
-                'user_id' => app('auth')->guard()->id(),
+                'user_id'  => app('auth')->guard()->id(),
                 'topic_id' => $id,
-                'content' => request('content'),
+                'content'  => request('content'),
             ];
             $topic->replies()->create($reply);
         }
@@ -38,15 +38,16 @@ class TopicController extends Controller
         if (auth()->user()) {
             return view('web.topic.create');
         }
+
         return redirect(route('topic.list'))->with('error', 'You should login first');
     }
 
     public function store()
     {
         $data = [
-            'user_id' => app('auth')->guard()->id(),
-            'title' => request('title'),
-            'content' => request('content'),
+            'user_id'    => app('auth')->guard()->id(),
+            'title'      => request('title'),
+            'content'    => request('content'),
             'contest_id' => request('contest_id', 0),
             'problem_id' => request('problem_id', 0),
         ];

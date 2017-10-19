@@ -10,7 +10,6 @@ use App\Services\UserService;
 
 class SolutionMigration extends Migration
 {
-
     public function handle($command)
     {
         $command->info('Migrating Solutions...');
@@ -45,39 +44,39 @@ class SolutionMigration extends Migration
     {
         $solution = new Solution();
         $solution->fill(get_object_vars($oldSolution));
-        $solution->id          = $oldSolution->solution_id;
-        $solution->order       = $oldSolution->num;
-        $solution->time_cost   = $oldSolution->time;
+        $solution->id = $oldSolution->solution_id;
+        $solution->order = $oldSolution->num;
+        $solution->time_cost = $oldSolution->time;
         $solution->memory_cost = $oldSolution->memory;
-        $solution->language    = $oldSolution->language;
-        $user                  = app(UserService::class)->findByName($oldSolution->user_id);
-        $solution->user_id     = $user->id;
-        $solution->created_at  = $oldSolution->in_date;
-        $solution->judged_at   = $oldSolution->judgetime;
+        $solution->language = $oldSolution->language;
+        $user = app(UserService::class)->findByName($oldSolution->user_id);
+        $solution->user_id = $user->id;
+        $solution->created_at = $oldSolution->in_date;
+        $solution->judged_at = $oldSolution->judgetime;
         $solution->save();
     }
 
     private function transformRuntimeInfo($object)
     {
-        $info              = new RuntimeInfo();
+        $info = new RuntimeInfo();
         $info->solution_id = $object->solution_id;
-        $info->content     = $object->error;
+        $info->content = $object->error;
         $info->save();
     }
 
     private function transformCompileInfo($object)
     {
-        $info              = new CompileInfo();
+        $info = new CompileInfo();
         $info->solution_id = $object->solution_id;
-        $info->content     = $object->error;
+        $info->content = $object->error;
         $info->save();
     }
 
     private function transformSource($object)
     {
-        $info              = new Source();
+        $info = new Source();
         $info->solution_id = $object->solution_id;
-        $info->code        = $object->source;
+        $info->code = $object->source;
         $info->save();
     }
 }

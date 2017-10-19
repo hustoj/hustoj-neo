@@ -9,7 +9,6 @@ use Illuminate\Console\Command;
 
 class LoginLogMigration extends Migration
 {
-
     /**
      * @param Command $command
      */

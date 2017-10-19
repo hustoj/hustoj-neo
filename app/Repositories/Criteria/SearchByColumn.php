@@ -8,12 +8,12 @@ use Czim\Repository\Contracts\CriteriaInterface;
 class SearchByColumn implements CriteriaInterface
 {
     protected $column = 'title';
-    protected $term   = '';
+    protected $term = '';
 
     public function __construct($term, $column)
     {
         $this->column = $column;
-        $this->term   = $term;
+        $this->term = $term;
     }
 
     public function apply($model, BaseRepositoryInterface $repository)

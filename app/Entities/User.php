@@ -1,4 +1,6 @@
-<?php namespace App\Entities;
+<?php
+
+namespace App\Entities;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -6,9 +8,8 @@ use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 /**
- * Class User
+ * Class User.
  *
- * @package App\Entities
  * @property int    $id
  * @property string $username
  * @property string $email

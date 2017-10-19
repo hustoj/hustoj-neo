@@ -45,7 +45,7 @@ class ContestMigration extends Migration
     private function migrateProblemRelation($contest)
     {
         $oldRelations = $this->table('contest_problem')->where('contest_id', $contest->id)->get();
-        $relations    = [];
+        $relations = [];
         foreach ($oldRelations as $relation) {
             $relations[$relation->problem_id] = [
                 'order' => $relation->num,
@@ -60,7 +60,7 @@ class ContestMigration extends Migration
      */
     private function migratePrivilege($contest)
     {
-        $perm  = 'c' . $contest->id;
+        $perm = 'c'.$contest->id;
         $perms = $this->table('privilege')->where('rightstr', $perm)->get();
 
         $perms->map(function ($perm) use ($contest) {

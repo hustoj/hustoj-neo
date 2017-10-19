@@ -23,7 +23,7 @@ class AssignAdmin extends Command
             /** @var User $user */
             $user = app(UserService::class)->findByName($username);
             if ($user) {
-                $this->info('User Id is '. $user->id);
+                $this->info('User Id is '.$user->id);
                 $this->assignAdmin($user);
                 $this->info('Assign Done');
                 break;

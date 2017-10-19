@@ -1,11 +1,12 @@
-<?php namespace App\Entities;
+<?php
+
+namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Article
+ * Class Article.
  *
- * @package App
  *
  * @property int            $id
  * @property int            $user_id
@@ -21,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Post extends Model
 {
-    protected $table    = 'posts';
+    protected $table = 'posts';
     protected $fillable = [
         'user_id',
         'slug',

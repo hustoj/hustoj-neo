@@ -6,10 +6,10 @@ return [
         'problem_id' => 'Problem ID',
         'language'   => 'Language',
         'status'     => 'Status',
-        'filter'     => 'Filter'
+        'filter'     => 'Filter',
     ],
     'title' => [
         'compile_information_of_solution' => 'Compile Information Of Solution',
         'runtime_information_of_solution' => 'Runtime Information Of Solution',
-    ]
+    ],
 ];

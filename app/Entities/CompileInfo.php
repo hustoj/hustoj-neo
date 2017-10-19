@@ -5,9 +5,8 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class CompileInfo
+ * Class CompileInfo.
  *
- * @package App\Entities
  * @property int $id
  * @property int $solution_id
  * @property string $content

@@ -5,9 +5,8 @@ namespace App\Entities;
 use Zizaco\Entrust\EntrustPermission;
 
 /**
- * Class Permission
+ * Class Permission.
  *
- * @package App\Entities
  *
  * @property string $name
  * @property string $display_name
@@ -15,5 +14,4 @@ use Zizaco\Entrust\EntrustPermission;
  */
 class Permission extends EntrustPermission
 {
-
 }

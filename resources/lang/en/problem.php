@@ -21,7 +21,7 @@ return [
         'time'        => 'Time',
         'user'        => 'User',
         'language'    => 'Language',
-        'submit_time' => 'Submit Time'
+        'submit_time' => 'Submit Time',
     ],
     'nav'           => [
         'description' => 'Description',
@@ -34,19 +34,19 @@ return [
         'second'             => 'Second',
         'MB'                 => 'MB',
         'submissions_:count' => 'Submission: :count',
-        'solved_:count'      => 'Solved: :count'
+        'solved_:count'      => 'Solved: :count',
     ],
     // Problem Sets
     'list' => [
-        'id' => 'ID',
-        'title' => 'Title',
-        'ratio_ac_submit' => 'Ratio(AC/Submit)'
+        'id'              => 'ID',
+        'title'           => 'Title',
+        'ratio_ac_submit' => 'Ratio(AC/Submit)',
     ],
     // Search Form
     'searchform' => [
-        'title' => 'Title',
-        'source' => 'Source',
-        'go' => 'Go',
-        'search_text' => 'Search Text'
-    ]
+        'title'       => 'Title',
+        'source'      => 'Source',
+        'go'          => 'Go',
+        'search_text' => 'Search Text',
+    ],
 ];

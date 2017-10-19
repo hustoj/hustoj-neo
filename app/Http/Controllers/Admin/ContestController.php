@@ -51,7 +51,7 @@ class ContestController extends DataController
 
     public function update($id)
     {
-        /** @var Contest $model */
+        /* @var Contest $model */
         if ($id instanceof Model) {
             $model = $id;
         } else {
@@ -70,13 +70,13 @@ class ContestController extends DataController
             $attrs = request()->except(['start_time', 'end_time']);
             $model->fill($attrs);
             $model->start_time = Carbon::parse(request('start_time'));
-            $model->end_time   = Carbon::parse(request('end_time'));
+            $model->end_time = Carbon::parse(request('end_time'));
             $model->save();
 
             if (request()->has('problem_list')) {
                 $problemIds = request('problem_list', []);
-                $relations  = [];
-                $index      = 0;
+                $relations = [];
+                $index = 0;
                 foreach ($problemIds as $id) {
                     $relations[$id] = ['order' => $index];
                     $index++;

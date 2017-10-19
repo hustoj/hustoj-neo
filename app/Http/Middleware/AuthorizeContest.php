@@ -15,7 +15,7 @@ class AuthorizeContest
      */
     public function handle($request, $next)
     {
-        $route   = app('router')->getRoutes()->match($request);
+        $route = app('router')->getRoutes()->match($request);
         $contest = $route->parameter('contest');
 
         $contest = app(ContestRepository::class)->find($contest);
@@ -24,7 +24,8 @@ class AuthorizeContest
             return $next($request);
         }
 
-        $errorMessage = 'You do not have privilege access contest ' . $contest->id;
+        $errorMessage = 'You do not have privilege access contest '.$contest->id;
+
         return redirect(route('contest.index'))->with('error', $errorMessage);
     }
 }

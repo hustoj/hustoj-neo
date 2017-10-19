@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateContestTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -54,5 +53,4 @@ class CreateContestTable extends Migration
         Schema::drop('contest_problem');
         Schema::drop('contest_user');
     }
-
 }

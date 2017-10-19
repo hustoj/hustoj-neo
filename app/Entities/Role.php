@@ -5,9 +5,8 @@ namespace App\Entities;
 use Zizaco\Entrust\EntrustRole;
 
 /**
- * Class Role
+ * Class Role.
  *
- * @package App\Entities
  *
  * @property string $name
  * @property string $display_name

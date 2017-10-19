@@ -1,12 +1,13 @@
-<?php namespace App\Entities;
+<?php
+
+namespace App\Entities;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Log
+ * Class Log.
  *
- * @package App\Entities
  *
  * @property int    $id
  * @property int    $user_id
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class LoginLog extends Model
 {
-    const ST_OK     = 0;
+    const ST_OK = 0;
     const ST_FAILED = 1;
 
     protected $table = 'logging';
@@ -27,6 +28,6 @@ class LoginLog extends Model
         'user_id',
         'ip',
         'status',
-        'password'
+        'password',
     ];
 }

@@ -5,10 +5,7 @@ namespace App\Repositories;
 use Czim\Repository\BaseRepository;
 
 /**
- * Class Repository
- *
- * @package App\Repositories
- *
+ * Class Repository.
  */
 abstract class Repository extends BaseRepository
 {

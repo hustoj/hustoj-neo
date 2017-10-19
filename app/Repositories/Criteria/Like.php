@@ -13,7 +13,7 @@ class Like implements CriteriaInterface
     public function __construct($column, $term)
     {
         $this->column = $column;
-        $this->term   = $term;
+        $this->term = $term;
     }
 
     public function apply($model, BaseRepositoryInterface $repository)

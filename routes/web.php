@@ -20,7 +20,7 @@ app('router')->get('/problem/{problem}/summary', ['as' => 'problem.summary', 'us
 
 app('router')->get('/contest', ['as' => 'contest.index', 'uses' => 'Web\ContestController@index']);
 
-app('router')->group(['middleware' => 'authorizeContest'], function() {
+app('router')->group(['middleware' => 'authorizeContest'], function () {
     app('router')->get('/contest/{contest}', ['as' => 'contest.view', 'uses' => 'Web\ContestController@show']);
     app('router')->get('/contest/{contest}/standing', ['as' => 'contest.standing', 'uses' => 'Web\ContestController@standing']);
     app('router')->get('/contest/{contest}/status', ['as' => 'contest.status', 'uses' => 'Web\ContestController@status']);
@@ -49,10 +49,11 @@ app('router')->post('/solution/store', ['as' => 'solution.store', 'uses' => 'Web
 
 // Single Pages
 app('router')->get('{page}', [
-    'as'=>'pages', 'uses' => function($page) {
-        $template = 'web.pages.'. $page;
+    'as'=> 'pages', 'uses' => function ($page) {
+        $template = 'web.pages.'.$page;
+
         return view($template);
-    }
+    },
 ])->where('page', 'contact|about|faqs');
 
 app('router')->auth();

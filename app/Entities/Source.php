@@ -5,9 +5,8 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Source
+ * Class Source.
  *
- * @package App\Entities
  * @property int $id
  * @property int $solution_id
  * @property string $code
@@ -19,6 +18,6 @@ class Source extends Model
 
     protected $fillable = [
         'solution_id',
-        'code'
+        'code',
     ];
 }

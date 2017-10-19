@@ -8,8 +8,8 @@ use App\Entities\Solution;
 class SummaryService
 {
     public $acceptedUser = 0;
-    public $submitUser   = 0;
-    public $total        = 0;
+    public $submitUser = 0;
+    public $total = 0;
 
     public $statistics;
 
@@ -57,10 +57,10 @@ class SummaryService
         $service = new ProblemService();
 
         $this->statistics = [];
-        $resultCount      = $service->getResultCount($this->problem->id);
+        $resultCount = $service->getResultCount($this->problem->id);
         foreach ($resultCount as $result) {
             $this->statistics[$result->result] = $result->user_count;
-            $this->total                       += $result->user_count;
+            $this->total += $result->user_count;
         }
     }
 
