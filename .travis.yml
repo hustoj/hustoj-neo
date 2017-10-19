@@ -2,8 +2,17 @@ language: php
 
 sudo: false
 
+services:
+    - mysql
+
 php:
     - '7.0'
 
-before_script: composer install
-script: phpunit --coverage-text
+env:
+    - DB_DATABASE=travis
+    - DB_USERNAME=travis
+
+script:
+    - mysql -e "CREATE SCHEMA travis; GRANT ALL PRIVILEGES ON travis.* to travis@'%'"
+    - composer install
+    - phpunit --coverage-text
