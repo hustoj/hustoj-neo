@@ -14,7 +14,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->initialSettings();
     }
 
     /**
@@ -25,14 +24,5 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-    }
-
-    private function initialSettings()
-    {
-        $options = Option::all(['key', 'value']);
-        $options = $options->keyBy('key')->map(function ($item) {
-            return $item->value;
-        });
-        config(['options' => $options]);
     }
 }

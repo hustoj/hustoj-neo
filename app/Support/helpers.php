@@ -1,10 +1,27 @@
 <?php
 
 use App\Entities\Contest;
+use App\Entities\Option;
 use App\Entities\Solution;
 use App\Entities\User;
 use App\Services\ContestService;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+
+if (!function_exists('get_option')) {
+    function get_option($name, $default = null)
+    {
+        /** @var Collection|Option[] $options */
+        $options = Option::all();
+        foreach ($options as $option) {
+            if ($option->key === $name && $option->value) {
+                return $option->value;
+            }
+        }
+
+        return $default;
+    }
+}
 
 if (!function_exists('can_attend')) {
     /**
@@ -42,8 +59,8 @@ if (!function_exists('show_ratio')) {
 if (!function_exists('display_penalize_time')) {
     function display_penalize_time($seconds)
     {
-        $hour = $seconds / (Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR);
-        $minute = $seconds % Carbon::SECONDS_PER_MINUTE;
+        $hour        = $seconds / (Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR);
+        $minute      = $seconds % Carbon::SECONDS_PER_MINUTE;
         $leftSeconds = $seconds % Carbon::SECONDS_PER_MINUTE;
 
         return sprintf('%d:%02d:%02d', $hour, $minute, $leftSeconds);
