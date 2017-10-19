@@ -10,8 +10,10 @@ php:
 
 env:
     global:
-        - DB_DATABASE=travis DB_USERNAME=travis
+        - APP_DEBUG=false DB_DATABASE=travis DB_USERNAME=travis
 
 script:
     - composer install
+    - cp .env.production .env
+    - php artisan key:generate
     - phpunit --coverage-text
