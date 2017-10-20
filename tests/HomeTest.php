@@ -14,4 +14,12 @@ class HomeTest extends TestCase
                  ->assertSee('Welcome to HUSTOJ!')
                  ->assertSuccessful();
     }
+
+    public function testFaqs()
+    {
+        $response = $this->get('/faqs');
+        $response->assertSuccessful()
+                 ->assertStatus(200)
+                 ->assertSee('iostream');
+    }
 }
