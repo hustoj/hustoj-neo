@@ -10,14 +10,21 @@ php:
 
 env:
     global:
-        - APP_DEBUG=false DB_DATABASE=hustoj DB_USERNAME=root DB_PASSWORD=
+        - APP_DEBUG=false
 
 before_script:
-  - "mysql -e 'create database `hustoj`;'"
-  - composer install
-  - cp .env.example .env
-  - php artisan key:generate
-  - php artisan migrate
+    - composer install --no-interaction
+    - cp .env.travis .env
+    - php artisan key:generate
+    - php artisan migrate
+
+cache:
+  directories:
+    - node_modules
+    - vendor
+
+before_install:
+    - mysql -e 'create database `hustoj`;'
 
 script:
     - phpunit --coverage-text
