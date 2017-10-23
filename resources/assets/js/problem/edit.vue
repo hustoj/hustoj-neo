@@ -28,13 +28,16 @@
                         </el-col>
                     </el-row>
                     <el-form-item label="Description">
-                        <vue-html5-editor name="problem-description" :content="item.description" :height="160" @change="updateDescription"></vue-html5-editor>
+                        <vue-html5-editor name="problem-description" :content="item.description" :height="160"
+                                          @change="updateDescription"></vue-html5-editor>
                     </el-form-item>
                     <el-form-item label="Input">
-                        <vue-html5-editor name="problem-input" :content="item.input" :height="120" @change="updateInput"></vue-html5-editor>
+                        <vue-html5-editor name="problem-input" :content="item.input" :height="120"
+                                          @change="updateInput"></vue-html5-editor>
                     </el-form-item>
                     <el-form-item label="Output">
-                        <vue-html5-editor name="problem-output" :content="item.output" :height="120" @change="updateOutput"></vue-html5-editor>
+                        <vue-html5-editor name="problem-output" :content="item.output" :height="120"
+                                          @change="updateOutput"></vue-html5-editor>
                     </el-form-item>
                     <el-form-item label="Hint">
                         <el-input type="textarea" v-model="item.hint"></el-input>
@@ -45,41 +48,50 @@
                 </el-tab-pane>
                 <el-tab-pane label="Data">
                     <el-form-item label="Sample Input">
-                        <el-input type="textarea" v-model="item.sample_input" :autosize="{ minRows: 4, maxRows: 12}"></el-input>
+                        <el-input type="textarea" v-model="item.sample_input"
+                                  :autosize="{ minRows: 4, maxRows: 12}"></el-input>
                     </el-form-item>
                     <el-form-item label="Sample Output">
-                        <el-input type="textarea" v-model="item.sample_output" :autosize="{ minRows: 4, maxRows: 12}"></el-input>
+                        <el-input type="textarea" v-model="item.sample_output"
+                                  :autosize="{ minRows: 4, maxRows: 12}"></el-input>
                     </el-form-item>
                     <el-form-item label="Judge Data" v-if="item.id">
                         <el-row :gutter=24>
                             <el-col :span=10>
                                 <el-upload
-                                    class="upload-data"
-                                    ref="upload"
-                                    :with-credentials="withCredentials"
-                                    :headers="attachedHeaders"
-                                    name="files"
-                                    :before-upload="beforeFilesUpload"
-                                    :action="uploadPath"
-                                    :on-success="handleSuccess"
-                                    :on-remove="handleRemove"
-                                    :file-list="fileList"
-                                    :auto-upload="false" style="width: 300px">
+                                        class="upload-data"
+                                        ref="upload"
+                                        :with-credentials="withCredentials"
+                                        :headers="attachedHeaders"
+                                        name="files"
+                                        :before-upload="beforeFilesUpload"
+                                        :action="uploadPath"
+                                        :on-success="handleSuccess"
+                                        :on-remove="handleRemove"
+                                        :file-list="fileList"
+                                        :auto-upload="false" style="width: 300px">
                                     <el-button slot="trigger" size="small" type="primary">Choose</el-button>
-                                    <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">Upload</el-button>
-                                    <div slot="tip" class="el-upload__tip">support .in and .out files, take care of file size!</div>
+                                    <el-button style="margin-left: 10px;" size="small" type="success"
+                                               @click="submitUpload">Upload
+                                    </el-button>
+                                    <div slot="tip" class="el-upload__tip">
+                                        support .in and .out files, take care of file size!
+                                    </div>
                                 </el-upload>
                             </el-col>
                             <el-col :span=10>
                                 <el-card class="box-card">
                                     <div slot="header" class="clearfix">
-                                    <span style="line-height: 18px;">Data File List</span>
+                                        <span style="line-height: 18px;">Data File List</span>
                                     </div>
                                     <ul v-for="file in currentFileList" class="el-upload-list el-upload-list--text">
-                                    <li class="el-upload-list__item is-ready">
-                                    <!----><a class="el-upload-list__item-name" :href="accessFileUrl(file)">
-                                    <i class="el-icon-document"></i>{{ file }}
-                                    </a><label class="el-upload-list__item-status-label"><i class="el-icon-upload-success el-icon-circle-check"></i></label><i class="el-icon-close" @click="removeFile(file)"></i><!----><!----></li></ul>
+                                        <li class="el-upload-list__item is-ready">
+                                            <!----><a class="el-upload-list__item-name" :href="accessFileUrl(file)">
+                                            <i class="el-icon-document"></i>{{ file }}
+                                        </a><label class="el-upload-list__item-status-label"><i
+                                                class="el-icon-upload-success el-icon-circle-check"></i></label><i
+                                                class="el-icon-close" @click="removeFile(file)"></i><!----><!----></li>
+                                    </ul>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -97,27 +109,29 @@
 <script>
 
     export default {
-        data(){
+        data() {
             return {
                 dialogFormVisible: false,
-                item:{},
+                item: {},
                 uploadPath: '',
                 fileList: [],
                 spj: false,
                 withCredentials: true,
-                attachedHeaders:{},
+                attachedHeaders: {},
                 currentFileList: [],
                 title: 'Add Problem',
             }
         },
         methods: {
             updateDescription(content) {
+                this.item.description = content;
+                console.log(this.item.description);
             },
             updateInput(content) {
-
+                this.item.input = content;
             },
             updateOutput(content) {
-
+                this.item.output = content;
             },
             save(item) {
                 let self = this;
@@ -128,8 +142,8 @@
                             self.dialogFormVisible = false;
                             self.$bus.emit('reload-problems');
                         }).catch(function (resp) {
-                            self.$message.error('Save failed!');
-                        });
+                        self.$message.error('Save failed!');
+                    });
                 } else {
                     this.$http.post('admin/problems', item)
                         .then(function (resp) {
@@ -137,8 +151,8 @@
                             self.dialogFormVisible = false;
                             self.$bus.emit('reload-problems');
                         }).catch(function (resp) {
-                            self.$message.error('Save failed!');
-                        })
+                        self.$message.error('Save failed!');
+                    })
                 }
             },
             handleRemove(file, fileList) {
@@ -184,7 +198,7 @@
                             })
                     }).catch(function () {
 
-                    });
+                });
             },
             accessFileUrl(file) {
                 if (this.item) {
@@ -201,7 +215,7 @@
         },
         created() {
             let self = this;
-            this.$bus.on('edit-problem', function(item){
+            this.$bus.on('edit-problem', function (item) {
                 self.item = JSON.parse(JSON.stringify(item));
                 if (item.id) {
                     self.title = 'Edit Problem';
@@ -209,11 +223,7 @@
                     self.loadDataFiles();
                 }
 
-                if (item.spj == 1) {
-                    self.spj = true;
-                } else {
-                    self.spj = false;
-                }
+                self.spj = item.spj == 1;
 
                 self.dialogFormVisible = true;
             })
