@@ -6,6 +6,7 @@ use App\Repositories\Criteria\Like;
 use App\Repositories\Criteria\Where;
 use App\Repositories\ProblemRepository;
 use Czim\Repository\Criteria\Common\WithRelations;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 
@@ -49,17 +50,25 @@ class ProblemController extends DataController
     public function removeFile($id, $name)
     {
         $name = htmlspecialchars($name);
-        $problem = $this->repository->find($id);
 
-        if ($problem) {
+        try {
+            $this->repository->findOrFail($id);
             $fs = new Filesystem();
             $path = config('app.data_path').'/'.$id.'/'.$name;
             if ($fs->exists($path) && $fs->delete($path)) {
                 return ['code' => 0];
             }
-        }
 
-        return ['code' => -1];
+            return [
+                'code'    => -1,
+                'message' => 'file not exist or you have no permission delete it!',
+            ];
+        } catch (ModelNotFoundException $e) {
+            return [
+                'code'    => -1,
+                'message' => 'File not found!',
+            ];
+        }
     }
 
     public function dataFiles($id)
