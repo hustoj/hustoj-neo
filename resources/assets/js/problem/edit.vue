@@ -111,6 +111,14 @@
             }
         },
         methods: {
+            updateDescription(content) {
+            },
+            updateInput(content) {
+
+            },
+            updateOutput(content) {
+
+            },
             save(item) {
                 let self = this;
                 if (item.id) {
