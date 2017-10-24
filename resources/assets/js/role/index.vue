@@ -6,7 +6,7 @@
                     <el-input size="small" @keyup.enter.native="search(params)" v-model="params.name" placeholder="Role Name"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button size="small" type="primary" @click="search(params)">查询</el-button>
+                    <el-button size="small" type="primary" @click="search(params)">Search</el-button>
                     <el-button type="success" size="small" @click="handleAdd()">Add</el-button>
                 </el-form-item>
             </el-form>
