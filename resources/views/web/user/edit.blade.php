@@ -1,12 +1,10 @@
 @extends('web.app')
 
-{{-- Web site Title --}}
 @section('title')
     @lang('user.profile') ::
     @parent
 @stop
 
-{{-- New Laravel 4 Feature in use --}}
 @section('styles')
     <style type="text/css">
         body {
@@ -62,31 +60,20 @@
                 </div>
             </div>
             <!-- ./ email -->
-
-            <!-- Password -->
-            <div class="form-group {{ $errors->has('password') ? 'error' : '' }}">
-                <label class="col-md-2 control-label" for="password">@lang('user.password')</label>
-
-                <div class="col-md-10">
-                    <input class="form-control" type="password" name="password" id="password" value=""/>
-                    {!! $errors->first('password', '<span class="help-inline">:message</span>') !!}
-                </div>
-            </div>
-            <!-- ./ password -->
-
-            <!-- Password Confirm -->
-            <div class="form-group {{ $errors->has('password_confirmation') ? 'error' : '' }}">
-                <label class="col-md-2 control-label"
-                       for="password_confirmation">@lang('user.confirm_password')</label>
+            <!-- locale -->
+            <div class="form-group {{ $errors->has('locale') ? 'error' : '' }}">
+                <label class="col-md-2 control-label" for="locale">@lang('user.locale')</label>
 
                 <div class="col-md-10">
-                    <input class="form-control" type="password" name="password_confirmation" id="password_confirmation"
-                           value=""/>
-                    {!! $errors->first('password_confirmation', '<span class="help-inline">:message</span>') !!}
+                    <select name="locale" class="form-control" id="locale">
+                        <option value="en" @if($user->locale === 'en') selected @endif>English</option>
+                        <option value="zh" @if($user->locale === 'zh') selected @endif>中文</option>
+                    </select>
+                    {!! $errors->first('locale', '<span class="help-inline">:message</span>') !!}
                 </div>
             </div>
-            <!-- ./ password confirm -->
-        </div>
+            <!-- ./ locale -->
+
         <!-- ./ general tab -->
 
         <!-- Form Actions -->

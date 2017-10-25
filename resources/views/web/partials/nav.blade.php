@@ -41,6 +41,9 @@
                             <li><a href="{{ route('user.profile') }}"><span
                                             class="glyphicon glyphicon-wrench"></span> @lang('site.my_setting')
                                 </a></li>
+                            <li><a href="{{ route('user.password') }}"><span
+                                            class="glyphicon glyphicon-sunglasses"></span> @lang('site.edit_password')
+                                </a></li>
                             <li class="divider"></li>
                             <li><a href="{{ url('logout') }}"><span
                                             class="glyphicon glyphicon-share"></span> @lang('site.logout')</a>

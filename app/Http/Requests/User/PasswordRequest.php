@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use App\Http\Requests\Request;
 
-class EditRequest extends Request
+class PasswordRequest extends Request
 {
     public function authorize()
     {
@@ -14,7 +14,8 @@ class EditRequest extends Request
     public function rules()
     {
         return [
-            'email'    => 'required|email',
+            'password'     => 'required',
+            'password_new' => 'required|confirmed|alpha_num|digits_between:8,16',
         ];
     }
 }
