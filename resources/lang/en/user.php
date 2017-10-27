@@ -23,6 +23,7 @@ return [
     'school'           => 'School',
     'locale'           => 'Locale',
     'edit_password'    => 'Edit Password',
+    'language'         => 'Language',
     'message'          => [
         'password_change_success' => 'Password Change Success!',
         'password_not_match'      => 'Password not match current password!',

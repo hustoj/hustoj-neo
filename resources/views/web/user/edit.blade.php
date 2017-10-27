@@ -60,6 +60,7 @@
                 </div>
             </div>
             <!-- ./ email -->
+
             <!-- locale -->
             <div class="form-group {{ $errors->has('locale') ? 'error' : '' }}">
                 <label class="col-md-2 control-label" for="locale">@lang('user.locale')</label>
@@ -70,6 +71,21 @@
                         <option value="zh" @if($user->locale === 'zh') selected @endif>中文</option>
                     </select>
                     {!! $errors->first('locale', '<span class="help-inline">:message</span>') !!}
+                </div>
+            </div>
+            <!-- ./ locale -->
+
+            <!-- language -->
+            <div class="form-group {{ $errors->has('language') ? 'error' : '' }}">
+                <label class="col-md-2 control-label" for="language">@lang('user.language')</label>
+
+                <div class="col-md-10">
+                    <select name="language" class="form-control" id="language">
+                        @foreach(App\Entities\Solution::$languages as $value => $name)
+                        <option value="{{ $value }}" @if($user->language === $value) selected @endif>{{ $name }}</option>
+                        @endforeach
+                    </select>
+                    {!! $errors->first('language', '<span class="help-inline">:message</span>') !!}
                 </div>
             </div>
             <!-- ./ locale -->

@@ -23,6 +23,7 @@ return [
     'school'           => '学校',
     'locale'           => '语言',
     'edit_password'    => '修改密码',
+    'language'         => '编程语言',
     'message'          => [
         'password_change_success' => '密码修改成功!',
         'password_not_match'      => '密码和当前密码不匹配!',
