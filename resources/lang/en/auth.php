@@ -13,7 +13,16 @@ return [
     |
     */
 
-    'failed'   => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    'failed'                   => 'These credentials do not match our records.',
+    'throttle'                 => 'Too many login attempts. Please try again in :seconds seconds.',
+    'whoops'                   => 'Whoops!',
+    'problems_with_input'      => 'There were some problems with your input.',
+    'register'                 => 'Register',
+    'name'                     => 'Name',
+    'email'                    => 'E-Mail Address',
+    'password'                 => 'Password',
+    'confirm_password'         => 'Confirm Password',
+    'reset_password'           => 'Reset Password',
+    'remember_me'              => 'Remember Me',
+    'send_password_reset_link' => 'Send Password Reset Link',
 ];
