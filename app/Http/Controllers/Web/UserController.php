@@ -62,6 +62,7 @@ class UserController extends Controller
         $user = auth()->user();
         if ($user) {
             $user->update($request->all());
+
             return redirect()->back();
         }
 
@@ -86,9 +87,11 @@ class UserController extends Controller
             if (app('hash')->make($request->input('password')) === $user->password) {
                 $user->password = app('hash')->make($request->input('password_new'));
                 $user->save();
+
                 return redirect()->back()->with('success', trans('user.message.password_change_success'));
             }
             $errors = new MessageBag(['password' => trans('user.message.password_not_match')]);
+
             return redirect()->back()->withErrors($errors);
         }
     }

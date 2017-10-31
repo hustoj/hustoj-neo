@@ -27,7 +27,6 @@ class ForgotPasswordController extends Controller
 
     /**
      * Create a new controller instance.
-     *
      */
     public function __construct()
     {

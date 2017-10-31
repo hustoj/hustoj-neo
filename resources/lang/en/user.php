@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'list'             => [
+    'list' => [
         'rank'     => 'Rank',
         'username' => 'Username',
         'nick'     => 'Nick',

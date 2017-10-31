@@ -51,7 +51,7 @@ app('router')->post('/solution/store', ['as' => 'solution.store', 'uses' => 'Web
 
 // Single Pages
 app('router')->get('{page}', [
-    'as'=> 'pages', 'uses' => function ($page) {
+    'as' => 'pages', 'uses' => function ($page) {
         $template = 'web.pages.'.$page;
 
         return view($template);

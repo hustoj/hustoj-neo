@@ -10,7 +10,7 @@ return [
     'source'        => 'source',
     'special_judge' => 'Special Judge',
     // summary
-    'summary'       => [
+    'summary' => [
         'total'       => 'Total',
         'submit_user' => 'Submitted User',
         'solved_user' => 'Solved User',
@@ -23,12 +23,12 @@ return [
         'language'    => 'Language',
         'submit_time' => 'Submit Time',
     ],
-    'nav'           => [
+    'nav' => [
         'description' => 'Description',
         'submit'      => 'Submit',
         'summary'     => 'Summary',
     ],
-    'view'          => [
+    'view' => [
         'time_limit'         => 'Time Limit',
         'memory_limit'       => 'Memory Limit',
         'second'             => 'Second',

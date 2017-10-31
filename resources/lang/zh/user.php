@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'list'             => [
+    'list' => [
         'rank'     => '排名',
         'username' => '用户名',
         'nick'     => '昵称',
