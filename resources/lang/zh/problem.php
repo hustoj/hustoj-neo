@@ -10,7 +10,7 @@ return [
     'source'        => '来源',
     'special_judge' => '特殊裁判',
     // summary
-    'summary'       => [
+    'summary' => [
         'total'       => '总计',
         'submit_user' => '提交用户数',
         'solved_user' => '解决用户数',
@@ -23,12 +23,12 @@ return [
         'language'    => '语言',
         'submit_time' => '提交时间',
     ],
-    'nav'           => [
+    'nav' => [
         'description' => '描述',
         'submit'      => '提交',
         'summary'     => '统计',
     ],
-    'view'          => [
+    'view' => [
         'time_limit'         => '时间限制',
         'memory_limit'       => '内存限制',
         'second'             => '秒',

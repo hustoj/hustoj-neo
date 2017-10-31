@@ -14,7 +14,7 @@ class EditRequest extends Request
     public function rules()
     {
         return [
-            'email'    => 'required|email',
+            'email' => 'required|email',
         ];
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'contest_list'    => 'Contest List',
-    'table'           => [
+    'contest_list' => 'Contest List',
+    'table'        => [
         'id'      => 'ID',
         'title'   => 'Title',
         'date'    => 'Date',
@@ -13,7 +13,7 @@ return [
         'public'  => 'Public',
     ],
     // problems
-    'nav'             => [
+    'nav' => [
         'problems' => 'Problem List',
         'standing' => 'Standing',
         'status'   => 'Status',
@@ -26,14 +26,14 @@ return [
         'order' => 'Order',
         'title' => 'Title',
     ],
-    'standing'        => [
+    'standing' => [
         'rank'     => 'Rank',
         'user_id'  => 'User Id',
         'ac_count' => 'Accept Count',
         'submit'   => 'Submission',
         'penalty'  => 'Penalty',
     ],
-    'title'           => [
+    'title' => [
         'list' => 'Contest List',
     ],
     'clarify' => [

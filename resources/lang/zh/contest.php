@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'contest_list'    => '比赛列表',
-    'table'           => [
+    'contest_list' => '比赛列表',
+    'table'        => [
         'id'      => 'ID',
         'title'   => '标题',
         'date'    => '日期',
@@ -13,7 +13,7 @@ return [
         'public'  => '公开比赛',
     ],
     // problems
-    'nav'             => [
+    'nav' => [
         'problems' => '题目列表',
         'standing' => '排名',
         'status'   => '状态',
@@ -26,14 +26,14 @@ return [
         'order' => '排序',
         'title' => '标题',
     ],
-    'standing'        => [
+    'standing' => [
         'rank'     => '排名',
         'user_id'  => 'User Id',
         'ac_count' => '通过数',
         'submit'   => '提交数',
         'penalty'  => '罚时',
     ],
-    'title'           => [
+    'title' => [
         'list' => '比赛列表',
     ],
     'clarify' => [
