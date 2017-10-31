@@ -7,7 +7,7 @@ class AccountTest extends TestCase
         $response = $this->get('/login');
         $response->assertSuccessful()
                  ->assertStatus(200)
-                 ->assertSee('User Name')
+                 ->assertSee('Name')
                  ->assertSee('Password')
                  ->assertSee('_token');
     }
