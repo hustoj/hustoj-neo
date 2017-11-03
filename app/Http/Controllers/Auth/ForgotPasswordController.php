@@ -44,7 +44,7 @@ class ForgotPasswordController extends Controller
     {
         $this->validateEmail($request);
 
-        if ($this->hasManyUser($request->input('email')) > 0) {
+        if ($this->hasManyUser($request->input('email')) > 1) {
             return $this->sendResetLinkFailedResponse($request, static::PASSWORD_EMAIL);
         }
 
