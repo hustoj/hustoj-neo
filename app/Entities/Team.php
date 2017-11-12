@@ -49,6 +49,9 @@ class Team
      */
     public function addSolution(Solution $solution)
     {
+        if ($this->number_of_problem === 0) {
+            return;
+        }
         $this->number_of_submit++;
 
         if ($solution->isAccepted()) {
