@@ -2,30 +2,30 @@
 
 namespace App\Entities;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * Class Contest.
  *
- * @property int                       $id
- * @property string                    $title
- * @property string                    $description
- * @property Carbon                    $start_time
- * @property Carbon                    $end_time
- * @property int                       $user_id
- * @property int                       $hidden
- * @property bool                      $private
+ * @property int $id
+ * @property string $title
+ * @property string $description
+ * @property Carbon $start_time
+ * @property Carbon $end_time
+ * @property int $user_id
+ * @property int $hidden
+ * @property bool $private
  * @property-read Collection|Problem[] $problems
- * @property-read Collection|User[]    $users
+ * @property-read Collection|User[] $users
  */
 class Contest extends Model
 {
     use SoftDeletes;
     const ST_PRIVATE = 1;
-    const ST_PUBLIC = 0;
+    const ST_PUBLIC  = 0;
 
     protected $dates = [
         'start_time',

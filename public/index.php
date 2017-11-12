@@ -5,7 +5,7 @@
  *
  * @author   Taylor Otwell <taylor@laravel.com>
  */
-
+define('LARAVEL_START', microtime(true));
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -17,8 +17,7 @@
 | loading any of our classes later on. It feels nice to relax.
 |
 */
-
-require __DIR__.'/../bootstrap/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
