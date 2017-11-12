@@ -37,6 +37,9 @@ class StandingService
         $this->teams[$solution->user_id]->addSolution($solution);
     }
 
+    /**
+     * @return Team[]
+     */
     public function result()
     {
         /** @var $result Team[] */

@@ -2,8 +2,7 @@
 
 namespace App\Entities;
 
-use App\Services\StandingService;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -78,13 +77,6 @@ class Contest extends Model
     public function solutions()
     {
         return $this->hasMany(Solution::class);
-    }
-
-    public function standing()
-    {
-        $standing = new StandingService($this);
-
-        return $standing->result();
     }
 
     public function users()

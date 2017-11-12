@@ -12,7 +12,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($contest->standing() as $team)
+    @foreach($standing as $team)
     <tr>
         <td>{{$loop->index + 1}}</td>
         <td>
