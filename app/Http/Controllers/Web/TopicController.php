@@ -39,7 +39,7 @@ class TopicController extends Controller
             return view('web.topic.create');
         }
 
-        return redirect(route('topic.list'))->with('error', 'You should login first');
+        return redirect(route('topic.list'))->with('errors', 'You should login first');
     }
 
     public function store()

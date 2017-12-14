@@ -59,12 +59,16 @@ class Team
         }
 
         if ($solution->isFailed()) {
-            if ($solution->order < $this->number_of_problem) {
-                $this->wa_counts[$solution->order]++;
-            } else {
-                app('log')->error('Solution Order is invalid', ['id' => $solution->id]);
-            }
+            $this->addFailedCount($solution->order);
         }
+    }
+
+    private function addFailedCount($order)
+    {
+        if (!array_key_exists($order, $this->wa_counts)) {
+            $this->wa_counts[$order] = 0;
+        }
+        $this->wa_counts++;
     }
 
     /**
@@ -164,17 +168,17 @@ class Team
         return $this->getProblemWACount($pid) * 20;
     }
 
+    /**
+     * @param Solution $solution
+     */
     private function markProblemAccept($solution)
     {
         $pid = $solution->order;
-        if (null === $this->time_ac[$pid]) {
-            // 题目之前没有通过
+        if (!array_key_exists($pid, $this->time_ac) || $this->time_ac[$pid] === null) {
             $this->time_ac[$pid] = $solution->created_at;
             $this->number_of_ac++;
         } else {
-            // 题目已经通过了
             if ($this->time_ac[$pid]->gt($solution->created_at)) {
-                // 通过时间比当前的更早
                 $this->time_ac[$pid] = $solution->created_at;
             }
         }

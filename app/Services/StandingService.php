@@ -107,7 +107,7 @@ class StandingService
      */
     private function getValidSolutions($contest)
     {
-        $columns = ['created_at', 'order', 'user_id', 'result'];
+        $columns = ['created_at', 'order', 'user_id', 'result', 'id'];
         $start_at = Carbon::parse($contest->start_time)->subSeconds(1);
         $end_at = Carbon::parse($contest->end_time)->addSeconds(1);
 

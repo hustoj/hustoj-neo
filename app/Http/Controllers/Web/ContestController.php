@@ -8,6 +8,7 @@ use App\Repositories\ContestRepository;
 use App\Services\ContestService;
 use App\Services\StandingService;
 use App\Services\TopicService;
+use Illuminate\Support\MessageBag;
 
 class ContestController extends Controller
 {
@@ -52,6 +53,9 @@ class ContestController extends Controller
         $contest = app(ContestRepository::class)->find($contest);
 
         $problem = $this->contestService->getContestProblemByOrder($contest, $order);
+        if ($problem === null) {
+            return back()->with('errors', 'Problem not found in contest!');
+        }
 
         return view('web.contest.problem', ['contest' => $contest, 'problem' => $problem]);
     }
@@ -61,7 +65,7 @@ class ContestController extends Controller
         $contest = app(ContestRepository::class)->find($contest);
 
         if (!auth()->user()) {
-            return redirect(route('contest.view', $contest->id))->with('error', 'Login first');
+            return redirect(route('contest.view', $contest->id))->with('errors', 'Login first');
         }
         $problem = $this->contestService->getContestProblemByOrder($contest, request('order'));
 
