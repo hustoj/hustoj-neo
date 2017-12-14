@@ -61,7 +61,7 @@ class ContestMigration extends Migration
     private function migratePrivilege($contest)
     {
         $perm = 'c'.$contest->id;
-        $perms = $this->table('privilege')->where('rightstr', $perm)->get();
+        $perms = $this->table('privilege')->where('rightstr', $perm)->distinct('user_id')->get();
 
         $perms->map(function ($perm) use ($contest) {
             /** @var User $user */
