@@ -5,5 +5,5 @@
 @stop
 
 @section('main')
-    @include('web.contest.standing_table', ['contest' => $contest, 'standing' => $standing])
+    @include('web.contest.standing_table', ['contest' => $contest, 'teams' => $teams])
 @stop

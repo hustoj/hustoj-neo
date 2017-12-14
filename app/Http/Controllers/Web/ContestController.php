@@ -84,7 +84,7 @@ class ContestController extends Controller
 
         $standing = new StandingService($contest);
 
-        return view('web.contest.standing', ['contest' => $contest, 'standing' => $standing->result()]);
+        return view('web.contest.standing', ['contest' => $contest, 'teams' => $standing->result()]);
     }
 
     public function clarify($contest)
