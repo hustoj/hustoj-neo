@@ -45,11 +45,11 @@ if (!function_exists('can_attend')) {
 }
 
 if (!function_exists('show_ratio')) {
-    function show_ratio($top, $down)
+    function show_ratio($number, $total)
     {
         $result = 0;
-        if ($down > 0) {
-            $result = 100.0 * $top / $down;
+        if ($total > 0) {
+            $result = 100.0 * $number / $total;
         }
 
         return sprintf('%2.2f%%', $result);
