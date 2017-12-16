@@ -8,7 +8,6 @@ use App\Repositories\ContestRepository;
 use App\Services\ContestService;
 use App\Services\StandingService;
 use App\Services\TopicService;
-use Illuminate\Support\MessageBag;
 
 class ContestController extends Controller
 {
