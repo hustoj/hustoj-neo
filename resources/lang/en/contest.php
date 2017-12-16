@@ -28,7 +28,7 @@ return [
     ],
     'title' => [
         'problems' => 'Problem List',
-        'list' => 'Contest List',
+        'list'     => 'Contest List',
     ],
     'standing' => [
         'rank'     => 'Rank',
