@@ -26,6 +26,6 @@ class AuthorizeContest
 
         $errorMessage = 'You do not have privilege access contest '.$contest->id;
 
-        return redirect(route('contest.index'))->with('error', $errorMessage);
+        return redirect(route('contest.index'))->withErrors($errorMessage);
     }
 }

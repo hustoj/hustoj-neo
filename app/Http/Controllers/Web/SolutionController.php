@@ -48,7 +48,7 @@ class SolutionController extends Controller
     public function create($problem)
     {
         if (!auth()->user()) {
-            return redirect(route('problem.view', ['problem' => $problem->id]))->with('errors', 'Login first');
+            return redirect(route('problem.view', ['problem' => $problem->id]))->withErrors('Login first');
         }
 
         return view('web.problem.submit', ['problem' => $problem]);

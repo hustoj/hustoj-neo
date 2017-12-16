@@ -54,7 +54,7 @@ class ContestController extends Controller
 
         $problem = $this->contestService->getContestProblemByOrder($contest, $order);
         if ($problem === null) {
-            return back()->with('errors', 'Problem not found in contest!');
+            return back()->withErrors('Problem not found in contest!');
         }
 
         return view('web.contest.problem', ['contest' => $contest, 'problem' => $problem]);
@@ -65,7 +65,7 @@ class ContestController extends Controller
         $contest = app(ContestRepository::class)->find($contest);
 
         if (!auth()->user()) {
-            return redirect(route('contest.view', $contest->id))->with('errors', 'Login first');
+            return redirect(route('contest.view', $contest->id))->withErrors('Login first');
         }
         $problem = $this->contestService->getContestProblemByOrder($contest, request('order'));
 

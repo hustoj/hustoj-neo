@@ -26,6 +26,6 @@ class BackendAuthorize
             throw new AuthenticationException();
         }
 
-        return redirect(route('home'))->with('error', 'You do not have privilege access this page');
+        return redirect(route('home'))->withErrors('You do not have privilege access this page');
     }
 }

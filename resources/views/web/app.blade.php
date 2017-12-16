@@ -36,12 +36,12 @@
                 <strong>Notice!</strong> {{session('success')}}.
             </div>
         @endif
-        @if(session()->has('errors'))
+        @if($errors->any())
             <div class="alert alert-warning alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <strong>Alert!</strong> {{session('errors')}}.
+                <strong>Alert!</strong> {{$errors->first()}}.
             </div>
         @endif
         @yield('content')
