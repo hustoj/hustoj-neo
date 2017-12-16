@@ -35,6 +35,7 @@ return [
     ],
     'title' => [
         'list' => '比赛列表',
+        'problems' => '题目列表',
     ],
     'clarify' => [
         'clarify' => '讨论',

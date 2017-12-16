@@ -26,15 +26,16 @@ return [
         'order' => 'Order',
         'title' => 'Title',
     ],
+    'title' => [
+        'problems' => 'Problem List',
+        'list' => 'Contest List',
+    ],
     'standing' => [
         'rank'     => 'Rank',
         'user_id'  => 'User Id',
         'ac_count' => 'Accept Count',
         'submit'   => 'Submission',
         'penalty'  => 'Penalty',
-    ],
-    'title' => [
-        'list' => 'Contest List',
     ],
     'clarify' => [
         'clarify' => 'Clarify',
