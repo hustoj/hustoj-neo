@@ -31,7 +31,7 @@ class UserController extends Controller
         $per_page = 100;
         $offset = (request('page', 1) - 1) * $per_page + 1;
 
-        $this->repository->pushCriteria(new Where('disable', User::ST_ACTIVE));
+        $this->repository->pushCriteria(new Where('status', User::ST_ACTIVE));
         $this->repository->pushCriteria(new OrderBy('solved', 'desc'));
         $this->repository->pushCriteria(new OrderBy('submit', 'asc'));
 
