@@ -33,11 +33,11 @@
             <div class="form-group">
                 <label class="sr-only" for="status">@lang('solution.filter.status')</label>
                 <select class="form-control" id="status" name="status">
-                    <option value=""
+                    <option value="-1"
                             @if(request('status', -1) !== -1)selected="selected" @endif>@lang('solution.filter.status')</option>
                     @foreach(App\Entities\Solution::$status as $key => $name)
                         <option value="{{ $key }}"
-                                @if(request()->has('status') && request('status') == $key)selected="selected" @endif>{{ $name }}</option>
+                                @if(request()->filled('status') && request('status') == $key)selected="selected" @endif>{{ $name }}</option>
                     @endforeach
                 </select>
             </div>

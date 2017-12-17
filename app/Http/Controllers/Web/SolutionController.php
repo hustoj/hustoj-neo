@@ -19,7 +19,7 @@ class SolutionController extends Controller
         $repository = app(SolutionRepository::class);
 
         if ($request->getUserName()) {
-            $user = (new UserService())->findByName($request->getUserName());
+            $user = app(UserService::class)->findByName($request->getUserName());
             $repository->pushCriteria(new Where('user_id', $user->id));
         }
 
@@ -32,7 +32,7 @@ class SolutionController extends Controller
             $repository->pushCriteria($filter);
         }
 
-        if ($request->getStatus() != -1 && $request->getStatus() !== '') {
+        if ($request->getStatus() != -1 && $request->getStatus()) {
             $filter = new Where('result', $request->getStatus());
             $repository->pushCriteria($filter);
         }
