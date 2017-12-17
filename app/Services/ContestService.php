@@ -7,7 +7,6 @@ use App\Entities\Permission;
 use App\Entities\Problem;
 use App\Entities\Solution;
 use App\Repositories\ContestRepository;
-use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
 use App\Repositories\PermissionRepository;
 use Carbon\Carbon;

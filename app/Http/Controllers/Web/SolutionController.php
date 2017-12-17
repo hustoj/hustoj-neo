@@ -84,6 +84,7 @@ class SolutionController extends Controller
         if (!$this->hasPrivilege($solution)) {
             return back()->withErrors('You cannot access this solution');
         }
+
         return view('web.solution.compile_info')->with('solution', $solution);
     }
 
