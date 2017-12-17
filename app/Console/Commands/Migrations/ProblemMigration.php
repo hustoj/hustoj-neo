@@ -25,17 +25,17 @@ class ProblemMigration extends Migration
         $problem->title = $object->title;
         $problem->description = $object->description;
         $problem->created_at = $object->in_date;
+
         if ($problem->submit === null) {
             $problem->submit = 0;
         }
         if ($problem->accepted === null) {
             $problem->accepted = 0;
         }
+        if ($object->defunct === 'Y') {
+            $problem->status = Problem::ST_HIDE;
+        }
 
         $problem->save();
-
-        if ($object->defunct === 'Y') {
-            $problem->delete();
-        }
     }
 }

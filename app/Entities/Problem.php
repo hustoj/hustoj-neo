@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string                $sample_output
  * @property string                $hint
  * @property string                $source
+ * @property int                   $status
  * @property int                   $time_limit
  * @property int                   $memory_limit
  * @property int                   $submit
@@ -36,6 +37,9 @@ class Problem extends Model
 {
     use SoftDeletes;
 
+    const ST_NORMAL = 0;
+    const ST_HIDE = 1;
+
     protected $fillable = [
         'title',
         'description',
@@ -50,6 +54,7 @@ class Problem extends Model
         'memory_limit',
         'accepted',
         'submit',
+        'status',
         'memo',
     ];
 
@@ -84,7 +89,7 @@ class Problem extends Model
      */
     public function contests()
     {
-        return $this->belongsToMany(Contest::class, 'contest_problems');
+        return $this->belongsToMany(Contest::class);
     }
 
     public function order()
@@ -96,8 +101,8 @@ class Problem extends Model
         return $this->id;
     }
 
-    public function disabled()
+    public function isAvailable()
     {
-        return false;
+        return $this->status === self::ST_NORMAL;
     }
 }

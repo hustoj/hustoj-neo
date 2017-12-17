@@ -25,9 +25,9 @@ class UserMigration extends Migration
         $user->created_at = $object->reg_time;
         $user->updated_at = $object->reg_time;
         $user->password = $object->password;
-        $user->defunct = 0;
+        $user->status = User::ST_ACTIVE;
         if ($object->defunct === 'Y') {
-            $user->defunct = 1;
+            $user->status = User::ST_INACTIVE;
         }
         $user->save();
     }

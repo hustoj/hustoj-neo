@@ -18,9 +18,14 @@ class AuthorizeContest
         $route = app('router')->getRoutes()->match($request);
         $contest = $route->parameter('contest');
 
+        /** @var \App\Entities\Contest $contest */
         $contest = app(ContestRepository::class)->find($contest);
 
-        if ($contest->private == 0 || can_attend($contest)) {
+        if (!$contest->isAvailable()) {
+            return back()->withErrors('Contest not found!');
+        }
+
+        if ($contest->isPublic() || can_attend($contest)) {
             return $next($request);
         }
 

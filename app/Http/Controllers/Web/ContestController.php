@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Entities\Contest;
 use App\Http\Controllers\Controller;
 use App\Repositories\ContestRepository;
+use App\Repositories\Criteria\OrderBy;
+use App\Repositories\Criteria\Where;
 use App\Services\ContestService;
 use App\Services\StandingService;
 use App\Services\TopicService;
@@ -21,7 +23,13 @@ class ContestController extends Controller
 
     public function index()
     {
-        $contests = $this->contestService->paginate(request('per_page', 100));
+        /** @var ContestRepository $repository */
+        $repository = app(ContestRepository::class);
+        $repository->clearCriteria();
+        $repository->pushCriteria(new Where('status', Contest::ST_NORMAL));
+        $repository->pushCriteria(new OrderBy('id', 'desc'));
+
+        $contests = $repository->paginate(request('per_page', 100));
 
         return view('web.contest.index', ['contests' => $contests]);
     }
@@ -36,7 +44,7 @@ class ContestController extends Controller
         /** @var Contest $contest */
         $contest = app(ContestRepository::class)->find($contest);
 
-        $problems = $contest->problems()->orderBy('order')->get();
+        $problems = $contest->problems;
 
         return view('web.contest.view', ['contest' => $contest, 'problems' => $problems]);
     }
@@ -49,6 +57,7 @@ class ContestController extends Controller
      */
     public function problem($contest, $order)
     {
+        /** @var Contest $contest */
         $contest = app(ContestRepository::class)->find($contest);
 
         $problem = $this->contestService->getContestProblemByOrder($contest, $order);
@@ -61,11 +70,13 @@ class ContestController extends Controller
 
     public function submit($contest)
     {
+        /** @var Contest $contest */
         $contest = app(ContestRepository::class)->find($contest);
 
         if (!auth()->user()) {
             return redirect(route('contest.view', $contest->id))->withErrors('Login first');
         }
+
         $problem = $this->contestService->getContestProblemByOrder($contest, request('order'));
 
         return view('web.contest.submit', compact('contest', 'problem'));
@@ -73,6 +84,7 @@ class ContestController extends Controller
 
     public function status($contest)
     {
+        /** @var Contest $contest */
         $contest = app(ContestRepository::class)->find($contest);
 
         $solutions = $this->contestService->getSolutions($contest);
@@ -83,6 +95,7 @@ class ContestController extends Controller
 
     public function standing($contest)
     {
+        /** @var Contest $contest */
         $contest = app(ContestRepository::class)->find($contest);
 
         $standing = new StandingService($contest);
@@ -92,6 +105,7 @@ class ContestController extends Controller
 
     public function clarify($contest)
     {
+        /** @var Contest $contest */
         $contest = app(ContestRepository::class)->find($contest);
 
         $topics = (new TopicService())->topicsForContest($contest->id);

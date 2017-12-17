@@ -21,13 +21,16 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  * @property string $remember_token
  * @property int    $submit
  * @property int    $solved
- * @property int    $defunct
+ * @property int    $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
 class User extends Authenticatable
 {
     use Notifiable, EntrustUserTrait;
+
+    const ST_ACTIVE = 0;
+    const ST_INACTIVE = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -70,5 +73,10 @@ class User extends Authenticatable
     public function contests()
     {
         return $this->belongsToMany(Contest::class, 'contest_user', 'user_id');
+    }
+
+    public function isActive()
+    {
+        return $this->status === self::ST_ACTIVE;
     }
 }

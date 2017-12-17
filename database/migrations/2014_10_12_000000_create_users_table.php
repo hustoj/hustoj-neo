@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('locale')->nullable();
             $table->string('school')->nullable();
             $table->integer('language')->nullable();
-            $table->integer('defunct')->default(0);
+            $table->integer('status')->default(0);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

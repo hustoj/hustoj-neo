@@ -27,8 +27,9 @@ class ContestMigration extends Migration
         if ($contest->description === null) {
             $contest->description = '';
         }
+        $contest->status = 0;
         if ($object->defunct === 'Y') {
-            $contest->hidden = 1;
+            $contest->status = Contest::ST_HIDE;
         }
         $contest->save();
 

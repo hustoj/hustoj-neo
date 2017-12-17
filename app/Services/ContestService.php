@@ -69,19 +69,18 @@ class ContestService
     {
         $this->repository->clearCriteria();
 
+        // current is opening
         $now = Carbon::now();
         $this->repository->pushCriteria(new Where('start_time', $now, '<'));
         $this->repository->pushCriteria(new Where('end_time', $now, '>'));
-        $this->repository->pushCriteria(new Where('private', Contest::ST_PUBLIC));
+
+        // should be public
+        $this->repository->pushCriteria(new Where('private', Contest::PUBLIC));
+
+        // should be normal
+        $this->repository->pushCriteria(new Where('status', Contest::ST_NORMAL));
 
         return $this->repository->all();
-    }
-
-    public function paginate($per_page)
-    {
-        $this->repository->pushCriteria(new OrderBy('id', 'desc'));
-
-        return $this->repository->paginate($per_page);
     }
 
     /**

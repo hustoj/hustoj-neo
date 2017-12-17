@@ -16,7 +16,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $start_time
  * @property Carbon $end_time
  * @property int $user_id
- * @property int $hidden
+ * @property int $status
  * @property bool $private
  * @property-read Collection|Problem[] $problems
  * @property-read Collection|User[] $users
@@ -24,8 +24,11 @@ use Illuminate\Support\Carbon;
 class Contest extends Model
 {
     use SoftDeletes;
-    const ST_PRIVATE = 1;
-    const ST_PUBLIC = 0;
+    const PRIVATE = 1;
+    const PUBLIC = 0;
+
+    const ST_NORMAL = 0;
+    const ST_HIDE = 1;
 
     protected $dates = [
         'start_time',
@@ -39,7 +42,7 @@ class Contest extends Model
         'start_time',
         'end_time',
         'user_id',
-        'hidden',
+        'status',
         'private',
     ];
 
@@ -60,7 +63,9 @@ class Contest extends Model
      */
     public function problems()
     {
-        return $this->belongsToMany(Problem::class)->withPivot('order')->orderBy('order', 'asc');
+        return $this->belongsToMany(Problem::class)
+                    ->withPivot(['order', 'title'])
+                    ->orderBy('order', 'asc');
     }
 
     /**
@@ -82,5 +87,15 @@ class Contest extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'contest_user', 'contest_id');
+    }
+
+    public function isPublic()
+    {
+        return $this->private == self::PUBLIC;
+    }
+
+    public function isAvailable()
+    {
+        return $this->status === 0;
     }
 }

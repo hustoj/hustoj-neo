@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\EditRequest;
 use App\Http\Requests\User\PasswordRequest;
 use App\Repositories\Criteria\OrderBy;
+use App\Repositories\Criteria\Where;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 use Illuminate\Support\MessageBag;
@@ -29,8 +30,11 @@ class UserController extends Controller
     {
         $per_page = 100;
         $offset = (request('page', 1) - 1) * $per_page + 1;
+
+        $this->repository->pushCriteria(new Where('disable', User::ST_ACTIVE));
         $this->repository->pushCriteria(new OrderBy('solved', 'desc'));
         $this->repository->pushCriteria(new OrderBy('submit', 'asc'));
+
         $users = $this->repository->paginate($per_page);
 
         return view('web.user.index', ['users' => $users, 'offset' => $offset]);
@@ -38,7 +42,13 @@ class UserController extends Controller
 
     public function show($username)
     {
+        /** @var User $user */
         $user = (new UserService())->findByName($username);
+
+        if (!$user->isActive()) {
+            return back()->withErrors('User is not found!');
+        }
+
         if ($user) {
             return view('web.user.view')->with('user', $user);
         }
@@ -49,6 +59,7 @@ class UserController extends Controller
     public function profile()
     {
         $user = auth()->user();
+
         if ($user) {
             return view('web.user.edit')->with('user', $user);
         }
@@ -60,6 +71,7 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
+
         if ($user) {
             $user->update($request->all());
 

@@ -26,6 +26,7 @@ class CreateProblemTable extends Migration
             $table->text('hint')->nullable();
             $table->text('memo');
             $table->string('source')->nullable();
+            $table->integer('status')->default(0);
             $table->integer('time_limit');
             $table->integer('memory_limit');
             $table->boolean('spj')->default(false);
