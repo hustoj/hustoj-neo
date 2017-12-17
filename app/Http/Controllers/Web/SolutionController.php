@@ -81,11 +81,38 @@ class SolutionController extends Controller
 
     public function compileInfo($solution)
     {
+        if (!$this->hasPrivilege($solution)) {
+            return back()->withErrors('You cannot access this solution');
+        }
         return view('web.solution.compile_info')->with('solution', $solution);
     }
 
     public function runtimeInfo($solution)
     {
+        if (!$this->hasPrivilege($solution)) {
+            return back()->withErrors('You cannot access this solution');
+        }
+
         return view('web.solution.runtime_info')->with('solution', $solution);
+    }
+
+    /**
+     * @param \App\Entities\Solution $solution
+     *
+     * @return bool
+     */
+    private function hasPrivilege($solution)
+    {
+        /** @var \App\Entities\User $currentUser */
+        $currentUser = app('auth')->user();
+
+        if ($currentUser->hasRole('admin')) {
+            return true;
+        }
+        if ($solution->user_id === $currentUser->id) {
+            return true;
+        }
+
+        return false;
     }
 }

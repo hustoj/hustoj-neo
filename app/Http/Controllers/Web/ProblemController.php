@@ -8,7 +8,6 @@ use App\Repositories\Criteria\SearchByColumn;
 use App\Repositories\Criteria\Where;
 use App\Repositories\ProblemRepository;
 use App\Services\SummaryService;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProblemController extends Controller
 {
@@ -34,6 +33,7 @@ class ProblemController extends Controller
         if (!$problem->isAvailable()) {
             return back()->withErrors('Problem is not found!');
         }
+
         return view('web.problem.show', ['problem' => $problem]);
     }
 
