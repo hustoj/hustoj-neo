@@ -8,7 +8,24 @@
 				<div class="panel-heading">Home</div>
 
 				<div class="panel-body">
-					Welcome to HUSTOJ!
+					<div class="jumbotron">
+						Welcome to HUSTOJ!
+					</div>
+					<div class="news">
+						@foreach($news as $post)
+						<div class="post-header">
+                            <h4>{{ $post->title }}</h4>
+							<div class="info">
+                                <a href="{{ route('user.view', ['username' => $post->author->username]) }}">{{ $post->author->username }}</a> @ <span> {{ $post->created_at }}</span>
+                            </div>
+						</div>
+						<div class="post-content">
+							{!! $post->content !!}
+						</div>
+						<hr />
+						@endforeach
+                        {!! $news->render() !!}
+					</div>
 				</div>
 			</div>
 		</div>

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string         $slug
  * @property string         $content
  * @property int            $priority
+ * @property int            $status
  * @property string         $meta_title
  * @property string         $meta_description
  * @property string         $meta_keywords

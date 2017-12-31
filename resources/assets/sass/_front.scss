@@ -71,5 +71,12 @@
 .edit_list li span {
   cursor: pointer;
   float: right;
+}
 
+.post-header {
+  margin-bottom: 20px;
+
+  .info {
+    font-size: smaller;
+  }
 }
