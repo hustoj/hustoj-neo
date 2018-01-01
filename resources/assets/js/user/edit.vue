@@ -1,7 +1,7 @@
 <template>
     <el-dialog :title="title" :visible.sync="dialogFormVisible">
         <el-form ref="form" :rules="userRules" label-width="120px" :model="user">
-            <el-form-item label="Account" required >
+            <el-form-item label="Account" required>
                 <el-input v-model="user.username"></el-input>
             </el-form-item>
             <el-form-item label="Email">
@@ -22,9 +22,10 @@
             <el-form-item label="Locale">
                 <el-input v-model="user.locale"></el-input>
             </el-form-item>
-            <el-form-item label="User Status" >
+            <el-form-item label="User Status">
                 <el-select v-model="user.status">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                    <el-option v-for="item in options" :key="item.value" :label="item.label"
+                               :value="item.value"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="Roles">
@@ -44,7 +45,7 @@
 <script>
 
     export default {
-        data(){
+        data() {
             let self = this;
             let confirmPassword = (rule, value, callback) => {
                 if (self.user.password || self.user.confirm_password) {
@@ -57,7 +58,7 @@
             };
             return {
                 dialogFormVisible: false,
-                user:{},
+                user: {},
                 options: [
                     {
                         value: 0,
@@ -89,8 +90,8 @@
                             self.dialogFormVisible = false;
                             self.$bus.emit('reload-users');
                         }).catch(function (resp) {
-                            self.$message.error('Save failed!');
-                        });
+                        self.$message.error('Save failed!');
+                    });
                 } else {
                     this.$http.post('admin/users', item)
                         .then(function (resp) {
@@ -98,28 +99,27 @@
                             self.dialogFormVisible = false;
                             self.$bus.emit('reload-users');
                         }).catch(function (resp) {
-                            self.$message.error('Save failed!');
-                        })
+                        self.$message.error('Save failed!');
+                    })
                 }
             },
             loadRoles() {
-                this.$http.get('/admin/roles').then(function(res){
+                let self = this;
+                this.$http.get('/admin/roles').then(function (res) {
                     let data = [];
-
-                    for(let index = 0; index < res.data.data.length; index++) {
-                        let item = res.data.data[index];
+                    res.data.data.forEach((item) => {
                         data.push({
                             key: item.id,
                             label: item.name
                         });
-                    }
+                    });
                     self.roles = data;
                 })
             }
         },
         created() {
             let self = this;
-            this.$bus.on('edit-user', function(user){
+            this.$bus.on('edit-user', function (user) {
                 self.user = JSON.parse(JSON.stringify(user));
                 if (user.id) {
                     self.title = 'Edit User';
