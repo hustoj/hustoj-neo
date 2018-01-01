@@ -2,7 +2,7 @@
 
 namespace App\Entities;
 
-use Zizaco\Entrust\EntrustPermission;
+use Laratrust\Models\LaratrustPermission;
 
 /**
  * Class Permission.
@@ -12,6 +12,6 @@ use Zizaco\Entrust\EntrustPermission;
  * @property string $display_name
  * @property string $description
  */
-class Permission extends EntrustPermission
+class Permission extends LaratrustPermission
 {
 }

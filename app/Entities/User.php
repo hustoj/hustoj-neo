@@ -5,7 +5,7 @@ namespace App\Entities;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Laratrust\Traits\LaratrustUserTrait;
 
 /**
  * Class User.
@@ -27,7 +27,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  */
 class User extends Authenticatable
 {
-    use Notifiable, EntrustUserTrait;
+    use Notifiable, LaratrustUserTrait;
 
     const ST_ACTIVE = 0;
     const ST_INACTIVE = 1;

@@ -2,7 +2,7 @@
 
 namespace App\Entities;
 
-use Zizaco\Entrust\EntrustRole;
+use Laratrust\Models\LaratrustRole;
 
 /**
  * Class Role.
@@ -12,7 +12,7 @@ use Zizaco\Entrust\EntrustRole;
  * @property string $display_name
  * @property string $description
  */
-class Role extends EntrustRole
+class Role extends LaratrustRole
 {
     protected $fillable = ['name', 'display_name', 'description'];
 }

@@ -9,10 +9,10 @@
     "type": "project",
     "require": {
         "php": ">=7.0",
-        "laravel/framework": "5.5.*",
-        "zizaco/entrust": "5.2.x-dev",
         "czim/laravel-repository": "^1.4",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "laravel/framework": "5.5.*",
+        "santigarcor/laratrust": "5.0.*"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
