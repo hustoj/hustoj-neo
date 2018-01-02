@@ -41,8 +41,7 @@ Vue.component("ojfooter", ojfooter);
 
 
 Vue.prototype.$http = axios;
-
-const BASE_URL = 'http://neo.dev/';
+const BASE_URL = process.env.MIX_ADMIN_URL;
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common['Accept'] = 'application/json';
 
