@@ -30,7 +30,7 @@
             <el-table-column prop="access.created_at" label="Last Access at" width="180"></el-table-column>
             <el-table-column prop="access.ip" label="Last Access IP" width="180"></el-table-column>
             <el-table-column>
-                <template scope="scope">
+                <template slot-scope="scope">
                     <el-button type="text" size="small" @click="toggleStatus(scope.row.id, scope.row.disable)">
                         {{ scope.row.disable | showStatusBtn }}
                     </el-button>

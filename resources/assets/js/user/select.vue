@@ -27,7 +27,7 @@
             <el-table-column prop="nick" label="Nick" width="300"></el-table-column>
             <el-table-column prop="school" label="School" width="240"></el-table-column>
             <el-table-column label="">
-                <template scope="scope">
+                <template slot-scope="scope">
                     <el-button type="primary" size="small" icon="check" @click="handleSelect(scope.row)"></el-button>
                 </template>
             </el-table-column>

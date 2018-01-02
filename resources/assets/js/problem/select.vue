@@ -19,7 +19,7 @@
             <el-table-column prop="title" label="Title" width="400"></el-table-column>
             <el-table-column prop="source" label="Source" width="400"></el-table-column>
             <el-table-column label="">
-                <template scope="scope">
+                <template slot-scope="scope">
                     <el-button type="primary" size="small" icon="check" @click="handleSelect(scope.row)"></el-button>
                 </template>
             </el-table-column>

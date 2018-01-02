@@ -43,7 +43,7 @@
                             <el-table-column prop="id" label="ID" width="80"></el-table-column>
                             <el-table-column prop="title" label="Title" width="300"></el-table-column>
                             <el-table-column>
-                                <template scope="scope">
+                                <template slot-scope="scope">
                                     <el-button type="primary" size="small" icon="delete" @click="handleDelete(scope.row, scope.$index)"></el-button>
                                     <el-button type="primary" size="small" icon="arrow-up" @click="handleUp(scope.row, scope.$index)" v-if="scope.$index != 0"></el-button>
                                     <el-button type="primary" size="small" icon="arrow-down" @click="handleDown(scope.row, scope.$index)" v-if="scope.$index != problems.length - 1"></el-button>
@@ -58,7 +58,7 @@
                             <el-table-column prop="nick" label="Nick" width="300"></el-table-column>
                             <el-table-column prop="school" label="School" width="300"></el-table-column>
                             <el-table-column>
-                                <template scope="scope">
+                                <template slot-scope="scope">
                                     <el-button type="primary" size="small" icon="delete" @click="userDelete(scope.row, scope.$index)"></el-button>
                                 </template>
                             </el-table-column>

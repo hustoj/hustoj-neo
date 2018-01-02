@@ -20,7 +20,7 @@
             <el-table-column prop="value" label="Value" width="100"></el-table-column>
             <el-table-column prop="updated_at" label="Updated At" width="180"></el-table-column>
             <el-table-column>
-                <template scope="scope">
+                <template slot-scope="scope">
                     <el-button type="text" size="small" icon="edit" @click="handleEdit(scope.row)"></el-button>
                     <el-button type="text" size="small" icon="delete" @click="handleDelete(scope.row)"></el-button>
                 </template>

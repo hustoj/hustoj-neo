@@ -23,13 +23,13 @@
             <el-table-column prop="id" label="ID" width="80"></el-table-column>
             <el-table-column prop="title" label="Title" width="600"></el-table-column>
             <el-table-column label="Draft" width="100">
-                <template scope="scope">
+                <template slot-scope="scope">
                     {{ scope.row.status == '1' ? 'draft' : 'Published'}}
                 </template>
             </el-table-column>
             <el-table-column prop="updated_at" label="Updated At" width="180"></el-table-column>
             <el-table-column>
-                <template scope="scope">
+                <template slot-scope="scope">
                     <el-button type="text" size="small" icon="edit" @click="handleEdit(scope.row)"></el-button>
                     <el-button type="text" size="small" icon="delete" @click="handleDelete(scope.row)"></el-button>
                 </template>
