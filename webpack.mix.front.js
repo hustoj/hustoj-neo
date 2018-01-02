@@ -25,7 +25,7 @@ mix.webpackConfig({
  */
 // front
 mix.js('resources/assets/front/app.js', 'public/js')
-    .extract(['nprogress', 'lodash', 'jquery'], 'public/js/vendor.js')
+    .extract(['jquery'], 'public/js/vendor.js')
     .sass('resources/assets/sass/app.scss', 'public/css');
 
 mix.scripts([
