@@ -52,7 +52,6 @@
 <script src="{{ asset('js/manifest.js')}}"></script>
 <script src="{{ asset('js/vendor.js')}}"></script>
 <script src="{{ asset('js/app.js')}}"></script>
-<script src="{{ asset('js/libs.js')}}"></script>
 @yield('scripts')
 <div id="footer" class="text-center">
     © 2015 HUST ACMICPC TEAM. All Right Reserved.
