@@ -12,8 +12,8 @@
             </el-form-item>
             <el-form-item label="Draft">
                 <el-select v-model="item.status">
-                    <el-option value="0" label="Draft"></el-option>
-                    <el-option value="1" label="Published"></el-option>
+                    <el-option value="1" label="Draft"></el-option>
+                    <el-option value="0" label="Published"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
