@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Entities\Post;
 use App\Http\Controllers\Controller;
 use App\Repositories\Criteria\Where;
 use App\Repositories\PostRepository;
@@ -13,6 +12,7 @@ class HomeController extends Controller
     public function index()
     {
         $news = $this->getHomePageNews();
+
         return view('web.home')->with('news', $news);
     }
 
