@@ -24,9 +24,14 @@
         @for($i = 0; $i < $contest->problems->count(); $i++)
             <td>
                 @if ($team->isProblemAccept($i))
-                    {{ display_penalize_time($team->getProblemAcceptTime($i))}} ({{$team->getProblemWACount($i)}})
+                    {{ display_penalize_time($team->getProblemAcceptTime($i))}}
+                    @if($team->getProblemWACount($i) > 0)
+                        (-{{$team->getProblemWACount($i)}})
+                    @endif
                 @else
-                    -
+                    @if($team->getProblemWACount($i) > 0)
+                        -{{$team->getProblemWACount($i)}}
+                    @endif
                 @endif
             </td>
         @endfor

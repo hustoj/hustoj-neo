@@ -6,38 +6,38 @@ use Carbon\Carbon;
 
 class Team
 {
-    protected $wa_counts = [];
+    protected $waCounts = [];
     /** @var Carbon[] */
-    protected $time_ac = [];
+    protected $timePassed = [];
 
+    /** @var \App\Entities\User */
     protected $user;
 
-    protected $number_of_ac = 0;
-    protected $number_of_submit = 0;
-    protected $cost_time;
+    protected $accepts = 0;
+    protected $submits = 0;
 
     /** @var Contest */
     protected $contest;
-    private $number_of_problem;
+    private $problemCount;
 
     public function __construct(Contest $contest)
     {
         $this->contest = $contest;
 
-        $this->number_of_problem = $contest->problems->count();
+        $this->problemCount = $contest->problems->count();
 
-        for ($i = 0; $i < $this->number_of_problem; $i++) {
-            $this->wa_counts[$i] = 0;
-            $this->time_ac[$i] = null;
+        for ($i = 0; $i < $this->problemCount; $i++) {
+            $this->waCounts[$i] = 0;
+            $this->timePassed[$i] = null;
         }
     }
 
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
     }
 
-    public function user()
+    public function user(): User
     {
         return $this->user;
     }
@@ -49,26 +49,39 @@ class Team
      */
     public function addSolution(Solution $solution)
     {
-        if ($this->number_of_problem === 0) {
+        if ($this->problemCount === 0) {
             return;
         }
-        $this->number_of_submit++;
+        $this->submits++;
 
         if ($solution->isAccepted()) {
             $this->markProblemAccept($solution);
         }
 
         if ($solution->isFailed()) {
-            $this->addFailedCount($solution->order);
+            $this->addFailedCount($solution);
         }
     }
 
-    private function addFailedCount($order)
+    private function addFailedCount(Solution $solution)
     {
-        if (!array_key_exists($order, $this->wa_counts)) {
-            $this->wa_counts[$order] = 0;
+        if (!array_key_exists($solution->order, $this->waCounts)) {
+            $this->waCounts[$solution->order] = 0;
         }
-        $this->wa_counts++;
+
+        if ($this->shouldMarkAsPenalty($solution)) {
+            $this->waCounts[$solution->order]++;
+        }
+    }
+
+    private function shouldMarkAsPenalty(Solution $solution): bool
+    {
+        if ($this->timePassed[$solution->order]
+            && $this->timePassed[$solution->order]->gt($solution->created_at)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -78,12 +91,12 @@ class Team
      */
     public function getNumberOfAccept()
     {
-        return $this->number_of_ac;
+        return $this->accepts;
     }
 
     public function getNumberOfSubmit()
     {
-        return $this->number_of_submit;
+        return $this->submits;
     }
 
     /**
@@ -95,23 +108,23 @@ class Team
      */
     public function getProblemWACount($pid)
     {
-        return $this->wa_counts[$pid];
+        return $this->waCounts[$pid];
     }
 
     public function getProblemAcceptTime($pid)
     {
-        if (null === $this->time_ac[$pid]) {
+        if (null === $this->timePassed[$pid]) {
             return 0;
         }
 
         $start = new Carbon($this->contest->start_time);
 
-        return $this->time_ac[$pid]->diffInSeconds($start);
+        return $this->timePassed[$pid]->diffInSeconds($start);
     }
 
     public function isProblemAccept($pid)
     {
-        return null !== $this->time_ac[$pid];
+        return null !== $this->timePassed[$pid];
     }
 
     /**
@@ -121,39 +134,18 @@ class Team
      */
     public function getTotalTime()
     {
-        if (null === $this->cost_time) {
-            $total = 0;
-            $number_of_problem = $this->contest->problems->count();
-            for ($i = 0; $i < $number_of_problem; $i++) {
-                $accepted_at = $this->getProblemAcceptTime($i);
-                if ($accepted_at === 0) {
-                    continue;
-                }
-
-                // 只有通过的题目才需要计算时间和罚时
-                $total += $accepted_at;
-                $total += $this->getPenaltyOfProblem($i);
-            }
-            $this->cost_time = $total;
-        }
-
-        return $this->cost_time;
-    }
-
-    /**
-     * 获取总罚时.
-     *
-     * @return int|mixed
-     */
-    public function getTotalPenaltyTime()
-    {
-        $total = 0;
+        $totalTime = 0;
         $number_of_problem = $this->contest->problems->count();
         for ($i = 0; $i < $number_of_problem; $i++) {
-            $total += $this->getPenaltyOfProblem($i);
+            $accepted_at = $this->getProblemAcceptTime($i);
+            if ($accepted_at > 0) {
+                // 只有通过的题目才需要计算时间和罚时
+                $totalTime += $accepted_at;
+                $totalTime += $this->getPenaltyOfProblem($i);
+            }
         }
 
-        return $total;
+        return $totalTime;
     }
 
     /**
@@ -165,7 +157,7 @@ class Team
      */
     public function getPenaltyOfProblem($pid)
     {
-        return $this->getProblemWACount($pid) * 20;
+        return $this->getProblemWACount($pid) * 20 * 60;
     }
 
     /**
@@ -174,12 +166,12 @@ class Team
     private function markProblemAccept($solution)
     {
         $pid = $solution->order;
-        if (!array_key_exists($pid, $this->time_ac) || $this->time_ac[$pid] === null) {
-            $this->time_ac[$pid] = $solution->created_at;
-            $this->number_of_ac++;
+        if (!array_key_exists($pid, $this->timePassed) || $this->timePassed[$pid] === null) {
+            $this->timePassed[$pid] = $solution->created_at;
+            $this->accepts++;
         } else {
-            if ($this->time_ac[$pid]->gt($solution->created_at)) {
-                $this->time_ac[$pid] = $solution->created_at;
+            if ($this->timePassed[$pid]->gt($solution->created_at)) {
+                $this->timePassed[$pid] = $solution->created_at;
             }
         }
     }

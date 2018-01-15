@@ -149,7 +149,7 @@ class Solution extends Model
     public function isFailed()
     {
         // 既不是AC，也不是等待评测，就挂了
-        return !$this->isAccepted() and !$this->isPending();
+        return !$this->isAccepted() && !$this->isPending();
     }
 
     /**

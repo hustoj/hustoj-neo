@@ -45,6 +45,10 @@ class StandingService
         /** @var $result Team[] */
         $result = [];
 
+        foreach ($this->getTeams() as $user) {
+            $this->teams[$user->id]->setUser($user);
+        }
+
         foreach ($this->teams as $team) {
             $inserted = false;
             $totalSolutions = count($result);
@@ -69,9 +73,6 @@ class StandingService
             if (!$inserted) {
                 $result[] = $team;
             }
-        }
-        foreach ($this->getTeams() as $user) {
-            $this->teams[$user->id]->setUser($user);
         }
 
         return $result;

@@ -6,6 +6,7 @@ use App\Entities\Solution;
 use App\Entities\User;
 use App\Services\ContestService;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Collection;
 
 if (!function_exists('get_option')) {
@@ -59,8 +60,9 @@ if (!function_exists('show_ratio')) {
 if (!function_exists('display_penalize_time')) {
     function display_penalize_time($seconds)
     {
-        $hour = $seconds / (Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR);
-        $minute = $seconds % Carbon::SECONDS_PER_MINUTE;
+        $hour = (int)($seconds / (Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR));
+        $seconds -= $hour * Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR;
+        $minute = (int)($seconds / Carbon::SECONDS_PER_MINUTE);
         $leftSeconds = $seconds % Carbon::SECONDS_PER_MINUTE;
 
         return sprintf('%d:%02d:%02d', $hour, $minute, $leftSeconds);

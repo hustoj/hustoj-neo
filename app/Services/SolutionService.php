@@ -31,6 +31,7 @@ class SolutionService
     public function forContest($contest)
     {
         $this->repository->clearCriteria();
+
         if ($contest instanceof Contest) {
             $contest = $contest->id;
         }
