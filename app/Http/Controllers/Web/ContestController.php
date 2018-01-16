@@ -7,9 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Repositories\ContestRepository;
 use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
+use App\Repositories\SolutionRepository;
 use App\Services\ContestService;
 use App\Services\StandingService;
 use App\Services\TopicService;
+use App\Services\UserService;
+use Czim\Repository\Criteria\Common\WithRelations;
 
 class ContestController extends Controller
 {
@@ -84,11 +87,35 @@ class ContestController extends Controller
 
     public function status($contest)
     {
-        /** @var Contest $contest */
-        $contest = app(ContestRepository::class)->find($contest);
+        $contest = $this->contestService->getContest($contest);
+        /** @var SolutionRepository $repository */
+        $repository = app(SolutionRepository::class);
 
-        $solutions = $this->contestService->getSolutions($contest);
-        $solutions->load('user');
+        if (request('username')) {
+            $user = app(UserService::class)->findByName(request('username'));
+            $repository->pushCriteria(new Where('user_id', $user->id));
+        }
+
+        if (request('problem_id')) {
+            $order = \ord(strtolower(request('problem_id'))) - \ord('a');
+            $repository->pushCriteria(new Where('order', $order));
+        }
+
+        if (request('language', -1) != -1) {
+            $filter = new Where('language', request('language'));
+            $repository->pushCriteria($filter);
+        }
+
+        if (request('status', -1) != -1) {
+            $filter = new Where('result', request('status'));
+            $repository->pushCriteria($filter);
+        }
+
+        $repository->pushCriteria(new Where('contest_id', $contest->id));
+
+        $repository->pushCriteria(new WithRelations(['user']));
+        $repository->pushCriteria(new OrderBy('created_at', 'desc'));
+        $solutions = $repository->paginate(request('per_page', 50));
 
         return view('web.contest.status', compact('contest', 'solutions'));
     }

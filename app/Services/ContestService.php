@@ -5,18 +5,25 @@ namespace App\Services;
 use App\Entities\Contest;
 use App\Entities\Permission;
 use App\Entities\Problem;
-use App\Entities\Solution;
 use App\Repositories\ContestRepository;
 use App\Repositories\Criteria\Where;
 use App\Repositories\PermissionRepository;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
 
 class ContestService
 {
     /** @var ContestRepository */
     private $repository;
 
+    /**
+     * @param $id
+     *
+     * @return Contest
+     */
+    public function getContest($id)
+    {
+        return $this->repository->findOrFail($id);
+    }
     /**
      * ContestService constructor.
      */
@@ -80,15 +87,5 @@ class ContestService
         $this->repository->pushCriteria(new Where('status', Contest::ST_NORMAL));
 
         return $this->repository->all();
-    }
-
-    /**
-     * @param $contest
-     *
-     * @return Solution[]|Collection
-     */
-    public function getSolutions($contest)
-    {
-        return app(SolutionService::class)->forContest($contest);
     }
 }

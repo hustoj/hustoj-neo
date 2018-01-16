@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Entities\Contest;
 use App\Repositories\Criteria\GroupBy;
 use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\RawSelect;
@@ -26,24 +25,6 @@ class SolutionService
     public function find($id)
     {
         return $this->repository->find($id);
-    }
-
-    public function forContest($contest)
-    {
-        $this->repository->clearCriteria();
-
-        if ($contest instanceof Contest) {
-            $contest = $contest->id;
-        }
-        $this->repository->pushCriteria(new Where('contest_id', $contest));
-
-        if (request()->has('result')) {
-            $this->repository->pushCriteria(new Where('result', request('result')));
-        }
-
-        $this->repository->pushCriteria(new OrderBy('created_at', 'desc'));
-
-        return $this->repository->paginate(request('per_page', 50));
     }
 
     /**
