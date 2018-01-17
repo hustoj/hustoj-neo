@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'hustoj'),
+    'name' => env('APP_NAME', 'HUST Online Judge'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +53,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://acm.hust.edu.cn'),
+    'url' => env('APP_URL', 'http://www.hustoj.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -226,8 +226,6 @@ return [
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
-
-        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];
