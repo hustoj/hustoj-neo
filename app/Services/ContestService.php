@@ -24,6 +24,7 @@ class ContestService
     {
         return $this->repository->findOrFail($id);
     }
+
     /**
      * ContestService constructor.
      */
