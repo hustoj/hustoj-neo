@@ -1,9 +1,9 @@
-<form class="form-horizontal" role="form" method="post" action="{{ route('solution.store') }}">
-    <div class="form-group">
+<form class="form-horizontal submit" role="form" method="post" action="{{ route('solution.store') }}">
+    <div class="form-group submit-meta">
         <label for="problem" class="col-sm-2 control-label">Problem</label>
 
         <div class="col-sm-4">
-            <input name="problem" id="problem" class="form-control" value="{{$problem->order()}}" hidden/>
+            <input name="problem" id="problem" class="form-control" value="{{$problem->order()}}" type="hidden"/>
             <span class="form-control">{{ $problem->order() }} : {{ $problem->title }}</span>
         </div>
     </div>
