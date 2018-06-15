@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "axios": "^0.17",
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap": "^3.3.7",
     "cross-env": "^5.1",
     "jquery": "^3.2",
     "laravel-mix": "^1.7.2",
@@ -30,6 +30,6 @@
     "vue-bus": "^1.0.0"
   },
   "dependencies": {
-    "bootstrap-dropdown-hover": "^1.0.0"
+    "bootstrap-dropdown-hover": "^4.1.1"
   }
 }

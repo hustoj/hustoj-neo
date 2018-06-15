@@ -7,17 +7,17 @@
 </div>
 <div class="col-sm-6">
 <ul class="nav nav-pills nav-justified group-tabs" role="tablist">
-    <li role="presentation" class="dropdown {{ (app('router')->is('contest.view') or app('router')->is('contest.problem'))? 'active':''}}">
-        <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="#">@lang('contest.nav.problems')<span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
+    <li class="dropdown {{ (app('router')->is('contest.view') or app('router')->is('contest.problem'))? 'active':''}}">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">@lang('contest.nav.problems')<span class="caret"></span></a>
+        <ul class="dropdown-menu">
             @foreach($contest->problems as $p)
             <li><a href="{{ route('contest.problem', ['contest' => $contest->id, 'order' => $p->order()]) }}">{{$p->order()}} : {{$p->title}}</a></li>
             @endforeach
         </ul>
     </li>
-    <li role="presentation" {{ app('router')->is('contest.standing')? 'class=active':'' }}><a href="{{ route('contest.standing', ['id' => $contest->id]) }}">@lang('contest.nav.standing')</a></li>
-    <li role="presentation" {{ app('router')->is('contest.status')? 'class=active':'' }}><a href="{{ route('contest.status', ['id' => $contest->id]) }}">@lang('contest.nav.status')</a></li>
-    <li role="presentation" {{ app('router')->is('contest.clarify')? 'class=active':'' }}><a href="{{ route('contest.clarify', ['id' => $contest->id]) }}">@lang('contest.nav.clarify')</a></li>
+    <li {{ app('router')->is('contest.standing')? 'class=active':'' }}><a href="{{ route('contest.standing', ['id' => $contest->id]) }}">@lang('contest.nav.standing')</a></li>
+    <li {{ app('router')->is('contest.status')? 'class=active':'' }}><a href="{{ route('contest.status', ['id' => $contest->id]) }}">@lang('contest.nav.status')</a></li>
+    <li {{ app('router')->is('contest.clarify')? 'class=active':'' }}><a href="{{ route('contest.clarify', ['id' => $contest->id]) }}">@lang('contest.nav.clarify')</a></li>
 </ul>
 </div>
 </div>
