@@ -26,7 +26,6 @@
     "vue-router": "^3.0.1",
     "vue-cookie": "^1.1.4",
     "code-prettify": "^0.1.0",
-    "bootstrap": "^3.3.7",
     "echarts": "^3.6.2",
     "vue-bus": "^1.0.0"
   },
