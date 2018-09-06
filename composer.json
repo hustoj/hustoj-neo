@@ -12,7 +12,8 @@
         "czim/laravel-repository": "^1.4",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.5.*",
-        "santigarcor/laratrust": "5.0.*"
+        "santigarcor/laratrust": "5.0.*",
+        "sentry/sentry-laravel": "^0.9.1"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
