@@ -53,7 +53,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://www.hustoj.org'),
+    'url' => env('APP_URL', '//www.hustoj.org'),
 
     /*
     |--------------------------------------------------------------------------
