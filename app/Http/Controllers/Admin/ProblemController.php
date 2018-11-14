@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Repositories\Criteria\Like;
 use App\Repositories\Criteria\Where;
 use App\Repositories\ProblemRepository;
+use App\Services\DataProvider;
 use Czim\Repository\Criteria\Common\WithRelations;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Filesystem\Filesystem;
@@ -37,11 +38,9 @@ class ProblemController extends DataController
         $problem = $this->repository->find($id);
 
         if ($problem) {
-            $fs = new Filesystem();
-            $path = config('app.data_path').'/'.$id.'/'.$name;
-            if ($fs->exists($path)) {
-                return response()->download($path, $name);
-            }
+            $dp = app(DataProvider::class);
+
+            return response()->download($dp->getDataPath($id, DataProvider::TYPE_IN), $name);
         }
 
         return '';

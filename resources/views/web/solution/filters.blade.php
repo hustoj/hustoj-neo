@@ -16,7 +16,7 @@
             <select class="form-control" id="language" name="language">
                 <option value="-1"
                         @if(request('language', -1) !== -1)selected="selected" @endif>@lang('solution.filter.language')</option>
-                @foreach(App\Entities\Solution::$languages as $key => $name)
+                @foreach(App\Language::allLanguages() as $key => $name)
                     <option value="{{ $key }}"
                             @if(request()->has('language') && request('language') == $key)selected="selected" @endif>{{ $name }}</option>
                 @endforeach

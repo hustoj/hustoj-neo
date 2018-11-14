@@ -74,11 +74,11 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::group([
-            'middleware' => 'api',
+            // 'middleware' => 'judge',
             'namespace'  => $this->namespace,
-            'prefix'     => 'api',
+            'prefix'     => 'judge',
         ], function ($router) {
-            require base_path('routes/api.php');
+            require base_path('routes/judge.php');
         });
     }
 

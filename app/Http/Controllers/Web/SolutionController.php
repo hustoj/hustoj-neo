@@ -9,6 +9,7 @@ use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
 use App\Repositories\SolutionRepository;
 use App\Services\UserService;
+use App\Status;
 use Czim\Repository\Criteria\Common\WithRelations;
 
 class SolutionController extends Controller
@@ -64,7 +65,7 @@ class SolutionController extends Controller
             'order'      => request('order', 0),
             'contest_id' => request('contest_id', 0),
             'code'       => request('code', ''),
-            'result'     => Solution::STATUS_PENDING,
+            'result'     => Status::PENDING,
         ];
 
         /** @var SolutionRepository $repository */

@@ -10,6 +10,7 @@ use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\RawSelect;
 use App\Repositories\Criteria\Where;
 use App\Repositories\SolutionRepository;
+use App\Status;
 
 class ProblemService
 {
@@ -18,7 +19,7 @@ class ProblemService
         /** @var SolutionRepository $repository */
         $repository = app(SolutionRepository::class);
         $repository->pushCriteria(new Where('problem_id', $problemId));
-        $repository->pushCriteria(new Where('result', Solution::STATUS_AC));
+        $repository->pushCriteria(new Where('result', Status::ACCEPT));
         $repository->pushCriteria(new Distinct('user_id'));
 
         return $repository->count('user_id');
@@ -59,7 +60,7 @@ class ProblemService
 
         $repository->pushCriteria(new BestSolution());
         $repository->pushCriteria(new Where('problem_id', $problemId));
-        $repository->pushCriteria(new Where('result', Solution::STATUS_AC));
+        $repository->pushCriteria(new Where('result', Status::ACCEPT));
         $repository->pushCriteria(new OrderBy('time_cost', 'asc'));
         $repository->pushCriteria(new OrderBy('score', 'asc'));
         $repository->pushCriteria(new OrderBy('id', 'asc'));

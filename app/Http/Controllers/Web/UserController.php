@@ -43,7 +43,7 @@ class UserController extends Controller
     public function show($username)
     {
         /** @var User $user */
-        $user = (new UserService())->findByName($username);
+        $user = app(UserService::class)->findByName($username);
 
         if (!$user->isActive()) {
             return back()->withErrors('User is not found!');

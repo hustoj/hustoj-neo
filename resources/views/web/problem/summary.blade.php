@@ -41,7 +41,7 @@
                     <td>{{ ++$rankStart }}</td>
                     <td>@if ((int)$solution->att > 1)
                             <a href="{{ route('solution.index', ['problem_id' => $solution->problem_id,
-                             'status' => App\Entities\Solution::STATUS_AC,
+                             'status' => App\Status::ACCEPT,
                              'username' => $solution->user->username
                              ]) }}">{{ $solution->id }}({{$solution->att}})</a>
                         @else

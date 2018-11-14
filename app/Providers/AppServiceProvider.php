@@ -22,5 +22,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfig();
+    }
+
+    private function mergeConfig()
+    {
+        $this->mergeConfigFrom(
+            config_path('rabbitmq.php'),
+            'rabbitmq'
+        );
+        $this->mergeConfigFrom(
+            config_path('sentry.php'),
+            'sentry'
+        );
     }
 }

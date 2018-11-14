@@ -14,4 +14,9 @@ use Illuminate\Database\Eloquent\Model;
 class RuntimeInfo extends Model
 {
     protected $table = 'runtime_info';
+
+    protected $fillable = [
+        'content',
+        'solution_id'
+    ];
 }

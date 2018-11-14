@@ -14,7 +14,7 @@
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
-
+(new Dotenv\Dotenv(realpath(__DIR__.'/../')))->load();
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces

@@ -7,6 +7,14 @@ use App\Entities\User;
 use App\Services\ContestService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Ramsey\Uuid\Uuid;
+
+if (!function_exists('new_judge_code')) {
+    function new_judge_code()
+    {
+        return Uuid::getFactory()->uuid4();
+    }
+}
 
 if (!function_exists('get_option')) {
     function get_option($name, $default = null)

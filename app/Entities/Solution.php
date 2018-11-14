@@ -2,6 +2,8 @@
 
 namespace App\Entities;
 
+use App\Language;
+use App\Status;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,21 +31,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Solution extends Model
 {
-    const STATUS_PENDING = 0;
-    const STATUS_PENDING_REJUDGE = 1;
-    const STATUS_COMPILE = 2;
-    const STATUS_REJUDGING = 3;
-    const STATUS_AC = 4;
-    const STATUS_PE = 5;
-    const STATUS_WA = 6;
-    const STATUS_TLE = 7;
-    const STATUS_MLE = 8;
-    const STATUS_OLE = 9;
-    const STATUS_RE = 10;
-    const STATUS_CE = 11;
-    const STATUS_COMPILE_OK = 12;
-    const STATUS_TEST_RUN = 13;
-
     protected $fillable = [
         'problem_id',
         'user_id',
@@ -74,13 +61,6 @@ class Solution extends Model
         1  => 'Pending Rejudging',
         2  => 'Compiling',
         3  => 'Running &amp; Judging',
-    ];
-
-    public static $languages = [
-        0 => 'C',
-        1 => 'C++',
-        2 => 'Java',
-        3 => 'Pascal',
     ];
 
     /**
@@ -118,7 +98,7 @@ class Solution extends Model
 
     public function lang()
     {
-        return self::$languages[$this->language];
+        return Language::showLang($this->language);
     }
 
     public function result()
@@ -128,22 +108,22 @@ class Solution extends Model
 
     public function isCompileError()
     {
-        return $this->result === self::STATUS_CE;
+        return $this->result === Status::COMPILE_ERROR;
     }
 
     public function isRuntimeError()
     {
-        return $this->result === self::STATUS_RE;
+        return $this->result === Status::RUNTIME_ERROR;
     }
 
     public function isPending()
     {
-        return $this->result === self::STATUS_PENDING;
+        return $this->result === Status::PENDING;
     }
 
     public function isAccepted()
     {
-        return $this->result === self::STATUS_AC;
+        return $this->result === Status::ACCEPT;
     }
 
     public function isFailed()

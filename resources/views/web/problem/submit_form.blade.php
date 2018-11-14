@@ -12,7 +12,7 @@
 
         <div class="col-sm-4">
             <select class="form-control" name="language" id="language">
-                @foreach(App\Entities\Solution::$languages as $code => $display)
+                @foreach(App\Language::allLanguages() as $code => $display)
                     <option value="{{$code}}" @if(app('auth')->user()->language == $code) selected @endif>{{$display}}</option>
                 @endforeach
             </select>
