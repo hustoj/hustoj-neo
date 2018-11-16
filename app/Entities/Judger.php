@@ -5,9 +5,8 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Judger
+ * Class Judger.
  *
- * @package App\Entities
  *
  * @property int $id
  * @property string $name

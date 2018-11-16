@@ -17,6 +17,6 @@ class RuntimeInfo extends Model
 
     protected $fillable = [
         'content',
-        'solution_id'
+        'solution_id',
     ];
 }

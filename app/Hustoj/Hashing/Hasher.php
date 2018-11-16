@@ -11,7 +11,7 @@ class Hasher implements HashingContract
      * Hash the given value.
      *
      * @param string $value
-     * @param array $options
+     * @param array  $options
      *
      * @return string
      */
@@ -39,7 +39,7 @@ class Hasher implements HashingContract
      *
      * @param string $value
      * @param string $hashedValue
-     * @param array $options
+     * @param array  $options
      *
      * @return bool
      */
@@ -103,7 +103,7 @@ class Hasher implements HashingContract
      * Check if the given hash has been hashed using the given options.
      *
      * @param string $hashedValue
-     * @param array $options
+     * @param array  $options
      *
      * @return bool
      */
@@ -115,16 +115,16 @@ class Hasher implements HashingContract
     /**
      * Get information about the given hashed value.
      *
-     * @param  string $hashedValue
+     * @param string $hashedValue
      *
      * @return array
      */
     public function info($hashedValue)
     {
         return [
-            'algo' => 0,
+            'algo'     => 0,
             'algoName' => 'hustoj',
-            'options' => [],
+            'options'  => [],
         ];
     }
 }

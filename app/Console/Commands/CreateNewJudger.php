@@ -28,7 +28,7 @@ class CreateNewJudger extends Command
         if ($name) {
             try {
                 $judger = app(JudgerService::class)->newJudger($name);
-                $this->info("Create New Judger {$name}, Code: ". $judger->code);
+                $this->info("Create New Judger {$name}, Code: ".$judger->code);
             } catch (HustException $e) {
                 $this->error($e->getMessage());
             }

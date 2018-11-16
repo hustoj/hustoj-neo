@@ -13,8 +13,8 @@ class ReportRequest extends JudgerRequest
     {
         return [
             'solution_id' => 'required|int',
-            'status' => 'required|int|between:2,12',
-            'time_cost' => 'int',
+            'status'      => 'required|int|between:2,12',
+            'time_cost'   => 'int',
             'memory_cost' => 'int',
         ];
     }

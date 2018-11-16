@@ -4,8 +4,8 @@ return [
     'host' => env('RABBITMQ_HOST', '127.0.0.1'),
     'port' => env('RABBITMQ_PORT', 5672),
 
-    'vhost' => env('RABBITMQ_VHOST', '/'),
-    'login' => env('RABBITMQ_LOGIN', 'guest'),
+    'vhost'    => env('RABBITMQ_VHOST', '/'),
+    'login'    => env('RABBITMQ_LOGIN', 'guest'),
     'password' => env('RABBITMQ_PASSWORD', 'guest'),
 
     'queue' => env('RABBITMQ_QUEUE', 'hustoj'),
@@ -28,11 +28,11 @@ return [
              * Read more about possible values at https://www.rabbitmq.com/tutorials/amqp-concepts.html
              */
 
-            'type' => env('RABBITMQ_EXCHANGE_TYPE'),
-            'passive' => env('RABBITMQ_EXCHANGE_PASSIVE', false),
-            'durable' => env('RABBITMQ_EXCHANGE_DURABLE', true),
+            'type'        => env('RABBITMQ_EXCHANGE_TYPE'),
+            'passive'     => env('RABBITMQ_EXCHANGE_PASSIVE', false),
+            'durable'     => env('RABBITMQ_EXCHANGE_DURABLE', true),
             'auto_delete' => env('RABBITMQ_EXCHANGE_AUTODELETE', false),
-            'arguments' => env('RABBITMQ_EXCHANGE_ARGUMENTS'),
+            'arguments'   => env('RABBITMQ_EXCHANGE_ARGUMENTS'),
         ],
-    ]
+    ],
 ];

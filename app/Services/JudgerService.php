@@ -10,10 +10,11 @@ class JudgerService
 {
     /**
      * @param string $name
-     * @param null $bind_ip
+     * @param null   $bind_ip
+     *
+     * @throws \App\Exceptions\Judger\JudgerNameExist
      *
      * @return \App\Entities\Judger
-     * @throws \App\Exceptions\Judger\JudgerNameExist
      */
     public function newJudger($name, $bind_ip = null)
     {

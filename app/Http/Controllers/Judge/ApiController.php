@@ -45,6 +45,7 @@ class ApiController extends Controller
             }
             info('Judger Request, Judger Code Invalid:', ['code' => $code]);
         }
+
         throw new JudgerCodeInvalid();
     }
 
