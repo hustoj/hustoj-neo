@@ -13,8 +13,9 @@ class DataProvider
      * @param $id
      * @param $type
      *
-     * @return string
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     *
+     * @return string
      */
     public function getProblemData($id, $type)
     {

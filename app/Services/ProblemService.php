@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Entities\Solution;
 use App\Repositories\Criteria\BestSolution;
 use App\Repositories\Criteria\Distinct;
 use App\Repositories\Criteria\GroupBy;

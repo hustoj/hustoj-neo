@@ -25,14 +25,14 @@ class Task
     public function asQueueInfo()
     {
         return [
-            'problem_id' => $this->problem->id,
-            'time_limit' => $this->problem->time_limit,
+            'problem_id'   => $this->problem->id,
+            'time_limit'   => $this->problem->time_limit,
             'memory_limit' => $this->problem->memory_limit,
-            'is_special' => $this->problem->spj,
+            'is_special'   => $this->problem->spj,
 
             'solution_id' => $this->solution->id,
-            'code' => $this->solution->source->code,
-            'language' => $this->solution->language,
+            'code'        => $this->solution->source->code,
+            'language'    => $this->solution->language,
         ];
     }
 }
