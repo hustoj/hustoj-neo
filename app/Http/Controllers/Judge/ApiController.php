@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Judger\JudgerRequest;
 use App\Http\Requests\Judger\ReportRequest;
 use App\Http\Requests\Request;
+use App\Repositories\ProblemRepository;
 use App\Services\DataProvider;
 use App\Services\JudgerService;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -52,12 +53,13 @@ class ApiController extends Controller
     public function data(Request $request)
     {
         $pid = $request->input('pid');
+        app(ProblemRepository::class)->findOrFail($pid);
 
         try {
             /** @var DataProvider $dp */
             $dp = app(DataProvider::class);
-            $dataInput = $dp->getProblemData($pid, DataProvider::TYPE_IN);
-            $dataOutput = $dp->getProblemData($pid, DataProvider::TYPE_OUT);
+            $dataInput = $dp->getInputFiles($pid);
+            $dataOutput = $dp->getOutputFiles($pid);
 
             return [
                 'input'  => $dataInput,

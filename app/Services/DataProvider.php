@@ -11,37 +11,53 @@ class DataProvider
 
     /**
      * @param $id
-     * @param $type
      *
+     * @return array
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     *
-     * @return string
      */
-    public function getProblemData($id, $type)
+    public function getInputFiles($id)
     {
-        $path = $this->getDataPath($id, $type);
-        $fs = new Filesystem();
+        $patten = $this->getDataPath($id). '*'. self::TYPE_IN;
 
-        return $fs->get($path);
-    }
-
-    public function writeProblemData($id, $type, $content)
-    {
-        $path = $this->getDataPath($id, $type);
         $fs = new Filesystem();
-        $fs->put($path, $content);
+        $files = $fs->glob($patten);
+
+        $data = [];
+        foreach ($files as $file) {
+            $data[] = $fs->get($file);
+        }
+
+        return $data;
     }
 
     /**
      * @param $id
-     * @param $type
+     *
+     * @return array
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function getOutputFiles($id)
+    {
+        $patten = $this->getDataPath($id). '*'. self::TYPE_OUT;
+
+        $fs = new Filesystem();
+        $files = $fs->glob($patten);
+
+        $data = [];
+        foreach ($files as $file) {
+            $data[] = $fs->get($file);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $id
      *
      * @return string
      */
-    public function getDataPath($id, $type)
+    public function getDataPath($id)
     {
-        $fName = $id.$type;
-
-        return config('app.data_path').'/'.$id.'/'.$fName;
+        return config('app.data_path').'/'.$id.'/';
     }
 }
