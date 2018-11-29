@@ -24,7 +24,7 @@ class DataProvider
 
         $data = [];
         foreach ($files as $file) {
-            $data[] = $fs->get($file);
+            $data[$fs->name($file)] = $fs->get($file);
         }
 
         return $data;
@@ -45,7 +45,7 @@ class DataProvider
 
         $data = [];
         foreach ($files as $file) {
-            $data[] = $fs->get($file);
+            $data[$fs->name($file)] = $fs->get($file);
         }
 
         return $data;
