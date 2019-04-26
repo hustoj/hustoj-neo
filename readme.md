@@ -5,10 +5,14 @@ HUST Online Judge is a web application.
 This application still under construction, if you like improve it, please contact freefcw at qq.com.
 
 [![StyleCI](https://github.styleci.io/repos/26354947/shield?branch=master)](https://github.styleci.io/repos/26354947)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/hustoj/hustoj-neo/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/hustoj/hustoj-neo/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/hustoj/hustoj-neo/badges/build.png?b=master)](https://scrutinizer-ci.com/g/hustoj/hustoj-neo/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/hustoj/hustoj-neo/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/hustoj/hustoj-neo/?branch=master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/hustoj/hustoj-neo/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 
 ## ALERT
 
-This version is not compatible with old version! The Judged is not upgrade!  
+This version is not compatible with old version! The Judged is not upgrade! 
 
 ## Install Tutorial
 
