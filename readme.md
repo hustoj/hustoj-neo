@@ -4,6 +4,8 @@ HUST Online Judge is a web application.
 
 This application still under construction, if you like improve it, please contact freefcw at qq.com.
 
+[![StyleCI](https://github.styleci.io/repos/26354947/shield?branch=master)](https://github.styleci.io/repos/26354947)
+
 ## ALERT
 
 This version is not compatible with old version! The Judged is not upgrade!  
