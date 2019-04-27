@@ -11,7 +11,7 @@ use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
-class StandingService
+class Ranking
 {
     /** @var Team[] */
     private $teams = [];
@@ -45,29 +45,15 @@ class StandingService
         /** @var $result Team[] */
         $result = [];
 
-        foreach ($this->getTeams() as $user) {
-            $this->teams[$user->id]->setUser($user);
-        }
+        $this->initTeam();
 
         foreach ($this->teams as $team) {
             $inserted = false;
             $totalSolutions = count($result);
             for ($i = 0; $i < $totalSolutions; $i++) {
-                if ($team->getNumberOfAccept() > $result[$i]->getNumberOfAccept()) {
-                    // more
+                if ($this->isBetter($team, $result[$i])) {
                     $result = $this->insertElementAtIndex($result, $team, $i);
                     $inserted = true;
-                    break;
-                } elseif ($team->getNumberOfAccept() < $result[$i]->getNumberOfAccept()) {
-                    // less
-                    continue;
-                } else {
-                    // eq, then decide by time cost
-                    if ($team->getTotalTime() < $result[$i]->getTotalTime()) {
-                        $result = $this->insertElementAtIndex($result, $team, $i);
-                        $inserted = true;
-                        break;
-                    }
                 }
             }
             if (!$inserted) {
@@ -79,15 +65,44 @@ class StandingService
     }
 
     /**
+     * @param Team $team
+     * @param Team $current
+     *
+     * @return bool
+     */
+    private function isBetter($team, $current)
+    {
+        // accept more
+        if ($team->numberOfAccept() > $current->numberOfAccept()) {
+            return true;
+        }
+        // accept equal, but penalty less
+        if ($team->numberOfAccept() == $current->numberOfAccept()
+            && $team->totalPenalty() < $current->totalPenalty()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @return Collection|User[]
      */
     protected function getTeams()
     {
         $repo = app(UserRepository::class);
-        $whereIn = new WhereIn('id', array_keys($this->teams));
+        $whereIn = new WhereIn('id', $this->getTeamsId());
         $repo->pushCriteria($whereIn);
 
         return $repo->all();
+    }
+
+    /**
+     * @return array
+     */
+    private function getTeamsId()
+    {
+        return array_keys($this->teams);
     }
 
     protected function insertElementAtIndex($arr, $ele, $index)
@@ -113,5 +128,12 @@ class StandingService
         $end_at = Carbon::parse($contest->end_time)->addSeconds(1);
 
         return $contest->solutions()->whereBetween('created_at', [$start_at, $end_at])->get($columns);
+    }
+
+    private function initTeam()
+    {
+        foreach ($this->getTeams() as $user) {
+            $this->teams[$user->id]->setUser($user);
+        }
     }
 }

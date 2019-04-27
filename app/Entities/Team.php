@@ -89,7 +89,7 @@ class Team
      *
      * @return int
      */
-    public function getNumberOfAccept()
+    public function numberOfAccept()
     {
         return $this->accepts;
     }
@@ -132,7 +132,7 @@ class Team
      *
      * @return int|mixed
      */
-    public function getTotalTime()
+    public function totalPenalty()
     {
         $totalTime = 0;
         $number_of_problem = $this->contest->problems->count();

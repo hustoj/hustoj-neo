@@ -9,7 +9,7 @@ use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
 use App\Repositories\SolutionRepository;
 use App\Services\ContestService;
-use App\Services\StandingService;
+use App\Services\Ranking;
 use App\Services\TopicService;
 use App\Services\UserService;
 use Czim\Repository\Criteria\Common\WithRelations;
@@ -125,7 +125,7 @@ class ContestController extends Controller
         /** @var Contest $contest */
         $contest = app(ContestRepository::class)->find($contest);
 
-        $standing = new StandingService($contest);
+        $standing = new Ranking($contest);
 
         return view('web.contest.standing', ['contest' => $contest, 'teams' => $standing->result()]);
     }
