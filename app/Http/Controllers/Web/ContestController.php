@@ -40,7 +40,7 @@ class ContestController extends Controller
     /**
      * @param Contest $contest
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return mixed
      */
     public function show($contest)
     {

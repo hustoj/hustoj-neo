@@ -26,7 +26,7 @@ class ProblemController extends Controller
     /**
      * @param \App\Entities\Problem $problem
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return mixed
      */
     public function show($problem)
     {
@@ -55,7 +55,7 @@ class ProblemController extends Controller
     /**
      * @param Problem $problem
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return mixed
      */
     public function summary($problem)
     {
