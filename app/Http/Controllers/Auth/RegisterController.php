@@ -59,7 +59,7 @@ class RegisterController extends Controller
      *
      * @param array $data
      *
-     * @return User
+     * @return User|boolean
      */
     protected function create(array $data)
     {
@@ -74,7 +74,7 @@ class RegisterController extends Controller
     /**
      * Show the application registration form.
      *
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function showRegistrationForm()
     {

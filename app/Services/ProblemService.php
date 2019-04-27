@@ -21,7 +21,7 @@ class ProblemService
         $repository->pushCriteria(new Where('result', Solution::STATUS_AC));
         $repository->pushCriteria(new Distinct('user_id'));
 
-        return $repository->count('user_id');
+        return $repository->count();
     }
 
     public function numberOfSubmitUser($problemId)
@@ -31,7 +31,7 @@ class ProblemService
         $repository->pushCriteria(new Where('problem_id', $problemId));
         $repository->pushCriteria(new Distinct('user_id'));
 
-        return $repository->count('user_id');
+        return $repository->count();
     }
 
     /**

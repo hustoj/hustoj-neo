@@ -56,7 +56,7 @@ class ContestController extends Controller
      * @param Contest $contest
      * @param         $order
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return mixed
      */
     public function problem($contest, $order)
     {
