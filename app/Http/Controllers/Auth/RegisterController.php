@@ -59,7 +59,7 @@ class RegisterController extends Controller
      *
      * @param array $data
      *
-     * @return User|boolean
+     * @return User|bool
      */
     protected function create(array $data)
     {
