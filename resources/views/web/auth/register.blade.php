@@ -20,6 +20,13 @@
 						</div>
 
 						<div class="form-group">
+							<label class="col-md-4 control-label">@lang('auth.nick')</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="nick" value="{{ old('nick') }}">
+							</div>
+						</div>
+
+						<div class="form-group">
 							<label class="col-md-4 control-label">@lang('auth.email')</label>
 							<div class="col-md-6">
 								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
