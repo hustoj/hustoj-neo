@@ -19,6 +19,7 @@ return [
     'problems_with_input'      => '你的输入有一些问题.',
     'register'                 => '注册',
     'name'                     => '用户名',
+    'nick'                     => '昵称',
     'email'                    => 'E-Mail',
     'password'                 => '密码',
     'confirm_password'         => '重复密码',

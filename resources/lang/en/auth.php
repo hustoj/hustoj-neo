@@ -19,6 +19,7 @@ return [
     'problems_with_input'      => 'There were some problems with your input.',
     'register'                 => 'Register',
     'name'                     => 'Name',
+    'nick'                     => 'Nick',
     'email'                    => 'E-Mail Address',
     'password'                 => 'Password',
     'confirm_password'         => 'Confirm Password',
