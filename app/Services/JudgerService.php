@@ -33,6 +33,10 @@ class JudgerService
         return $judger;
     }
 
+    public function find($id)
+    {
+        return app(JudgerRepository::class)->findOrFail($id);
+    }
     /**
      * @param $code
      *

@@ -27,27 +27,8 @@ class ApiController extends Controller
      */
     public function __construct(JudgerRequest $request)
     {
-        $code = $request->judgeCode();
-        $this->checkCodeValid($code);
-        $this->beat();
-    }
-
-    /**
-     * @param $code
-     *
-     * @throws \App\Exceptions\Judger\JudgerCodeInvalid
-     */
-    private function checkCodeValid($code)
-    {
-        if ($code) {
-            $this->judger = app(JudgerService::class)->getJudger($code);
-            if ($this->judger) {
-                return;
-            }
-            info('Judger Request, Judger Code Invalid:', ['code' => $code]);
-        }
-
-        throw new JudgerCodeInvalid();
+        $request->validate();
+        $this->judger = $request->getJudger();
     }
 
     public function data(Request $request)
@@ -58,12 +39,11 @@ class ApiController extends Controller
         try {
             /** @var DataProvider $dp */
             $dp = app(DataProvider::class);
-            $dataInput = $dp->getInputFiles($pid);
-            $dataOutput = $dp->getOutputFiles($pid);
 
+            return $dp->getData($pid);
+        } catch (\LogicException $e) {
             return [
-                'input'  => $dataInput,
-                'output' => $dataOutput,
+                'message' => $e->getMessage(),
             ];
         } catch (FileNotFoundException $e) {
             return [

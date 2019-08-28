@@ -9,6 +9,27 @@ class DataProvider
     const TYPE_IN = '.in';
     const TYPE_OUT = '.out';
 
+    public function getData($id)
+    {
+        $dataInput = $this->getInputFiles($id);
+        $dataOutput = $this->getOutputFiles($id);
+
+        $data = [];
+        foreach ($dataInput as $name => $content) {
+            if (!array_key_exists($name, $dataOutput)) {
+                $message = 'Problem Data is not match!';
+                app('log')->error($message, ['pid' => $id]);
+                throw new \LogicException($message);
+            }
+            $outContent = $dataOutput[$name];
+            $data[] = [
+                'input' => $content,
+                'output' => $outContent,
+            ];
+        }
+        return $data;
+    }
+
     /**
      * @param $id
      *

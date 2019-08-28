@@ -27,7 +27,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property Contest $contest
  * @property User $user
  * @property Problem $problem
+ *
  * @property-read Source $source
+ * @property-read \App\Entities\CompileInfo $compileInfo
+ * @property-read \App\Entities\RuntimeInfo $runtimeInfo
  */
 class Solution extends Model
 {
