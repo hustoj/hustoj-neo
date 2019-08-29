@@ -1,5 +1,5 @@
 {
-    "name": "hustoj-neo",
+    "name": "hustoj/neo",
     "description": "HUST Online Judge System",
     "keywords": [
         "online judge",
@@ -12,7 +12,7 @@
         "czim/laravel-repository": "^1.4",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.6.*",
-        "php-amqplib/php-amqplib": "^2.8",
+        "php-amqplib/php-amqplib": "^2.10",
         "predis/predis": "^1.1",
         "santigarcor/laratrust": "5.0.*",
         "sentry/sentry-laravel": "^0.9.1"
