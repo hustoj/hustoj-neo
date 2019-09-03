@@ -111,4 +111,20 @@ class Hasher implements HashingContract
     {
         // TODO: Implement needsRehash() method.
     }
+
+    /**
+     * Get information about the given hashed value.
+     *
+     * @param string $hashedValue
+     *
+     * @return array
+     */
+    public function info($hashedValue)
+    {
+        return [
+            'algo'     => 0,
+            'algoName' => 'hustoj',
+            'options'  => [],
+        ];
+    }
 }

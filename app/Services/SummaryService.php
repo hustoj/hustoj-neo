@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Entities\Problem;
-use App\Entities\Solution;
+use App\Status;
 
 class SummaryService
 {
@@ -16,14 +16,14 @@ class SummaryService
     private $problem;
 
     public static $statusTypes = [
-        Solution::STATUS_AC,
-        Solution::STATUS_PE,
-        Solution::STATUS_WA,
-        Solution::STATUS_TLE,
-        Solution::STATUS_MLE,
-        Solution::STATUS_OLE,
-        Solution::STATUS_RE,
-        Solution::STATUS_CE,
+        Status::ACCEPT,
+        Status::PRESENTATION_ERROR,
+        Status::WRONG_ANSWER,
+        Status::TIME_LIMIT,
+        Status::MEMORY_LIMIT,
+        Status::OUTPUT_LIMIT,
+        Status::RUNTIME_ERROR,
+        Status::COMPILE_ERROR,
     ];
 
     public function getProblem()
