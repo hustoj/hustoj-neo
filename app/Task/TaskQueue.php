@@ -3,6 +3,7 @@
 namespace App\Task;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Exception\AMQPRuntimeException;
 use PhpAmqpLib\Message\AMQPMessage;
 
 class TaskQueue
@@ -18,11 +19,16 @@ class TaskQueue
 
     public function add(Task $task)
     {
-        $message = $this->makeMessage($task);
-        $this->channel->basic_publish($message, '', config('rabbitmq.routing_key'));
+        try {
+            $message = $this->makeMessage($task);
+            $this->channel->basic_publish($message, '', config('rabbitmq.routing_key'));
+        } catch (AMQPRuntimeException $e) {
+            app('log')->error('add task queue failed!', $e->getMessage());
+        }
+
     }
 
-    public function close()
+    public function done()
     {
         $this->channel->close();
         $this->connection->close();

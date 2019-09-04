@@ -8,8 +8,10 @@ use App\Http\Requests\Solution\IndexRequest;
 use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
 use App\Repositories\SolutionRepository;
+use App\Services\JudgerService;
 use App\Services\UserService;
 use App\Status;
+use App\Task\SolutionServer;
 use Czim\Repository\Criteria\Common\WithRelations;
 
 class SolutionController extends Controller
@@ -70,7 +72,10 @@ class SolutionController extends Controller
 
         /** @var SolutionRepository $repository */
         $repository = app(SolutionRepository::class);
-        $repository->create($data);
+        $solution = $repository->create($data);
+
+        app(SolutionServer::class)->add($solution)->send();
+
 
         return redirect(route('solution.index'));
     }
