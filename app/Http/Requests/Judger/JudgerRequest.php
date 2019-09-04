@@ -31,8 +31,6 @@ class JudgerRequest extends Request
 
     public function validate()
     {
-        parent::validate();
-
         $origin = sprintf("%s-%d", $this->getJudger()->code, $this->input('ts'));
         if ($this->getToken() != md5($origin)) {
             throw new JudgerCodeInvalid();

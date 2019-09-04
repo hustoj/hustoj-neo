@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Judge;
 
 use App\Entities\Solution;
-use App\Exceptions\Judger\JudgerCodeInvalid;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Judger\JudgerRequest;
 use App\Http\Requests\Judger\ReportRequest;
-use App\Http\Requests\Request;
 use App\Repositories\ProblemRepository;
 use App\Services\DataProvider;
-use App\Services\JudgerService;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class ApiController extends Controller
@@ -31,7 +28,7 @@ class ApiController extends Controller
         $this->judger = $request->getJudger();
     }
 
-    public function data(Request $request)
+    public function data(JudgerRequest $request)
     {
         $pid = $request->input('pid');
         app(ProblemRepository::class)->findOrFail($pid);
