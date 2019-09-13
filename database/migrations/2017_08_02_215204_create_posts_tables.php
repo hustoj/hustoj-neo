@@ -20,7 +20,7 @@ class CreatePostsTables extends Migration
             $table->integer('user_id');
             $table->integer('priority')->default(0);
             $table->integer('status')->default(0);
-            $table->text('content')->default('');
+            $table->text('content');
             $table->timestamps();
         });
 
