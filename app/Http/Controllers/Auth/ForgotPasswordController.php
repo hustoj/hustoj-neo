@@ -24,6 +24,7 @@ class ForgotPasswordController extends Controller
     use SendsPasswordResetEmails;
 
     const PASSWORD_EMAIL = 'passwords.email';
+
     /**
      * Create a new controller instance.
      *

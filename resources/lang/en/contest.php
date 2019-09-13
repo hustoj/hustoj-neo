@@ -19,11 +19,11 @@ return [
         'status'   => 'Status',
         'clarify'  => 'Clarify',
     ],
-    'contest_is_over' => 'Contest is Over',
+    'contest_is_over'    => 'Contest is Over',
     'contest_is_running' => 'Contest is Running',
-    'start_time'      => 'Start Time',
-    'end_time'        => 'End Time',
-    'problem'         => [
+    'start_time'         => 'Start Time',
+    'end_time'           => 'End Time',
+    'problem'            => [
         'order' => 'Order',
         'title' => 'Title',
     ],

@@ -12,10 +12,10 @@ class Language
     const LANG_PAS = 3;
 
     private static $languages = [
-        self::LANG_C => 'C',
-        self::LANG_CPP => 'C++',
+        self::LANG_C    => 'C',
+        self::LANG_CPP  => 'C++',
         self::LANG_JAVA => 'Java',
-        self::LANG_PAS => 'Pascal',
+        self::LANG_PAS  => 'Pascal',
     ];
 
     public static function allLanguages()

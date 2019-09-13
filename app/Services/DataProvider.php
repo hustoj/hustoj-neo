@@ -20,6 +20,7 @@ class DataProvider
             if (!array_key_exists($name, $dataOutput)) {
                 $message = 'Problem Data is not match!';
                 app('log')->error($message, ['pid' => $id]);
+
                 throw new LogicException($message);
             }
             $outContent = $dataOutput[$name];
@@ -35,8 +36,9 @@ class DataProvider
     /**
      * @param $id
      *
-     * @return array
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     *
+     * @return array
      */
     public function getInputFiles($id)
     {
@@ -58,8 +60,9 @@ class DataProvider
     /**
      * @param $id
      *
-     * @return array
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     *
+     * @return array
      */
     public function getOutputFiles($id)
     {

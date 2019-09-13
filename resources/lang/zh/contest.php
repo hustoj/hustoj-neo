@@ -19,11 +19,11 @@ return [
         'status'   => '状态',
         'clarify'  => '讨论',
     ],
-    'contest_is_over' => '比赛已经结束',
+    'contest_is_over'    => '比赛已经结束',
     'contest_is_running' => '比赛正在进行中',
-    'start_time'      => '开始时间',
-    'end_time'        => '结束时间',
-    'problem'         => [
+    'start_time'         => '开始时间',
+    'end_time'           => '结束时间',
+    'problem'            => [
         'order' => '排序',
         'title' => '标题',
     ],

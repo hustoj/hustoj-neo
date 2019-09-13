@@ -58,7 +58,6 @@ class Ranking
      */
     public function result()
     {
-
         $this->initTeam();
 
         /** @var $result Team[] */
