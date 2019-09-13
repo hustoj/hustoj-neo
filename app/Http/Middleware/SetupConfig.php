@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
+
 class SetupConfig
 {
     /**
@@ -10,7 +12,7 @@ class SetupConfig
      *
      * @return mixed
      */
-    public function handle($request, \Closure $next)
+    public function handle($request, Closure $next)
     {
         if (app('auth')->user()) {
             app()->setLocale(app('auth')->user()->locale);

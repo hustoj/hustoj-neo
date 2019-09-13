@@ -35,6 +35,7 @@ class SolutionService
     public function getSubmissionStats($from)
     {
         $this->repository->clearCriteria();
+
         $rawSql = 'DATE_FORMAT(created_at,\'%Y-%m-%d\') as date, count(*) as number';
         $this->repository->pushCriteria(new RawSelect($rawSql));
         $this->repository->pushCriteria(new Where('created_at', $from->format('Y-m-d h:i:s'), '>'));

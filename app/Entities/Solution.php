@@ -10,20 +10,20 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Solution.
  *
- * @property int     $id
- * @property int     $problem_id
- * @property int     $order
- * @property int     $contest_id
- * @property int     $user_id
- * @property int     $time_cost
- * @property int     $memory_cost
- * @property int     $language
- * @property int     $result
- * @property string  $ip
- * @property int     $code_length
- * @property Carbon  $judged_at
- * @property Carbon  $created_at
- * @property Carbon  $updated_at
+ * @property int $id
+ * @property int $problem_id
+ * @property int $order
+ * @property int $contest_id
+ * @property int $user_id
+ * @property int $time_cost
+ * @property int $memory_cost
+ * @property int $language
+ * @property int $result
+ * @property string $ip
+ * @property int $code_length
+ * @property Carbon $judged_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  * @property Contest $contest
  * @property User $user
  * @property Problem $problem
@@ -34,21 +34,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Solution extends Model
 {
-    protected $fillable = [
-        'problem_id',
-        'user_id',
-        'language',
-        'ip',
-        'order',
-        'contest_id',
-        'code',
-        'result',
-        'time_cost',
-        'memory_cost',
-        'code_length',
-        'judged_at',
-    ];
-
     public static $status = [
         4  => 'Accepted',
         5  => 'Presentation Error',
@@ -64,6 +49,20 @@ class Solution extends Model
         1  => 'Pending Rejudging',
         2  => 'Compiling',
         3  => 'Running &amp; Judging',
+    ];
+    protected $fillable = [
+        'problem_id',
+        'user_id',
+        'language',
+        'ip',
+        'order',
+        'contest_id',
+        'code',
+        'result',
+        'time_cost',
+        'memory_cost',
+        'code_length',
+        'judged_at',
     ];
 
     /**
@@ -119,9 +118,10 @@ class Solution extends Model
         return $this->result === Status::RUNTIME_ERROR;
     }
 
-    public function isPending()
+    public function isFailed()
     {
-        return $this->result === Status::PENDING;
+        // 既不是AC，也不是等待评测，就挂了
+        return !$this->isAccepted() && !$this->isPending();
     }
 
     public function isAccepted()
@@ -129,10 +129,9 @@ class Solution extends Model
         return $this->result === Status::ACCEPT;
     }
 
-    public function isFailed()
+    public function isPending()
     {
-        // 既不是AC，也不是等待评测，就挂了
-        return !$this->isAccepted() && !$this->isPending();
+        return $this->result === Status::PENDING;
     }
 
     /**

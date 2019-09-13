@@ -34,8 +34,8 @@
                     <vue-html5-editor name="contest.description" :content="item.description" :height="120" @change="updateDescription"></vue-html5-editor>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" size="small" icon="plus" @click="addProblem()">Add Problem</el-button>
-                    <el-button v-if="private" type="primary" size="small" icon="plus" @click="addUser()">Add User</el-button>
+                    <el-button type="primary" plain icon="el-icon-plus" @click="addProblem()">Add Problem</el-button>
+                    <el-button v-if="private" type="primary" plain icon="el-icon-plus" @click="addUser()">Add User</el-button>
                 </el-form-item>
                 <el-tabs type="border-card" :value="activePane">
                     <el-tab-pane label="Problem" name="problemPane">
@@ -44,9 +44,9 @@
                             <el-table-column prop="title" label="Title" width="300"></el-table-column>
                             <el-table-column>
                                 <template slot-scope="scope">
-                                    <el-button type="primary" size="small" icon="delete" @click="handleDelete(scope.row, scope.$index)"></el-button>
-                                    <el-button type="primary" size="small" icon="arrow-up" @click="handleUp(scope.row, scope.$index)" v-if="scope.$index != 0"></el-button>
-                                    <el-button type="primary" size="small" icon="arrow-down" @click="handleDown(scope.row, scope.$index)" v-if="scope.$index != problems.length - 1"></el-button>
+                                    <el-button type="primary" plain icon="el-icon-delete" @click="handleDelete(scope.row, scope.$index)"></el-button>
+                                    <el-button type="primary" plain icon="el-icon-arrow-up" @click="handleUp(scope.row, scope.$index)" v-if="scope.$index != 0"></el-button>
+                                    <el-button type="primary" plain icon="el-icon-arrow-down" @click="handleDown(scope.row, scope.$index)" v-if="scope.$index != problems.length - 1"></el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -59,7 +59,7 @@
                             <el-table-column prop="school" label="School" width="300"></el-table-column>
                             <el-table-column>
                                 <template slot-scope="scope">
-                                    <el-button type="primary" size="small" icon="delete" @click="userDelete(scope.row, scope.$index)"></el-button>
+                                    <el-button type="primary" plain icon="el-icon-delete" @click="userDelete(scope.row, scope.$index)"></el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -67,8 +67,8 @@
                 </el-tabs>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">Cancel</el-button>
-                <el-button type="primary" @click="save(item)">Save</el-button>
+                <el-button plain @click="dialogFormVisible = false">Cancel</el-button>
+                <el-button type="primary" plain @click="save(item)">Save</el-button>
             </div>
         </el-dialog>
         <select-problem></select-problem>

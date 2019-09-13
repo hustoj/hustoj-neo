@@ -3,23 +3,23 @@
         <div class="search-bar">
             <el-form :inline="true" :model="params" @submit.native.prevent>
                 <el-form-item>
-                    <el-input size="small" @keyup.enter.native="search(params)" v-model="params.name" placeholder="Role Name"></el-input>
+                    <el-input @keyup.enter.native="search(params)" v-model="params.name" placeholder="Role Name"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button size="small" type="primary" @click="search(params)">Search</el-button>
-                    <el-button type="success" size="small" @click="handleAdd()">Add</el-button>
+                    <el-button type="primary" plain @click="search(params)">Search</el-button>
+                    <el-button type="success" plain @click="handleAdd()">Add</el-button>
                 </el-form-item>
             </el-form>
         </div>
-        <el-table v-loading.body="loading" :data="tableData" style="width: 100%">
+        <el-table size="medium" v-loading.body="loading" :data="tableData" style="width: 100%">
             <el-table-column prop="id" label="Role ID" width="180"></el-table-column>
             <el-table-column prop="name" label="Role Name" width="180"></el-table-column>
             <el-table-column prop="display_name" label="Display Name" width="180"></el-table-column>
             <el-table-column prop="description" label="Description" width="180"></el-table-column>
             <el-table-column label="">
                 <template slot-scope="scope">
-                    <el-button type="text" size="small" icon="edit" @click="handleEdit(scope.row)"></el-button>
-                    <el-button type="text" size="small" icon="delete" @click="handleDelete(scope.row)"></el-button>
+                    <el-button type="primary" plain size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
+                    <el-button type="danger" plain size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -84,7 +84,7 @@
             },
             handleDelete(item) {
                 let self = this;
-                let message = 'Will delete user (' + item.username +'), are you sure?';
+                let message = 'Will delete role (' + item.display_name +'), are you sure?';
                 this.$confirm(message, 'Alert', {type: 'warning'})
                     .then(() => {
                     self.$http.delete('/admin/roles/' + item.id)

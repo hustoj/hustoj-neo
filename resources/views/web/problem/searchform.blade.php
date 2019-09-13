@@ -1,14 +1,16 @@
-<form class="form-inline well" role="form" action="{{ route('problem.index') }}" method="GET">
-    <div class="form-group">
+<form class="form-row align-items-center" role="form" action="{{ route('problem.index') }}" method="GET">
+    <div class="col-auto">
         <label class="sr-only" for="text">@lang('problem.searchform.search_text')</label>
-        <input placeholder="@lang('problem.searchform.search_text')" name="text" id="text" value="{{ request('text') }}" class="form-control"/>
+        <input class="form-control" placeholder="@lang('problem.searchform.search_text')" name="text" id="text" value="{{ request('text') }}"/>
     </div>
-    <div class="form-group">
+    <div class="col-auto">
         <label class="sr-only" for="area">@lang('problem.searchform.type')</label>
         <select name="area" class="form-control">
             <option value="title">@lang('problem.searchform.title')</option>
             <option value="source">@lang('problem.searchform.source')</option>
         </select>
     </div>
-    <input type="submit" value="@lang('problem.searchform.go')" class="btn btn-default">
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">@lang('problem.searchform.go')</button>
+    </div>
 </form>

@@ -17,23 +17,6 @@ class TaskQueue
         $this->channel = $this->queueChannel();
     }
 
-    public function add(Task $task)
-    {
-        try {
-            $message = $this->makeMessage($task);
-            $this->channel->basic_publish($message, '', config('rabbitmq.routing_key'));
-        } catch (AMQPRuntimeException $e) {
-            app('log')->error('add task queue failed!', $e->getMessage());
-        }
-
-    }
-
-    public function done()
-    {
-        $this->channel->close();
-        $this->connection->close();
-    }
-
     private function getConnection()
     {
         return new AMQPStreamConnection(
@@ -53,6 +36,16 @@ class TaskQueue
         return $channel;
     }
 
+    public function add(Task $task)
+    {
+        try {
+            $message = $this->makeMessage($task);
+            $this->channel->basic_publish($message, '', config('rabbitmq.routing_key'));
+        } catch (AMQPRuntimeException $e) {
+            app('log')->error('add task queue failed!', $e->getMessage());
+        }
+    }
+
     private function makeMessage(Task $task)
     {
         $content = json_encode($task->asQueueInfo());
@@ -61,5 +54,11 @@ class TaskQueue
         $message->setBody($content);
 
         return $message;
+    }
+
+    public function done()
+    {
+        $this->channel->close();
+        $this->connection->close();
     }
 }

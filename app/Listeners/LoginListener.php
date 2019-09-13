@@ -45,14 +45,6 @@ class LoginListener
         $logging->save();
     }
 
-    private function loggingOk($user, $password)
-    {
-        $logging = $this->createLog($user);
-        $logging->status = LoginLog::ST_OK;
-        $logging->password = $password;
-        $logging->save();
-    }
-
     /**
      * @param User $user
      *
@@ -65,6 +57,14 @@ class LoginListener
         $logging->ip = request()->getClientIp();
 
         return $logging;
+    }
+
+    private function loggingOk($user, $password)
+    {
+        $logging = $this->createLog($user);
+        $logging->status = LoginLog::ST_OK;
+        $logging->password = $password;
+        $logging->save();
     }
 
     private function cleanUserRecentLog($user)

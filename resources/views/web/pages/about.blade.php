@@ -2,8 +2,7 @@
 @section('title') About :: @parent @stop
 @section('content')
     <div class="row">
-        <div class="page-header">
-            <h2>About Page</h2>
-        </div>
+        <h1>About Page</h1>
+        <hr/>
     </div>
 @endsection

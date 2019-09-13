@@ -28,6 +28,22 @@ class Ranking
         }
     }
 
+    /**
+     * 在比赛开始和结束之间的提交才是比赛的合法提交.
+     *
+     * @param Contest $contest
+     *
+     * @return Collection|Solution[]
+     */
+    private function getValidSolutions($contest)
+    {
+        $columns = ['created_at', 'order', 'user_id', 'result', 'id'];
+        $start_at = Carbon::parse($contest->start_time)->subSeconds(1);
+        $end_at = Carbon::parse($contest->end_time)->addSeconds(1);
+
+        return $contest->solutions()->whereBetween('created_at', [$start_at, $end_at])->get($columns);
+    }
+
     private function addSolution(Solution $solution)
     {
         if (!array_key_exists($solution->user_id, $this->teams)) {
@@ -42,26 +58,43 @@ class Ranking
      */
     public function result()
     {
-        /** @var $result Team[] */
-        $result = [];
 
         $this->initTeam();
 
-        foreach ($this->teams as $team) {
-            $inserted = false;
-            $totalSolutions = count($result);
-            for ($i = 0; $i < $totalSolutions; $i++) {
-                if ($this->isBetter($team, $result[$i])) {
-                    $result = $this->insertElementAtIndex($result, $team, $i);
-                    $inserted = true;
-                }
-            }
-            if (!$inserted) {
-                $result[] = $team;
-            }
-        }
+        /** @var $result Team[] */
+        $result = array_values($this->teams);
+        usort($result, function ($team1, $team2) {
+            return !$this->isBetter($team1, $team2);
+        });
 
         return $result;
+    }
+
+    private function initTeam()
+    {
+        foreach ($this->getTeams() as $user) {
+            $this->teams[$user->id]->setUser($user);
+        }
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    protected function getTeams()
+    {
+        $repo = app(UserRepository::class);
+        $whereIn = new WhereIn('id', $this->getTeamsId());
+        $repo->pushCriteria($whereIn);
+
+        return $repo->all();
+    }
+
+    /**
+     * @return array
+     */
+    private function getTeamsId()
+    {
+        return array_keys($this->teams);
     }
 
     /**
@@ -85,26 +118,6 @@ class Ranking
         return false;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    protected function getTeams()
-    {
-        $repo = app(UserRepository::class);
-        $whereIn = new WhereIn('id', $this->getTeamsId());
-        $repo->pushCriteria($whereIn);
-
-        return $repo->all();
-    }
-
-    /**
-     * @return array
-     */
-    private function getTeamsId()
-    {
-        return array_keys($this->teams);
-    }
-
     protected function insertElementAtIndex($arr, $ele, $index)
     {
         $start = array_slice($arr, 0, $index);
@@ -112,28 +125,5 @@ class Ranking
         $start[] = $ele;
 
         return array_merge($start, $end);
-    }
-
-    /**
-     * 在比赛开始和结束之间的提交才是比赛的合法提交.
-     *
-     * @param Contest $contest
-     *
-     * @return Collection|Solution[]
-     */
-    private function getValidSolutions($contest)
-    {
-        $columns = ['created_at', 'order', 'user_id', 'result', 'id'];
-        $start_at = Carbon::parse($contest->start_time)->subSeconds(1);
-        $end_at = Carbon::parse($contest->end_time)->addSeconds(1);
-
-        return $contest->solutions()->whereBetween('created_at', [$start_at, $end_at])->get($columns);
-    }
-
-    private function initTeam()
-    {
-        foreach ($this->getTeams() as $user) {
-            $this->teams[$user->id]->setUser($user);
-        }
     }
 }

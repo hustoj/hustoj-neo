@@ -13,9 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Source extends Model
 {
-    protected $table = 'source_code';
     public $timestamps = false;
-
+    protected $table = 'source_code';
     protected $fillable = [
         'solution_id',
         'code',

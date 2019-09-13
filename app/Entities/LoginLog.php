@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Model;
  * Class Log.
  *
  *
- * @property int    $id
- * @property int    $user_id
+ * @property int $id
+ * @property int $user_id
  * @property string $ip
  * @property string $password
- * @property int    $status
+ * @property int $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */

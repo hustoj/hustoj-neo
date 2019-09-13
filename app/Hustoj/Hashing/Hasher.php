@@ -8,10 +8,34 @@ use Illuminate\Support\Arr;
 class Hasher implements HashingContract
 {
     /**
+     * Check the given plain value against a hash.
+     *
+     * @param string $value
+     * @param string $hashedValue
+     * @param array $options
+     *
+     * @return bool
+     */
+    public function check($value, $hashedValue, array $options = [])
+    {
+        // TODO: Implement check() method.
+        if (md5($value) == $hashedValue) {
+            // generate new style password
+        }
+
+        $origin_hash = base64_decode($hashedValue);
+        $salt = substr($origin_hash, 20);
+
+        $hashed_password = $this->make($value, ['salt' => $salt]);
+
+        return $hashed_password == $hashedValue;
+    }
+
+    /**
      * Hash the given value.
      *
      * @param string $value
-     * @param array  $options
+     * @param array $options
      *
      * @return string
      */
@@ -35,27 +59,33 @@ class Hasher implements HashingContract
     }
 
     /**
-     * Check the given plain value against a hash.
+     * Check if the given hash has been hashed using the given options.
      *
-     * @param string $value
      * @param string $hashedValue
-     * @param array  $options
+     * @param array $options
      *
      * @return bool
      */
-    public function check($value, $hashedValue, array $options = [])
+    public function needsRehash($hashedValue, array $options = [])
     {
-        // TODO: Implement check() method.
-        if (md5($value) == $hashedValue) {
-            // generate new style password
-        }
+        //todo: rehash old password to new password
+        return false;
+    }
 
-        $origin_hash = base64_decode($hashedValue);
-        $salt = substr($origin_hash, 20);
-
-        $hashed_password = $this->make($value, ['salt' => $salt]);
-
-        return $hashed_password == $hashedValue;
+    /**
+     * Get information about the given hashed value.
+     *
+     * @param string $hashedValue
+     *
+     * @return array
+     */
+    public function info($hashedValue)
+    {
+        return [
+            'algo'     => 0,
+            'algoName' => 'hustoj',
+            'options'  => [],
+        ];
     }
 
     /**
@@ -97,34 +127,5 @@ class Hasher implements HashingContract
         }
 
         return false;
-    }
-
-    /**
-     * Check if the given hash has been hashed using the given options.
-     *
-     * @param string $hashedValue
-     * @param array  $options
-     *
-     * @return bool
-     */
-    public function needsRehash($hashedValue, array $options = [])
-    {
-        // TODO: Implement needsRehash() method.
-    }
-
-    /**
-     * Get information about the given hashed value.
-     *
-     * @param string $hashedValue
-     *
-     * @return array
-     */
-    public function info($hashedValue)
-    {
-        return [
-            'algo'     => 0,
-            'algoName' => 'hustoj',
-            'options'  => [],
-        ];
     }
 }

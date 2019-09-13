@@ -13,7 +13,7 @@ class DataRequest extends JudgerRequest
     {
         return [
             'pid' => 'required|int',
-            'ts' => 'required|int',
+            'ts'  => 'required|int',
         ];
     }
 }

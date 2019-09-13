@@ -2,8 +2,7 @@
 @section('title') Contact :: @parent @stop
 @section('content')
     <div class="row">
-        <div class="page-header">
-            <h2>Contact Page</h2>
-        </div>
+        <h1>Contact Page</h1>
+        <hr/>
     </div>
 @endsection

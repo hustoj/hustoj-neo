@@ -10,18 +10,18 @@ use Laratrust\Traits\LaratrustUserTrait;
 /**
  * Class User.
  *
- * @property int    $id
+ * @property int $id
  * @property string $username
  * @property string $email
  * @property string $nick
  * @property string $school
  * @property string $locale
- * @property int    $language
+ * @property int $language
  * @property string $password
  * @property string $remember_token
- * @property int    $submit
- * @property int    $solved
- * @property int    $status
+ * @property int $submit
+ * @property int $solved
+ * @property int $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */

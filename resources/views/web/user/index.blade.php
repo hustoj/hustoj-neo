@@ -5,6 +5,7 @@
 @stop
 
 @section('content')
+    <h2 class="text-center">{{ __('user.rank') }}</h2>
     <table class="table table-striped">
         <thead>
         <tr>

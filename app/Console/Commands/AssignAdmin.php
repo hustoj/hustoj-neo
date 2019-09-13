@@ -32,14 +32,13 @@ class AssignAdmin extends Command
         }
     }
 
-    private function initialRole()
+    /**
+     * @param User $user
+     */
+    private function assignAdmin($user)
     {
-        $role = new Role();
-        $role->name = 'admin';
-        $role->display_name = 'Administrator';
-        $role->save();
-
-        return $role;
+        $role = $this->getAdminRole();
+        $user->roles()->attach($role);
     }
 
     /**
@@ -55,12 +54,13 @@ class AssignAdmin extends Command
         return $role;
     }
 
-    /**
-     * @param User $user
-     */
-    private function assignAdmin($user)
+    private function initialRole()
     {
-        $role = $this->getAdminRole();
-        $user->roles()->attach($role);
+        $role = new Role();
+        $role->name = 'admin';
+        $role->display_name = 'Administrator';
+        $role->save();
+
+        return $role;
     }
 }

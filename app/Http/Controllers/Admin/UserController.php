@@ -25,7 +25,7 @@ class UserController extends DataController
         }
 
         if (request('disable') >= 0) {
-            $this->repository->pushCriteria(new Where('disable', request('disable')));
+            $this->repository->pushCriteria(new Where('status', request('disable')));
         }
 
         /** @var Collection $models */

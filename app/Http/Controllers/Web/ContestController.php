@@ -13,6 +13,7 @@ use App\Services\Ranking;
 use App\Services\TopicService;
 use App\Services\UserService;
 use Czim\Repository\Criteria\Common\WithRelations;
+use function ord;
 
 class ContestController extends Controller
 {
@@ -97,7 +98,7 @@ class ContestController extends Controller
         }
 
         if (request('problem_id')) {
-            $order = \ord(strtolower(request('problem_id'))) - \ord('a');
+            $order = ord(strtolower(request('problem_id'))) - ord('a');
             $repository->pushCriteria(new Where('order', $order));
         }
 

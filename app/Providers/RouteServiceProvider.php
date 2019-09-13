@@ -48,23 +48,6 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
-    protected function mapWebRoutes()
-    {
-        Route::group([
-            'middleware' => 'web',
-            'namespace'  => $this->namespace,
-        ], function ($router) {
-            require base_path('routes/web.php');
-        });
-    }
-
-    /**
      * Define the "api" routes for the application.
      *
      * These routes are typically stateless.
@@ -73,23 +56,31 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::group([
-            // 'middleware' => 'judge',
-            'namespace'  => $this->namespace,
-            'prefix'     => 'judge',
-        ], function ($router) {
-            require base_path('routes/judge.php');
-        });
+        Route::prefix('judge')
+            // ->middleware('judge')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/judge.php'));
+    }
+
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapWebRoutes()
+    {
+        Route::middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/web.php'));
     }
 
     private function mapAdminRoutes()
     {
-        Route::group([
-            'middleware' => 'admin',
-            'namespace'  => $this->namespace,
-            'prefix'     => 'admin',
-        ], function ($router) {
-            require base_path('routes/admin.php');
-        });
+        Route::prefix('admin')
+             ->middleware('admin')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/admin.php'));
     }
 }

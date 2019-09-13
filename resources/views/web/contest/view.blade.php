@@ -6,32 +6,19 @@
 @stop
 
 @section('main')
-    <div class="contest-meta">
-        <div class="jumbotron">
-            <div class="contest-time clearfix text-center">
-                <div class="alert alert-success col-sm-3 col-sm-offset-1">
-                     @lang('contest.start_time')<br/>{{ $contest->start_time }}
-                </div>
-                @if($contest->isOpen())
-                    <div class="alert alert-info col-sm-2 col-sm-offset-1">
-                        @lang('contest.contest_is_running')
-                        <br/> @lang('contest.:time left', ['time' => $contest->time_left()])
-                    </div>
-                @elseif($contest->isEnd())
-                    <div class="alert alert-danger col-sm-2 col-sm-offset-1">
-                        @lang('contest.contest_is_over')
-                    </div>
-                @else
-                    <div class="alert alert-info col-sm-3 col-sm-offset-1">
-                        @lang('contest.contest will beging at :time', ['time' => $contest->start_time])
-                    </div>
-                @endif
-                <div class="alert alert-warning col-sm-3 col-sm-offset-1">
-                    @lang('contest.end_time')<br/>{{ $contest->end_time }}
-                </div>
-            </div>
-            <p class="bg-info"><pre>{!! $contest->description !!}</pre></p>
-        </div>
+    <div class="contest-meta align-items-center">
+        <ul class="list-group list-group-horizontal-xl align-items-center ml-auto mr-auto w-50 mb-3">
+            <li class="list-group-item alert alert-success text-center"> @lang('contest.start_time')<br/>{{ $contest->start_time }}</li>
+            @if($contest->isOpen())
+            <li class="list-group-item alert alert-info"> @lang('contest.contest_is_running')<br/> @lang('contest.:time left', ['time' => $contest->time_left()])</li>
+            @elseif($contest->isEnd())
+            <li class="list-group-item alert alert-warning"> @lang('contest.contest_is_over') </li>
+            @else
+            <li class="list-group-item alert alert-info">@lang('contest.contest will beging at :time', ['time' => $contest->start_time])}</li>
+            @endif
+            <li class="list-group-item alert alert-info text-center"> @lang('contest.end_time')<br/>{{ $contest->end_time }}</li>
+        </ul>
+        <pre class="bg-secondary p-4">{!! $contest->description !!}</pre>
     </div>
     <table class="table table-bordered">
         <thead>

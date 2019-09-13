@@ -1,6 +1,7 @@
 <template>
     <div class="navbar">
-        <el-menu theme="dark" :default-active="activeIndex" class="el-menu" mode="horizontal" router>
+        <el-menu :default-active="activeIndex" class="el-menu" mode="horizontal" router
+                 background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
             <el-menu-item index="#">Home</el-menu-item>
             <el-menu-item index="/">Dashboard</el-menu-item>
             <el-menu-item index="/article">Article</el-menu-item>

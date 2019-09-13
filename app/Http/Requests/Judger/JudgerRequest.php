@@ -10,6 +10,14 @@ class JudgerRequest extends Request
 {
     private $judger;
 
+    public function validate()
+    {
+        $origin = sprintf("%s-%d", $this->getJudger()->code, $this->input('ts'));
+        if ($this->getToken() != md5($origin)) {
+            throw new JudgerCodeInvalid();
+        }
+    }
+
     public function getJudger()
     {
         if (!$this->judger) {
@@ -27,13 +35,5 @@ class JudgerRequest extends Request
     public function getToken()
     {
         return $this->header('Token');
-    }
-
-    public function validate()
-    {
-        $origin = sprintf("%s-%d", $this->getJudger()->code, $this->input('ts'));
-        if ($this->getToken() != md5($origin)) {
-            throw new JudgerCodeInvalid();
-        }
     }
 }

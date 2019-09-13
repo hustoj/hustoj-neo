@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Filesystem\Filesystem;
+use LogicException;
 
 class DataProvider
 {
@@ -19,14 +20,15 @@ class DataProvider
             if (!array_key_exists($name, $dataOutput)) {
                 $message = 'Problem Data is not match!';
                 app('log')->error($message, ['pid' => $id]);
-                throw new \LogicException($message);
+                throw new LogicException($message);
             }
             $outContent = $dataOutput[$name];
             $data[] = [
-                'input' => $content,
+                'input'  => $content,
                 'output' => $outContent,
             ];
         }
+
         return $data;
     }
 
@@ -38,17 +40,19 @@ class DataProvider
      */
     public function getInputFiles($id)
     {
-        $patten = $this->getDataPath($id). '*'. self::TYPE_IN;
+        $pattern = $this->getDataPath($id).'*'.self::TYPE_IN;
 
-        $fs = new Filesystem();
-        $files = $fs->glob($patten);
+        return $this->getDataFiles($pattern);
+    }
 
-        $data = [];
-        foreach ($files as $file) {
-            $data[$fs->name($file)] = $fs->get($file);
-        }
-
-        return $data;
+    /**
+     * @param $id
+     *
+     * @return string
+     */
+    public function getDataPath($id)
+    {
+        return config('hustoj.data_path').'/'.$id.'/';
     }
 
     /**
@@ -59,10 +63,15 @@ class DataProvider
      */
     public function getOutputFiles($id)
     {
-        $patten = $this->getDataPath($id). '*'. self::TYPE_OUT;
+        $pattern = $this->getDataPath($id).'*'.self::TYPE_OUT;
 
+        return $this->getDataFiles($pattern);
+    }
+
+    public function getDataFiles($pattern)
+    {
         $fs = new Filesystem();
-        $files = $fs->glob($patten);
+        $files = $fs->glob($pattern);
 
         $data = [];
         foreach ($files as $file) {
@@ -70,15 +79,5 @@ class DataProvider
         }
 
         return $data;
-    }
-
-    /**
-     * @param $id
-     *
-     * @return string
-     */
-    public function getDataPath($id)
-    {
-        return config('app.data_path').'/'.$id.'/';
     }
 }

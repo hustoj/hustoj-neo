@@ -8,6 +8,8 @@ use App\Repositories\TopicRepository;
 
 class TopicService
 {
+    private $repository;
+
     /**
      * TopicService constructor.
      */
@@ -15,8 +17,6 @@ class TopicService
     {
         $this->repository = app(TopicRepository::class);
     }
-
-    private $repository;
 
     public function topicsForContest($contestId)
     {

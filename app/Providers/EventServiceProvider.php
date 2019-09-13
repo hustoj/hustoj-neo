@@ -17,10 +17,13 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Login::class => [
+        // Registered::class => [
+        //     SendEmailVerificationNotification::class,
+        // ],
+        Login::class         => [
             LoginListener::class,
         ],
-        Failed::class => [
+        Failed::class        => [
             LoginListener::class,
         ],
         QueryExecuted::class => [

@@ -1,8 +1,6 @@
 {
-    "/js/vendor.js": "/js/vendor.js",
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
+    "/admin/js/manifest.js": "/admin/js/manifest.js",
+    "/admin/js/app.js": "/admin/js/app.js",
     "/css/admin.css": "/css/admin.css",
-    "/js/manifest.js": "/js/manifest.js",
-    "/css/font-awesome.min.css": "/css/font-awesome.min.css"
+    "/admin/js/vendor.js": "/admin/js/vendor.js"
 }

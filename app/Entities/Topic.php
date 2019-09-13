@@ -10,14 +10,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Topic.
  *
- * @property int                     $id
- * @property int                     $contest_id
- * @property int                     $problem_id
- * @property int                     $user_id
- * @property string                  $title
- * @property string                  $content
- * @property Carbon                  $created_at
- * @property Carbon                  $updated_at
+ * @property int $id
+ * @property int $contest_id
+ * @property int $problem_id
+ * @property int $user_id
+ * @property string $title
+ * @property string $content
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  * @property-read Reply[]|Collection $replies
  */
 class Topic extends Model

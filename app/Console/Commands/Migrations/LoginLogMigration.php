@@ -44,15 +44,15 @@ class LoginLogMigration extends Migration
     {
         $now = Carbon::now()->subDays($days)->setTime(0, 0);
         $logs = $this->getTable()->where('user_id', $user->username)
-            ->where('time', $now, '>')
-            ->orderBy('time', 'asc')
-            ->get();
+                     ->where('time', $now, '>')
+                     ->orderBy('time', 'asc')
+                     ->get();
 
         if ($logs->count() < 10) {
             $logs = $this->getTable()->where('user_id', $user->username)
-                ->limit(10)
-                ->orderBy('time', 'desc')
-                ->get();
+                         ->limit(10)
+                         ->orderBy('time', 'desc')
+                         ->get();
             $logs = $logs->reverse();
         }
 

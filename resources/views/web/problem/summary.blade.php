@@ -8,15 +8,20 @@
 @section('main')
     <div class="row">
         <div class="col-sm-3">
-            <ul class="nav nav-pills nav-stacked">
-                <li><a>@lang('problem.summary.total')<span
-                                class="badge pull-right">{{ $summary->total }}</span></a></li>
-                <li><a>@lang('problem.summary.submit_user')<span
-                                class="badge pull-right">{{ $summary->submit() }}</span></a></li>
-                <li><a>@lang('problem.summary.solved_user')<span
-                                class="badge pull-right">{{ $summary->accepted() }}</span></a></li>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @lang('problem.summary.total')<span
+                                class="badge badge-secondary badge-pill">{{ $summary->total }}</span></li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @lang('problem.summary.submit_user')<span
+                                class="badge badge-secondary badge-pill">{{ $summary->submit() }}</span></li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @lang('problem.summary.solved_user')
+                        <span class="badge badge-secondary badge-pill">{{ $summary->accepted() }}</span></li>
                 @foreach($summary->statistics as $retType => $number)
-                    <li><a>{{ show_status($retType) }}<span class="badge pull-right">{{ $number }}</span></a>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ show_status($retType) }}
+                        <span class="badge badge-secondary badge-pill">{{ $number }}</span>
                     </li>
                 @endforeach
             </ul>

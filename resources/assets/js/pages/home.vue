@@ -78,7 +78,7 @@
                         data: config.data
                     }]
                 });
-            };
+            }
             self.allCharts.forEach(function (chart) {
                 let config = {
                     title: chart.title,
@@ -87,7 +87,7 @@
                     xTitle: [],
                 };
                 addBarChart(chart.id, config);
-            })
+            });
             self.reloadChart(this.from);
         },
         methods: {
@@ -102,7 +102,7 @@
                         xAxis: {data: titles},
                         series: {data: data},
                     });
-                };
+                }
                 this.$http.get('/admin/home/chart?from=' + from)
                     .then(function (res) {
                         self.allCharts.forEach(function (chart) {

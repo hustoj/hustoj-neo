@@ -63,6 +63,22 @@ class Team
         }
     }
 
+    /**
+     * @param Solution $solution
+     */
+    private function markProblemAccept($solution)
+    {
+        $pid = $solution->order;
+        if (!array_key_exists($pid, $this->timePassed) || $this->timePassed[$pid] === null) {
+            $this->timePassed[$pid] = $solution->created_at;
+            $this->accepts++;
+        } else {
+            if ($this->timePassed[$pid]->gt($solution->created_at)) {
+                $this->timePassed[$pid] = $solution->created_at;
+            }
+        }
+    }
+
     private function addFailedCount(Solution $solution)
     {
         if (!array_key_exists($solution->order, $this->waCounts)) {
@@ -99,29 +115,6 @@ class Team
         return $this->submits;
     }
 
-    /**
-     * 获取题目的尝试次数.
-     *
-     * @param $pid
-     *
-     * @return mixed
-     */
-    public function getProblemWACount($pid)
-    {
-        return $this->waCounts[$pid];
-    }
-
-    public function getProblemAcceptTime($pid)
-    {
-        if (null === $this->timePassed[$pid]) {
-            return 0;
-        }
-
-        $start = new Carbon($this->contest->start_time);
-
-        return $this->timePassed[$pid]->diffInSeconds($start);
-    }
-
     public function isProblemAccept($pid)
     {
         return null !== $this->timePassed[$pid];
@@ -148,6 +141,17 @@ class Team
         return $totalTime;
     }
 
+    public function getProblemAcceptTime($pid)
+    {
+        if (null === $this->timePassed[$pid]) {
+            return 0;
+        }
+
+        $start = new Carbon($this->contest->start_time);
+
+        return $this->timePassed[$pid]->diffInSeconds($start);
+    }
+
     /**
      * 获取单个题目的罚时.
      *
@@ -161,18 +165,14 @@ class Team
     }
 
     /**
-     * @param Solution $solution
+     * 获取题目的尝试次数.
+     *
+     * @param $pid
+     *
+     * @return mixed
      */
-    private function markProblemAccept($solution)
+    public function getProblemWACount($pid)
     {
-        $pid = $solution->order;
-        if (!array_key_exists($pid, $this->timePassed) || $this->timePassed[$pid] === null) {
-            $this->timePassed[$pid] = $solution->created_at;
-            $this->accepts++;
-        } else {
-            if ($this->timePassed[$pid]->gt($solution->created_at)) {
-                $this->timePassed[$pid] = $solution->created_at;
-            }
-        }
+        return $this->waCounts[$pid];
     }
 }

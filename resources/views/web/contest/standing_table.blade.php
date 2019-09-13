@@ -18,9 +18,9 @@
         <td>
             <a href="{{ route('user.view', ['username' => $team->user()->username]) }}">{{$team->user()->username}}</a>
         </td>
-        <td>{{$team->getNumberOfAccept()}}</td>
+        <td>{{$team->numberOfAccept()}}</td>
         <td>{{$team->getNumberOfSubmit()}}</td>
-        <td>{{ display_penalize_time($team->getTotalTime())}}</td>
+        <td>{{ display_penalize_time($team->totalPenalty())}}</td>
         @for($i = 0; $i < $contest->problems->count(); $i++)
             <td>
                 @if ($team->isProblemAccept($i))

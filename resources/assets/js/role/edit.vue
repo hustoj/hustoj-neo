@@ -12,8 +12,8 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">Cancel</el-button>
-            <el-button type="primary" @click="save(role)">Save</el-button>
+            <el-button plain @click="dialogFormVisible = false">Cancel</el-button>
+            <el-button type="primary" plain @click="save(role)">Save</el-button>
         </div>
     </el-dialog>
 </template>

@@ -1,17 +1,6 @@
-let { mix } = require('laravel-mix');
+const mix = require('laravel-mix');
 
 mix.disableNotifications();
-
-mix.webpackConfig({
-    module: {
-        rules: [
-            {
-                test: /\.css$/,
-                loader: "style-loader!css-loader"
-            },
-        ]
-    }
-});
 
 /*
  |--------------------------------------------------------------------------

@@ -11,8 +11,6 @@ import optionIndex from "./options/index.vue";
 
 import NotFoundComponent from "./pages/404.vue";
 
-import problemModule from "./modules/problem";
-
 
 const routes = [
     {path: '*', component: NotFoundComponent},
@@ -23,6 +21,6 @@ const routes = [
     {path: '/contest', component: contestIndex, name: "contest.index"},
     {path: '/article', component: articleIndex, name: "article.index"},
     {path: '/settings', component: optionIndex, name: "option.index"}
-]
+];
 
 export default routes;
