@@ -14,7 +14,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ['as' => 'home', 'uses' => 'Web\HomeController@index']);
-Route::get('/home', ['as' => 'home', 'uses' => 'Web\HomeController@index']);
+Route::get('/home', ['uses' => 'Web\HomeController@index']);
 
 Route::get('/problemset', [
     'as'   => 'problem.index',
