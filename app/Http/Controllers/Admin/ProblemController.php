@@ -40,7 +40,8 @@ class ProblemController extends DataController
         if ($problem) {
             $dp = app(DataProvider::class);
 
-            $path = $dp->getDataPath($id) . $name;
+            $path = $dp->getDataPath($id).$name;
+
             return response()->download($path, $name);
         }
 

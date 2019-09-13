@@ -156,4 +156,3 @@ Route::get('{page}', [
 Route::get('logout', 'Auth\LoginController@logout');
 
 Auth::routes();
-

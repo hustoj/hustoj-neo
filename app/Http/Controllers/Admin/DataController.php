@@ -35,9 +35,9 @@ abstract class DataController extends Controller
     /**
      * @param $id
      *
-     * @return mixed
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      *
+     * @return mixed
      */
     public function update($id)
     {
