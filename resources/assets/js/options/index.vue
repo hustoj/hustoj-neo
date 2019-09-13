@@ -3,16 +3,16 @@
         <div class="search-bar">
             <el-form :inline="true" :model="params">
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" size="small" v-model="params.key" placeholder="Key"></el-input>
+                    <el-input @keyup.enter.native="search(params)" v-model="params.key" placeholder="Key"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" size="small" v-model="params.category" placeholder="Category"></el-input>
+                    <el-input @keyup.enter.native="search(params)" v-model="params.category" placeholder="Category"></el-input>
                 </el-form-item>
-                <el-button type="primary" size="small" @click="search(params)">Search</el-button>
-                <el-button type="success" size="small" @click="handleAdd()">Add</el-button>
+                <el-button type="primary" plain @click="search(params)">Search</el-button>
+                <el-button type="success" plain @click="handleAdd()">Add</el-button>
             </el-form>
         </div>
-        <el-table v-loading.body="loading" :data="tableData" style="width: 100%">
+        <el-table v-loading.body="loading" :data="tableData" style="width: 100%" size="medium">
             <el-table-column prop="id" label="ID" width="80"></el-table-column>
             <el-table-column prop="key" label="Key" width="200"></el-table-column>
             <el-table-column prop="category" label="Category" width="200"></el-table-column>
@@ -21,8 +21,8 @@
             <el-table-column prop="updated_at" label="Updated At" width="180"></el-table-column>
             <el-table-column>
                 <template slot-scope="scope">
-                    <el-button type="text" size="small" icon="edit" @click="handleEdit(scope.row)"></el-button>
-                    <el-button type="text" size="small" icon="delete" @click="handleDelete(scope.row)"></el-button>
+                    <el-button type="primary" plain size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
+                    <el-button type="danger" plain size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -95,7 +95,7 @@
             },
             handleDelete(item){
                 let self = this;
-                let mesage = `Will remove option ${item.key} from server, sure?`;
+                let message = `Will remove option ${item.key} from server, sure?`;
                 this.$confirm(message, 'Alert', {type: 'warning'})
                     .then(function () {
                         self.$http.delete('/admin/options/' + item.id)

@@ -18,6 +18,8 @@ abstract class DataController extends Controller
         $this->repository = app($this->getRepository());
     }
 
+    abstract protected function getRepository();
+
     public function index()
     {
         $this->repository->pushCriteria(new OrderBy('id', 'desc'));
@@ -33,9 +35,9 @@ abstract class DataController extends Controller
     /**
      * @param $id
      *
+     * @return mixed
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      *
-     * @return mixed
      */
     public function update($id)
     {
@@ -64,6 +66,4 @@ abstract class DataController extends Controller
             $model->delete();
         }
     }
-
-    abstract protected function getRepository();
 }

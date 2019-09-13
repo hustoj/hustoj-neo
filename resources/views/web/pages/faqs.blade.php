@@ -5,9 +5,8 @@
 @stop
 
 @section('content')
-    <div class="page-header">
-        <h1>FAQs</h1>
-    </div>
+    <h1>FAQs</h1>
+    <hr/>
     <dl class="faqs">
         <dt class="q"><span>Q:</span>What is the compiler the judge is using and what are the compiler options?</dt>
         <dd>

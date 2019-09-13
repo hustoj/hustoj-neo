@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
  * Class Article.
  *
  *
- * @property int            $id
- * @property int            $user_id
- * @property string         $title
- * @property string         $slug
- * @property string         $content
- * @property int            $priority
- * @property int            $status
- * @property string         $meta_title
- * @property string         $meta_description
- * @property string         $meta_keywords
+ * @property int $id
+ * @property int $user_id
+ * @property string $title
+ * @property string $slug
+ * @property string $content
+ * @property int $priority
+ * @property int $status
+ * @property string $meta_title
+ * @property string $meta_description
+ * @property string $meta_keywords
  * @property \Carbon\Carbon created_at
  * @property \Carbon\Carbon updated_at
  */

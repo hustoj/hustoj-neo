@@ -49,18 +49,6 @@ class ContestController extends DataController
         $this->updateOrSave($model);
     }
 
-    public function update($id)
-    {
-        /* @var Contest $model */
-        if ($id instanceof Model) {
-            $model = $id;
-        } else {
-            $model = $this->repository->findOrFail($id);
-        }
-
-        $this->updateOrSave($model);
-    }
-
     /**
      * @param Contest $model ;
      */
@@ -89,6 +77,18 @@ class ContestController extends DataController
                 $model->users()->sync($userIds);
             }
         });
+    }
+
+    public function update($id)
+    {
+        /* @var Contest $model */
+        if ($id instanceof Model) {
+            $model = $id;
+        } else {
+            $model = $this->repository->findOrFail($id);
+        }
+
+        $this->updateOrSave($model);
     }
 
     protected function getRepository()

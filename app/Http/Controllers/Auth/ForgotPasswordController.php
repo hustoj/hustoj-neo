@@ -24,9 +24,10 @@ class ForgotPasswordController extends Controller
     use SendsPasswordResetEmails;
 
     const PASSWORD_EMAIL = 'passwords.email';
-
     /**
      * Create a new controller instance.
+     *
+     * @return void
      */
     public function __construct()
     {
@@ -56,17 +57,17 @@ class ForgotPasswordController extends Controller
         );
 
         return $response === Password::RESET_LINK_SENT
-            ? $this->sendResetLinkResponse($response)
+            ? $this->sendResetLinkResponse($request, $response)
             : $this->sendResetLinkFailedResponse($request, $response);
-    }
-
-    public function showLinkRequestForm()
-    {
-        return view('web.auth.passwords.email');
     }
 
     private function hasManyUser($email)
     {
         return app(UserRepository::class)->findWhere(['email' => $email])->count();
+    }
+
+    public function showLinkRequestForm()
+    {
+        return view('web.auth.passwords.email');
     }
 }

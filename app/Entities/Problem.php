@@ -10,28 +10,28 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Problem.
  *
- * @property int                   $id
- * @property string                $title
- * @property string                $description
- * @property string                $input
- * @property string                $output
- * @property string                $sample_input
- * @property string                $sample_output
- * @property string                $hint
- * @property string                $source
- * @property int                   $status
- * @property int                   $time_limit
- * @property int                   $memory_limit
- * @property int                   $submit
- * @property int                   $accepted
- * @property int                   $spj
- * @property string                $memo
- * @property int                   $user_id
- * @property User                  $author
+ * @property int $id
+ * @property string $title
+ * @property string $description
+ * @property string $input
+ * @property string $output
+ * @property string $sample_input
+ * @property string $sample_output
+ * @property string $hint
+ * @property string $source
+ * @property int $status
+ * @property int $time_limit
+ * @property int $memory_limit
+ * @property int $submit
+ * @property int $accepted
+ * @property int $spj
+ * @property string $memo
+ * @property int $user_id
+ * @property User $author
  * @property Solution[]|Collection $solutions
- * @property Carbon                $created_at
- * @property Carbon                $updated_at
- * @property Carbon                $deleted_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property Carbon $deleted_at
  */
 class Problem extends Model
 {
@@ -73,7 +73,7 @@ class Problem extends Model
      */
     public function isSpecialJudge()
     {
-        return (int) $this->spj === 1;
+        return (int)$this->spj === 1;
     }
 
     /**

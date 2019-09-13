@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Arr;
+
 class Language
 {
     const LANG_C = 0;
@@ -10,10 +12,10 @@ class Language
     const LANG_PAS = 3;
 
     private static $languages = [
-        0 => 'C',
-        1 => 'C++',
-        2 => 'Java',
-        3 => 'Pascal',
+        self::LANG_C => 'C',
+        self::LANG_CPP => 'C++',
+        self::LANG_JAVA => 'Java',
+        self::LANG_PAS => 'Pascal',
     ];
 
     public static function allLanguages()
@@ -23,6 +25,6 @@ class Language
 
     public static function showLang($id)
     {
-        return array_get(self::$languages, $id);
+        return Arr::get(self::$languages, $id);
     }
 }

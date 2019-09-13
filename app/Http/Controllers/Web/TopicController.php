@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Entities\Topic;
+use App\Entities\User;
 use App\Http\Controllers\Controller;
 use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
@@ -60,6 +61,16 @@ class TopicController extends Controller
 
     public function index()
     {
+        if (request()->filled('uid')) {
+            /** @var User $user */
+            $user = User::query()->where('username', request()->input('uid'))->first();
+            if ($user) {
+                $this->repository->pushCriteria(new Where('user_id', $user->id));
+            }
+        }
+        if (request()->filled('pid')) {
+            $this->repository->pushCriteria(new Where('problem_id', request('pid')));
+        }
         $this->repository->pushCriteria(new OrderBy('id', 'desc'));
         // 获取非比赛的clarity
         $this->repository->pushCriteria(new Where('contest_id', 1, '<'));

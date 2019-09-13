@@ -18,7 +18,7 @@
                         <el-option label="Disabled" value="1"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-button type="primary" size="small" @click="search(params)">Search</el-button>
+                <el-button type="primary" plain @click="search(params)">Search</el-button>
             </el-form>
         </div>
         <el-table v-loading.body="loading" :data="tableData" :row-class-name="tableRowClassName" style="width: 100%">
@@ -28,7 +28,7 @@
             <el-table-column prop="school" label="School" width="240"></el-table-column>
             <el-table-column label="">
                 <template slot-scope="scope">
-                    <el-button type="primary" size="small" icon="check" @click="handleSelect(scope.row)"></el-button>
+                    <el-button type="primary" plain icon="check" @click="handleSelect(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>

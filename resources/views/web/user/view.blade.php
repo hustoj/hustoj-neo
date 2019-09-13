@@ -8,42 +8,18 @@
 
 {{-- Content --}}
 @section('content')
-    <div class="page-header">
-        <h1>@lang('user.profile')</h1>
-    </div>
-
-    <div class="col-md-6 col-md-offset-3 col-md-offset-3 toppad">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{ $user->nick }}</h3>
+    <div class="col-md-6 col-md-offset-3 col-md-offset-3">
+        <div class="card">
+            <div class="card-header">
+                <h3>{{ $user->nick }}</h3>
             </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-3" align="center">
-                    </div>
-                    <div class="col-md-9">
-                        <table class="table table-user-information">
-                            <tbody>
-                            <tr>
-                                <td>@lang('user.nick'):</td>
-                                <td>{{ $user->nick }}</td>
-                            </tr>
-                            <tr>
-                                <td>@lang('user.created_at'):</td>
-                                <td>{{ $user->created_at }}</td>
-                            </tr>
-                            <tr>
-                                <td>@lang('user.school')</td>
-                                <td>{{ $user->school}}</td>
-                            </tr>
-                            <tr>
-                                <td>@lang('user.email')</td>
-                                <td>{{ base64_encode($user->email) }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">@lang('user.nick'): {{ $user->nick }}</li>
+                    <li class="list-group-item">@lang('user.created_at'): {{ $user->created_at }}</li>
+                    <li class="list-group-item">@lang('user.school'): {{ $user->school }}</li>
+                    <li class="list-group-item">@lang('user.email'): {{ base64_encode($user->email) }}</li>
+                </ul>
             </div>
         </div>
     </div>

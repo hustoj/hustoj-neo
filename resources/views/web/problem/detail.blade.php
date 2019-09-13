@@ -1,23 +1,33 @@
 <div class="problem-detail">
-    <div class="problem-meta text-center clearfix">
-        <div class="col-sm-3 col-sm-offset-2 alert alert-info">
-            @lang('problem.view.time_limit') : <span
-                    class="label label-warning">{{ $problem->time_limit }} @lang('problem.view.second')</span>
+    <div class="card-group text-center mb-4" style="font-size: 0.95rem">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">@lang('problem.view.time_limit') : {{ $problem->time_limit }} @lang('problem.view.second')</p>
+            </div>
         </div>
-        <div class="col-sm-3 col-sm-offset-2 alert alert-info">
-            @lang('problem.view.memory_limit') : <span
-                    class="label label-danger">{{ $problem->memory_limit }} @lang('problem.view.MB')</span><br/>
-        </div>
-        <div class="col-sm-3 col-sm-offset-2 alert alert-info">
-            @lang('problem.view.submissions_:count', ['count' => $problem->submit])
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">@lang('problem.view.memory_limit') : {{ $problem->memory_limit }} @lang('problem.view.MB')</p>
+            </div>
         </div>
         @if($problem->isSpecialJudge())
-            <div class="col-sm-2 alert alert-warning">
-                @lang('problem.special_judge')
+        <div class="card bg-warning text-light">
+            <div class="card-body">
+                    <p class="card-text">
+                        @lang('problem.special_judge')
+                    </p>
             </div>
+        </div>
         @endif
-        <div class="col-sm-3 @if(!$problem->isSpecialJudge()) col-sm-offset-2 @endif alert alert-info">
-            @lang('problem.view.solved_:count', ['count' => $problem->accepted])
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">@lang('problem.view.submissions_:count', ['count' => $problem->submit])</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">@lang('problem.view.solved_:count', ['count' => $problem->accepted])</p>
+            </div>
         </div>
     </div>
 
@@ -38,7 +48,7 @@
                 <pre>{{ $problem->sample_output }}</pre>
             </dd>
             <dt>@lang('problem.hint')</dt>
-            <dd>{{ $problem->hint }}</dd>
+            <dd>{!! $problem->hint !!}</dd>
             <dt>@lang('problem.source')</dt>
             <dd>{{ $problem->source }}</dd>
         </dl>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class EnableCrossSite
@@ -10,11 +11,11 @@ class EnableCrossSite
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param \Closure $next
      *
      * @return mixed
      */
-    public function handle($request, \Closure $next)
+    public function handle($request, Closure $next)
     {
         $response = $next($request);
         if ($response instanceof BinaryFileResponse) {
@@ -22,10 +23,11 @@ class EnableCrossSite
         }
         $response->header('Access-Control-Allow-Origin', '*');
         // todo: add host name here
-//        $response->header('Access-Control-Allow-Origin', config('app.url'));
+        //        $response->header('Access-Control-Allow-Origin', config('app.url'));
         $response->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, Accept');
         $response->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS');
-//        $response->header('Access-Control-Allow-Credentials', 'true');
+
+        //        $response->header('Access-Control-Allow-Credentials', 'true');
         return $response;
     }
 }

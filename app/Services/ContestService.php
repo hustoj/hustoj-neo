@@ -16,16 +16,6 @@ class ContestService
     private $repository;
 
     /**
-     * @param $id
-     *
-     * @return Contest
-     */
-    public function getContest($id)
-    {
-        return $this->repository->findOrFail($id);
-    }
-
-    /**
      * ContestService constructor.
      */
     public function __construct()
@@ -33,9 +23,14 @@ class ContestService
         $this->repository = app(ContestRepository::class);
     }
 
-    public static function permissionOfContest($contest)
+    /**
+     * @param $id
+     *
+     * @return Contest
+     */
+    public function getContest($id)
     {
-        return 'contest.'.$contest->id;
+        return $this->repository->findOrFail($id);
     }
 
     /**
@@ -59,6 +54,11 @@ class ContestService
         $perm->save();
 
         return $perm;
+    }
+
+    public static function permissionOfContest($contest)
+    {
+        return 'contest.'.$contest->id;
     }
 
     /**

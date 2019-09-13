@@ -21,7 +21,7 @@
         @foreach($contests as $contest)
             <tr>
                 <td>{{ $contest->id }}</td>
-                <td><a href="{{ route('contest.view', ['id' => $contest->id]) }}">{{ $contest->title }}</a></td>
+                <td><a href="{{ route('contest.view', ['contest' => $contest->id]) }}">{{ $contest->title }}</a></td>
                 <td>@if($contest->private) {{ trans('contest.table_list.private') }} @else {{trans('contest.table_list.public')}} @endif</td>
                 <td>{{ $contest->start_time }} -- {{ $contest->end_time }}</td>
             </tr>

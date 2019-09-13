@@ -9,6 +9,7 @@ use App\Http\Requests\Judger\ReportRequest;
 use App\Repositories\ProblemRepository;
 use App\Services\DataProvider;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use LogicException;
 
 class ApiController extends Controller
 {
@@ -38,7 +39,7 @@ class ApiController extends Controller
             $dp = app(DataProvider::class);
 
             return $dp->getData($pid);
-        } catch (\LogicException $e) {
+        } catch (LogicException $e) {
             return [
                 'message' => $e->getMessage(),
             ];

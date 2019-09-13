@@ -38,6 +38,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+        return view('web.auth.register');
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -47,7 +52,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return app('validator')->make($data, [
+        return Validator::make($data, [
             'username' => 'required|max:255|unique:users',
             'nick'     => 'required',
             'email'    => 'required|email|max:255|unique:users',
@@ -73,15 +78,5 @@ class RegisterController extends Controller
         $user->save();
 
         return $user;
-    }
-
-    /**
-     * Show the application registration form.
-     *
-     * @return mixed
-     */
-    public function showRegistrationForm()
-    {
-        return view('web.auth.register');
     }
 }

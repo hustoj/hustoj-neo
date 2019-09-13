@@ -1,36 +1,50 @@
 {
     "name": "hustoj/neo",
+    "type": "project",
     "description": "HUST Online Judge System",
     "keywords": [
         "online judge",
+        "HUST",
         "laravel"
     ],
     "license": "MIT",
-    "type": "project",
     "require": {
-        "php": ">=7.1.0",
-        "czim/laravel-repository": "^1.4",
+        "php": "^7.2",
+        "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "5.6.*",
+        "laravel/framework": "^6.0",
+        "laravel/tinker": "^1.0",
+        "laravel/ui": "^1.0",
         "php-amqplib/php-amqplib": "^2.10",
-        "predis/predis": "^1.1",
-        "santigarcor/laratrust": "5.0.*",
-        "sentry/sentry-laravel": "^0.9.1"
+        "santigarcor/laratrust": "^5.2",
+        "sentry/sentry-laravel": "^1.2",
+        "czim/laravel-repository": "dev-feature/laravel-6-support"
     },
     "require-dev": {
-        "filp/whoops": "~2.0",
-        "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~6.0"
+        "facade/ignition": "^1.4",
+        "fzaninotto/faker": "^1.4",
+        "mockery/mockery": "^1.0",
+        "nunomaduro/collision": "^3.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
     },
     "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
         "classmap": [
             "database/seeds",
             "database/factories"
         ],
-        "psr-4": {
-            "App\\": "app/"
-        },
         "files": [
             "app/Support/helpers.php"
         ]
@@ -40,33 +54,24 @@
             "Tests\\": "tests/"
         }
     },
-    "extra": {
-        "laravel": {
-            "dont-discover": [
-            ]
-        }
-    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
-        "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate"
-        ],
-        "post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall"
-        ],
-        "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
-        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
         ]
     },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true
-    }
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/freefcw/laravel-repository"
+        }
+    ]
 }

@@ -10,7 +10,7 @@
 <div id="app">
     <div class="container">
         <navbar></navbar>
-        <div class="page-container">
+        <div class="page-container el-main">
             <router-view></router-view>
         </div>
         <ojfooter></ojfooter>

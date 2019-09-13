@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('nick')->default('');
             $table->string('email')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->integer('submit')->default(0);
             $table->integer('solved')->default(0);
             $table->string('locale')->nullable();
@@ -40,6 +41,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::dropIfExists('users');
     }
 }

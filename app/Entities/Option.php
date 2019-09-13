@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Option.
  *
- * @property int    $id
+ * @property int $id
  * @property string $key
  * @property string $category
  * @property string $description

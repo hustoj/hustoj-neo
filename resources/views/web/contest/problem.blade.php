@@ -7,12 +7,10 @@
 
 @section('main')
 
-<ul class="nav nav-tabs" role="tablist" style="margin-bottom: 15px">
-    <li style="position: absolute"><h4>{{ $problem->title }}</h4></li>
-    <li style="margin-left: 80%" class="{{ app('router')->is('contest.problem') ? 'active':''}}" role="presentation"><a href="{{ route('contest.problem', ['id' => $contest->id, 'order' => $problem->order()]) }}">Problem</a></li>
-    <li class="{{ app('router')->is('contest.submit')? 'active':'' }}" role="presentation" ><a href="{{ route('contest.submit', ['id' => $contest->id, 'order' => $problem->order()]) }}">Submit</a></li>
-</ul>
+@include('web.contest.problem_header')
 
 @include('web.problem.detail', ['problem' => $problem])
-<a class="btn btn-primary center-block" href="{{ route('contest.submit', ['id' => $contest->id, 'order' => $problem->order()]) }}">Submit</a>
+<div class="text-center">
+    <a class="btn btn-info btn-lg" href="{{ route('contest.submit', ['contest' => $contest->id, 'order' => $problem->order()]) }}">Submit</a>
+</div>
 @stop

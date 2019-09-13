@@ -1,6 +1,6 @@
 <template>
     <el-dialog :title="title" :visible.sync="dialogFormVisible">
-        <el-form ref="form" :rules="userRules" label-width="120px" :model="user">
+        <el-form ref="form" :rules="userRules" label-width="160px" :model="user">
             <el-form-item label="Account" required>
                 <el-input v-model="user.username"></el-input>
             </el-form-item>
@@ -36,8 +36,8 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">Cancel</el-button>
-            <el-button type="primary" @click="save(user)">Save</el-button>
+            <el-button plain @click="dialogFormVisible = false">Cancel</el-button>
+            <el-button type="primary" plain @click="save(user)">Save</el-button>
         </div>
     </el-dialog>
 </template>

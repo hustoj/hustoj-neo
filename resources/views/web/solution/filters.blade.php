@@ -1,17 +1,17 @@
-<div class="s-filter text-center">
-    <form class="form-inline" method="get">
-        <div class="form-group">
+<div class="s-filter text-center mb-3">
+    <form class="form-inline align-items-center" method="get">
+        <div class="col-auto">
             <label class="sr-only" for="username">@lang('solution.filter.username')</label>
             <input type="text" name="username" class="form-control" id="username"
                    placeholder="@lang('solution.filter.username')" value="{{ request('username', '') }}">
         </div>
-        <div class="form-group">
+        <div class="col-auto">
             <label class="sr-only" for="problem_id">@lang('solution.filter.problem_id')</label>
             <input type="text" name="problem_id" class="form-control" id="problem_id"
                    placeholder="@lang('solution.filter.problem_id')"
                    value="{{ request('problem_id', '') }}">
         </div>
-        <div class="form-group">
+        <div class="col-auto">
             <label class="sr-only" for="language">@lang('solution.filter.language')</label>
             <select class="form-control" id="language" name="language">
                 <option value="-1"
@@ -22,7 +22,7 @@
                 @endforeach
             </select>
         </div>
-        <div class="form-group">
+        <div class="col-auto">
             <label class="sr-only" for="status">@lang('solution.filter.status')</label>
             <select class="form-control" id="status" name="status">
                 <option value="-1"
@@ -33,6 +33,6 @@
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-default">@lang('solution.filter.filter')</button>
+        <button type="submit" class="btn btn-primary">@lang('solution.filter.filter')</button>
     </form>
 </div>

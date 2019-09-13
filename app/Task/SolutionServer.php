@@ -19,7 +19,7 @@ class SolutionServer
 
     public function send()
     {
-        if (config('judge.service.down')) {
+        if (config('hustoj.services.judge.status') == false) {
             return;
         }
         $queue = app(TaskQueue::class);

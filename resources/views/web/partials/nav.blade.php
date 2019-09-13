@@ -1,63 +1,64 @@
-<div class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name') }}</a>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                <li {!! (request()->is('/') ? ' class="active"' : '') !!}><a
-                            href="{{ url('') }}">@lang('site.home')</a></li>
-                <li {!! ((request()->is('problemset') || request()->is('problem/*')) ? ' class="active"' : '') !!}><a
-                            href="{{ route('problem.index') }}">@lang('site.problemset')</a></li>
-                <li {!! (request()->is('contest*') ? ' class="active"' : '') !!}><a href="{{ route('contest.index') }}">@lang('site.contests')
-                        @if(count(opening_contest()))<span class="badge">{{ count(opening_contest()) }}</span>@endif</a></li>
-                <li {!! (request()->is('status') ? ' class="active"' : '') !!}><a
-                            href="{{ route('solution.index') }}">@lang('site.status')</a></li>
-                <li {!! (request()->is('rank') ? ' class="active"' : '') !!}><a
-                            href="{{ route('user.index') }}">@lang('site.rank')</a></li>
-                <li {!! (request()->is('faqs') ? ' class="active"' : '') !!}><a
-                            href="{{ route('pages', ['page'=>'faqs']) }}">@lang('site.faqs')</a></li>
-                <li {!! (request()->is('clarify') ? ' class="active"' : '') !!}><a
-                            href="{{ route('topic.list') }}">@lang('site.discuss')</a></li>
-            </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name') }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-            <ul class="nav navbar-nav pull-right">
-                @if ( auth()->check() )
-                    @if (auth()->user()->hasRole('admin'))
-                        <li><a href="{{ url(route('admin.home')) }}">@lang('site.admin_panel')</a></li>
-                    @endif
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"  href="#">
-                            <span class="glyphicon glyphicon-user"></span> {{ auth()->user()->username }}    <span
-                                    class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ route('user.profile') }}"><span
-                                            class="glyphicon glyphicon-wrench"></span> @lang('site.my_setting')
-                                </a></li>
-                            <li><a href="{{ route('user.password') }}"><span
-                                            class="glyphicon glyphicon-sunglasses"></span> @lang('site.edit_password')
-                                </a></li>
-                            <li class="divider"></li>
-                            <li><a href="{{ url('logout') }}"><span
-                                            class="glyphicon glyphicon-share"></span> @lang('site.logout')</a>
-                            </li>
-                        </ul>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item {{ request()->is('/') ? 'active': '' }}">
+                <a class="nav-link" href="{{ url('') }}">@lang('site.home') <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item {{ (request()->is('problemset') || request()->is('problem/*')) ? 'active': '' }}">
+                <a class="nav-link" href="{{ route('problem.index') }}">@lang('site.problemset')</a>
+            </li>
+            <li class="nav-item {{ request()->is('contest*') ? 'active': ''  }}">
+                <a class="nav-link" href="{{ route('contest.index') }}">@lang('site.contests')
+                    @if(count(opening_contest()))<span class="badge badge-pill badge-info">{{ count(opening_contest()) }}</span>@endif
+                </a>
+            </li>
+            <li class="nav-item {{ request()->is('status') ? 'active': '' }}">
+                <a class="nav-link" href="{{ route('solution.index') }}">@lang('site.status')</a>
+            </li>
+            <li class="nav-item {{ request()->is('rank') ? 'active': '' }}">
+                <a class="nav-link" href="{{ route('user.index') }}">@lang('site.rank')</a>
+            </li>
+            <li class="nav-item {{ request()->is('faqs') ? 'active': '' }}">
+                <a class="nav-link" href="{{ route('pages', ['page'=>'faqs']) }}">@lang('site.faqs')</a>
+            </li>
+            <li class="nav-item {{ request()->is('clarify') ? 'active': '' }}">
+                <a class="nav-link" href="{{ route('topic.list') }}">@lang('site.discuss')</a>
+            </li>
+        </ul>
+        <ul class="form-inline my-2 my-lg-0 navbar-nav">
+            @if(auth()->check())
+                <li class="nav-item dropdown">
+                    <a class="nav-link btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ auth()->user()->username }}
+                    </a>
+                    <div class="dropdown-menu" x-placement="bottom-start">
+                        <a class="dropdown-item" href="{{ route('user.profile') }}">
+                            @lang('site.my_setting')</a>
+                        <a class="dropdown-item" href="{{ route('user.password') }}">
+                            @lang('site.edit_password')</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url('logout') }}">
+                            @lang('site.logout')</a>
+                    </div>
+                </li>
+                @if(auth()->user()->hasRole('admin'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url(route('admin.home')) }}">@lang('site.admin_panel')</a>
                     </li>
-                @else
-                    <li {!! (request()->is('login') ? ' class="active"' : '') !!}><a
-                                href="{{ url('login') }}">@lang('site.login')</a></li>
-                    <li {!! (request()->is('register') ? ' class="active"' : '') !!}><a
-                                href="{{ url('register') }}">@lang('site.sign_up')</a></li>
                 @endif
-            </ul>
-            <!-- ./ nav-collapse -->
-        </div>
+            @else
+            <li class="nav-item {{ request()->is('login') ? 'active': '' }}">
+                <a class="nav-link" href="{{ url('login') }}">@lang('site.login')</a>
+            </li>
+            <li class="nav-item {{ request()->is('register') ? 'active': '' }}">
+                <a class="nav-link" href="{{ url('register') }}">@lang('site.sign_up')</a>
+            </li>
+            @endif
+        </ul>
     </div>
-</div>
+</nav>

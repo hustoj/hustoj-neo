@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Reply.
  *
- * @property int    $id
- * @property int    $user_id
- * @property int    $topic_id
+ * @property int $id
+ * @property int $user_id
+ * @property int $topic_id
  * @property string $content
  * @property Carbon $created_at
  * @property Carbon $updated_at

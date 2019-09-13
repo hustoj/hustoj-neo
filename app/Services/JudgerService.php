@@ -10,11 +10,11 @@ class JudgerService
 {
     /**
      * @param string $name
-     * @param null   $bind_ip
-     *
-     * @throws \App\Exceptions\Judger\JudgerNameExist
+     * @param null $bind_ip
      *
      * @return \App\Entities\Judger
+     * @throws \App\Exceptions\Judger\JudgerNameExist
+     *
      */
     public function newJudger($name, $bind_ip = null)
     {
@@ -33,10 +33,16 @@ class JudgerService
         return $judger;
     }
 
+    private function exist($name)
+    {
+        return app(JudgerRepository::class)->findBy('name', $name);
+    }
+
     public function find($id)
     {
         return app(JudgerRepository::class)->findOrFail($id);
     }
+
     /**
      * @param $code
      *
@@ -49,10 +55,5 @@ class JudgerService
         }
 
         return null;
-    }
-
-    private function exist($name)
-    {
-        return app(JudgerRepository::class)->findBy('name', $name);
     }
 }

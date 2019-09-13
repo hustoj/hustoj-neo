@@ -3,13 +3,13 @@
         <div class="search-bar">
             <el-form :inline="true" :model="params">
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" size="small" v-model="params.id" placeholder="ID"></el-input>
+                    <el-input @keyup.enter.native="search(params)" v-model="params.id" placeholder="ID"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" size="small" v-model="params.name" placeholder="Account"></el-input>
+                    <el-input @keyup.enter.native="search(params)" v-model="params.name" placeholder="Account"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" size="small" v-model="params.email" placeholder="email"></el-input>
+                    <el-input @keyup.enter.native="search(params)" v-model="params.email" placeholder="email"></el-input>
                 </el-form-item>
                 <el-form-item label="Status">
                     <el-select v-model="params.disable" placeholder="All">
@@ -18,11 +18,11 @@
                         <el-option label="Disabled" value="1"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-button type="primary" size="small" @click="search(params)">Search</el-button>
-                <el-button type="success" size="small" @click="handleAdd()">Add</el-button>
+                <el-button type="primary" plain @click="search(params)">Search</el-button>
+                <el-button type="success" plain @click="handleAdd()">Add</el-button>
             </el-form>
         </div>
-        <el-table v-loading.body="loading" :data="tableData" :row-class-name="tableRowClassName" style="width: 100%">
+        <el-table size="medium" v-loading.body="loading" :data="tableData" :row-class-name="tableRowClassName" style="width: 100%">
             <el-table-column prop="id" label="ID" width="180"></el-table-column>
             <el-table-column prop="username" label="Account" width="180"></el-table-column>
             <el-table-column prop="nick" label="Nick" width="180"></el-table-column>
@@ -31,11 +31,11 @@
             <el-table-column prop="access.ip" label="Last Access IP" width="180"></el-table-column>
             <el-table-column>
                 <template slot-scope="scope">
-                    <el-button type="text" size="small" @click="toggleStatus(scope.row.id, scope.row.disable)">
+                    <el-button type="primary" plain size="mini" @click="toggleStatus(scope.row.id, scope.row.disable)">
                         {{ scope.row.disable | showStatusBtn }}
                     </el-button>
-                    <el-button type="text" size="small" icon="edit" @click="handleEdit(scope.row)"></el-button>
-                    <el-button type="text" size="small" icon="delete" @click="handleDelete(scope.row)"></el-button>
+                    <el-button type="primary" plain size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
+                    <el-button type="danger" plain size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>

@@ -19,7 +19,7 @@ return [
     'password_new'     => 'New Password',
     'confirm_password' => 'Confirm Password',
     'rank'             => 'Rank',
-    'created_at'       => 'Birth',
+    'created_at'       => 'Join',
     'school'           => 'School',
     'locale'           => 'Locale',
     'edit_password'    => 'Edit Password',

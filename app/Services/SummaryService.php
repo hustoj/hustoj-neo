@@ -7,14 +7,6 @@ use App\Status;
 
 class SummaryService
 {
-    public $acceptedUser = 0;
-    public $submitUser = 0;
-    public $total = 0;
-
-    public $statistics;
-
-    private $problem;
-
     public static $statusTypes = [
         Status::ACCEPT,
         Status::PRESENTATION_ERROR,
@@ -25,17 +17,34 @@ class SummaryService
         Status::RUNTIME_ERROR,
         Status::COMPILE_ERROR,
     ];
-
-    public function getProblem()
-    {
-        return $this->problem;
-    }
+    public $acceptedUser = 0;
+    public $submitUser = 0;
+    public $total = 0;
+    public $statistics;
+    private $problem;
 
     public function __construct(Problem $problem)
     {
         $this->problem = $problem;
 
         $this->process();
+    }
+
+    private function process()
+    {
+        $service = new ProblemService();
+
+        $this->statistics = [];
+        $resultCount = $service->getResultCount($this->problem->id);
+        foreach ($resultCount as $result) {
+            $this->statistics[$result->result] = $result->user_count;
+            $this->total += $result->user_count;
+        }
+    }
+
+    public function getProblem()
+    {
+        return $this->problem;
     }
 
     public function accepted()
@@ -50,18 +59,6 @@ class SummaryService
         $service = new ProblemService();
 
         return $service->numberOfSubmitUser($this->problem->id);
-    }
-
-    private function process()
-    {
-        $service = new ProblemService();
-
-        $this->statistics = [];
-        $resultCount = $service->getResultCount($this->problem->id);
-        foreach ($resultCount as $result) {
-            $this->statistics[$result->result] = $result->user_count;
-            $this->total += $result->user_count;
-        }
     }
 
     public function getResultCount()

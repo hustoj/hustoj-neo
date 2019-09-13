@@ -36,12 +36,17 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('guest')->except('logout');
     }
 
-    public function username()
+    /**
+     * Show the application's login form.
+     *
+     * @return mixed
+     */
+    public function showLoginForm()
     {
-        return 'username';
+        return view('web.auth.login');
     }
 
     protected function credentials(Request $request)
@@ -53,13 +58,8 @@ class LoginController extends Controller
         return $credentials;
     }
 
-    /**
-     * Show the application's login form.
-     *
-     * @return mixed
-     */
-    public function showLoginForm()
+    public function username()
     {
-        return view('web.auth.login');
+        return 'username';
     }
 }

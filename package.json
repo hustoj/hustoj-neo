@@ -3,9 +3,11 @@
   "scripts": {
     "dev": "npm run development",
     "development": "cross-env process.env.section=front NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "cross-env process.env.section=front NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env process.env.section=front npm run development -- --watch",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env process.env.section=front NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
-    "production": "cross-env process.env.section=front NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "cross-env process.env.section=front NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "admin-dev": "npm run admin-development",
     "admin-development": "cross-env process.env.section=backend NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "admin-watch": "cross-env process.env.section=backend NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -13,24 +15,26 @@
     "admin-production": "cross-env process.env.section=backend NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
-    "axios": "^0.18.1",
-    "bootstrap": "^3.3.7",
-    "bootstrap-sass": "^3.4.1",
+    "axios": "^0.19",
+    "bootstrap": "^4.0.0",
     "cross-env": "^5.1",
     "jquery": "^3.2",
-    "laravel-mix": "^1.7.2",
-    "lodash": "^4.17.4",
-    "vue": "^2.5.7",
-    "element-ui": "^1.3.7",
-    "vue-html5-editor": "^1.1.1",
-    "vue-loader": "^13.6.2",
-    "vue-router": "^3.0.1",
-    "vue-cookie": "^1.1.4",
-    "code-prettify": "^0.1.0",
-    "echarts": "^3.6.2",
-    "vue-bus": "^1.0.0"
+    "laravel-mix": "^4.0.7",
+    "lodash": "^4.17.13",
+    "popper.js": "^1.12",
+    "resolve-url-loader": "2.3.1",
+    "sass": "^1.20.1",
+    "sass-loader": "7.*",
+    "vue": "^2.5.17",
+    "vue-template-compiler": "^2.6.10"
   },
   "dependencies": {
-    "bootstrap-dropdown-hover": "^4.1.1"
+    "bootstrap-dropdown-hover": "^4.2.0",
+    "echarts": "^4.2.1",
+    "element-ui": "^2.12.0",
+    "vue-bus": "^1.2.1",
+    "vue-cookie": "^1.1.4",
+    "vue-html5-editor": "^1.1.1",
+    "vue-router": "^3.1.3"
   }
 }

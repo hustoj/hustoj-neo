@@ -11,6 +11,7 @@
         <label for="problem" class="col-sm-1">Problem</label>
         <div class="col-sm-4">
             @if(isset($contest))
+                <input name="contest_id" type="hidden" value="{{ $contest->id }}"/>
                 <select name="problem" id="problem" class="form-control">
                     @foreach($contest->problems as $problem)
                         <option value="{{ $problem->pivot->order }}">{{ $problem->order() }} : {{ $problem->title }}</option>
@@ -32,7 +33,7 @@
 
     <div class="from-group">
         <div class="col-sm-8 col-sm-offset-1">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Add</button>
         </div>
     </div>
 </form>

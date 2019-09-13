@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
-class HustException extends \Exception
+use Exception;
+
+class HustException extends Exception
 {
     public function render()
     {

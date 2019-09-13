@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Entities\Solution;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Solution\IndexRequest;
 use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
 use App\Repositories\SolutionRepository;
-use App\Services\JudgerService;
 use App\Services\UserService;
 use App\Status;
 use App\Task\SolutionServer;
@@ -76,7 +74,6 @@ class SolutionController extends Controller
 
         app(SolutionServer::class)->add($solution)->send();
 
-
         return redirect(route('solution.index'));
     }
 
@@ -92,15 +89,6 @@ class SolutionController extends Controller
         }
 
         return view('web.solution.compile_info')->with('solution', $solution);
-    }
-
-    public function runtimeInfo($solution)
-    {
-        if (!$this->hasPrivilege($solution)) {
-            return back()->withErrors('You cannot access this solution');
-        }
-
-        return view('web.solution.runtime_info')->with('solution', $solution);
     }
 
     /**
@@ -121,5 +109,14 @@ class SolutionController extends Controller
         }
 
         return false;
+    }
+
+    public function runtimeInfo($solution)
+    {
+        if (!$this->hasPrivilege($solution)) {
+            return back()->withErrors('You cannot access this solution');
+        }
+
+        return view('web.solution.runtime_info')->with('solution', $solution);
     }
 }
