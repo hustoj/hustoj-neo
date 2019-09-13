@@ -1,7 +1,7 @@
 import Vue from "vue";
 
 Vue.filter('showStatusBtn', function(status) {
-    if(status) {
+    if(status == 1) {
         return 'Enable';
     }
     return 'Disable';

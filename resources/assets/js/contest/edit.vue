@@ -38,28 +38,28 @@
                     <el-button v-if="private" type="primary" plain icon="el-icon-plus" @click="addUser()">Add User</el-button>
                 </el-form-item>
                 <el-tabs type="border-card" :value="activePane">
-                    <el-tab-pane label="Problem" name="problemPane">
+                    <el-tab-pane label="Problem" name="problemPane" size="small">
                         <el-table :data="problems" style="width: 100%">
                             <el-table-column prop="id" label="ID" width="80"></el-table-column>
                             <el-table-column prop="title" label="Title" width="300"></el-table-column>
                             <el-table-column>
                                 <template slot-scope="scope">
-                                    <el-button type="primary" plain icon="el-icon-delete" @click="handleDelete(scope.row, scope.$index)"></el-button>
-                                    <el-button type="primary" plain icon="el-icon-arrow-up" @click="handleUp(scope.row, scope.$index)" v-if="scope.$index != 0"></el-button>
-                                    <el-button type="primary" plain icon="el-icon-arrow-down" @click="handleDown(scope.row, scope.$index)" v-if="scope.$index != problems.length - 1"></el-button>
+                                    <el-button type="danger" size="mini" plain icon="el-icon-delete" @click="handleDelete(scope.row, scope.$index)"></el-button>
+                                    <el-button type="primary" size="mini"  plain icon="el-icon-arrow-up" @click="handleUp(scope.row, scope.$index)" v-if="scope.$index != 0"></el-button>
+                                    <el-button type="primary" size="mini"  plain icon="el-icon-arrow-down" @click="handleDown(scope.row, scope.$index)" v-if="scope.$index != problems.length - 1"></el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
                     </el-tab-pane>
-                    <el-tab-pane label="Users" v-if="private" name="userPane">
+                    <el-tab-pane label="Users" v-if="private" name="userPane" size="small">
                         <el-table :data="users" style="width: 100%">
                             <el-table-column prop="id" label="ID" width="120"></el-table-column>
-                            <el-table-column prop="username" label="User Name" width="200"></el-table-column>
-                            <el-table-column prop="nick" label="Nick" width="300"></el-table-column>
-                            <el-table-column prop="school" label="School" width="300"></el-table-column>
-                            <el-table-column>
+                            <el-table-column prop="username" label="User Name" width="180"></el-table-column>
+                            <el-table-column prop="nick" label="Nick" width="240"></el-table-column>
+                            <el-table-column prop="school" label="School" width="160"></el-table-column>
+                            <el-table-column fixed="right">
                                 <template slot-scope="scope">
-                                    <el-button type="primary" plain icon="el-icon-delete" @click="userDelete(scope.row, scope.$index)"></el-button>
+                                    <el-button type="danger" size="mini" plain icon="el-icon-delete" @click="userDelete(scope.row, scope.$index)"></el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
