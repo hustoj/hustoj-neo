@@ -31,8 +31,8 @@
             <el-table-column prop="access.ip" label="Last Access IP" width="180"></el-table-column>
             <el-table-column>
                 <template slot-scope="scope">
-                    <el-button type="primary" plain size="mini" @click="toggleStatus(scope.row.id, scope.row.disable)">
-                        {{ scope.row.disable | showStatusBtn }}
+                    <el-button type="primary" plain size="mini" @click="toggleStatus(scope.row.id, scope.row.status)">
+                        {{ scope.row.status | showStatusBtn }}
                     </el-button>
                     <el-button type="primary" plain size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
                     <el-button type="danger" plain size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
@@ -105,10 +105,10 @@
             toggleStatus(id, status) {
                 let self = this;
                 let data = {};
-                if (status === 1) {
-                    data.disable = 0;
+                if (status == 1) {
+                    data.status = 0;
                 } else {
-                    data.disable = 1;
+                    data.status = 1;
                 }
                 this.$http.put('/admin/users/' + id, data)
                     .then(() => {

@@ -48,6 +48,7 @@ class User extends Authenticatable
         'solved',
         'locale',
         'language',
+        'status',
     ];
 
     /**
