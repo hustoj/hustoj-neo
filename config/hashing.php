@@ -43,10 +43,10 @@ return [
     |
     */
 
-    'argon' => [
-        'memory'  => PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
-        'threads' => PASSWORD_ARGON2_DEFAULT_THREADS,
-        'time'    => PASSWORD_ARGON2_DEFAULT_TIME_COST,
-    ],
+    // 'argon' => [
+    //     'memory'  => PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
+    //     'threads' => PASSWORD_ARGON2_DEFAULT_THREADS,
+    //     'time'    => PASSWORD_ARGON2_DEFAULT_TIME_COST,
+    // ],
 
 ];
