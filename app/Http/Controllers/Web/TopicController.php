@@ -56,6 +56,10 @@ class TopicController extends Controller
         $data['user_id'] = request()->user()->id;
         $this->repository->create($data);
 
+        if (request()->filled('contest_id')) {
+            return redirect(route('contest.clarify', ['contest' => request('contest_id')]));
+        }
+
         return redirect(route('topic.list'));
     }
 
