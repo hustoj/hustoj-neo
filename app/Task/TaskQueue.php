@@ -42,7 +42,7 @@ class TaskQueue
             $message = $this->makeMessage($task);
             $this->channel->basic_publish($message, '', config('rabbitmq.routing_key'));
         } catch (AMQPRuntimeException $e) {
-            app('log')->error('add task queue failed!', $e->getMessage());
+            app('log')->error('add task queue failed!', ['message' => $e->getMessage()]);
         }
     }
 
