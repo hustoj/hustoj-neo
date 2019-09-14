@@ -49,7 +49,7 @@ class SolutionController extends Controller
     public function create($problem)
     {
         if (!auth()->user()) {
-            return redirect(route('problem.view', ['problem' => $problem->id]))->withErrors('Login first');
+            return redirect(route('problem.view', ['problem' => $problem->id]))->withErrors(__('Login first'));
         }
 
         return view('web.problem.submit', ['problem' => $problem]);
@@ -58,19 +58,23 @@ class SolutionController extends Controller
     public function store()
     {
         $data = [
-            'user_id'    => app('auth')->guard()->id(),
-            'problem_id' => request('problem_id', 0),
-            'language'   => request('language'),
-            'ip'         => request()->ip(),
-            'order'      => request('order', 0),
-            'contest_id' => request('contest_id', 0),
-            'code'       => request('code', ''),
-            'result'     => Status::PENDING,
+            'user_id'     => app('auth')->guard()->id(),
+            'problem_id'  => request('problem_id', 0),
+            'language'    => request('language'),
+            'ip'          => request()->ip(),
+            'order'       => request('order', 0),
+            'contest_id'  => request('contest_id', 0),
+            'code_length' => strlen(request('code')),
+            'result'      => Status::PENDING,
         ];
 
         /** @var SolutionRepository $repository */
         $repository = app(SolutionRepository::class);
+        /** @var \App\Entities\Solution $solution */
         $solution = $repository->create($data);
+        $solution->source()->create([
+            'code' => request('code', ''),
+        ]);
 
         app(SolutionServer::class)->add($solution)->send();
 
@@ -79,13 +83,16 @@ class SolutionController extends Controller
 
     public function source($solution)
     {
+        if (!can_view_code($solution)) {
+            return redirect(route('solution.index'))->withErrors(__('You have no permission access solution source'));
+        }
         return view('web.solution.source')->with('solution', $solution);
     }
 
     public function compileInfo($solution)
     {
         if (!$this->hasPrivilege($solution)) {
-            return back()->withErrors('You cannot access this solution');
+            return back()->withErrors(__('You cannot access this solution'));
         }
 
         return view('web.solution.compile_info')->with('solution', $solution);
@@ -114,7 +121,7 @@ class SolutionController extends Controller
     public function runtimeInfo($solution)
     {
         if (!$this->hasPrivilege($solution)) {
-            return back()->withErrors('You cannot access this solution');
+            return back()->withErrors(__('You cannot access this solution'));
         }
 
         return view('web.solution.runtime_info')->with('solution', $solution);

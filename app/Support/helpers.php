@@ -52,6 +52,20 @@ if (!function_exists('can_attend')) {
     }
 }
 
+if (!function_exists('can_view_code')) {
+    function can_view_code($solution) {
+        /** @var User $user */
+        $user = auth()->user();
+        if (!$user) {
+            return false;
+        }
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+        return $solution->user_id == $user->id;
+    }
+}
+
 if (!function_exists('show_ratio')) {
     function show_ratio($number, $total)
     {

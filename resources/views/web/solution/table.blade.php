@@ -24,7 +24,13 @@
                 @endif
             </td>
             <td><a href="{{ route('user.view', ['username' => $s->user->username]) }}">{{ $s->user->username}}</a></td>
-            <td>{{ $s->lang() }}</td>
+            <td>
+                @if(!can_view_code($s))
+                {{ $s->lang() }}
+                @else
+                <a target="_blank" href="{{ route('solution.source', ['solution' => $s->id]) }}">{{ $s->lang() }}</a>
+                @endif
+            </td>
             <td>@if ($s->isCompileError() )
                     <a target="_blank"
                        href="{{ route('solution.compile', ['solution' => $s->id]) }}">{{ $s->result() }}</a>
@@ -48,14 +54,7 @@
                     {{$s->memory_cost}}kb
                 @endif</td>
             <td>{{$s->created_at}}</td>
-            <td>
-                @if( $cannotViewCode = false )
-                    <a target="_blank"
-                       href="{{ route('solution.code', ['solution' => $s->id]) }}">{{ $s->code_length }}</a>
-                @else
-                    {{ $s->code_length }}
-                @endif
-            </td>
+            <td>{{ $s->code_length }}</td>
         </tr>
     @endforeach
     </tbody>

@@ -25,6 +25,7 @@
     <script src="{{asset('assets/site/js/respond.min.js')}}"></script>
     <![endif]-->
     <link rel="shortcut icon" href="{{ asset('assets/site/ico/favicon.ico') }}">
+    @yield('styles')
 </head>
 <body>
 @section('navbar')
