@@ -102,12 +102,12 @@ class ContestController extends Controller
             $repository->pushCriteria(new Where('order', $order));
         }
 
-        if (request('language', -1) != -1) {
+        if (request()->filled('language')) {
             $filter = new Where('language', request('language'));
             $repository->pushCriteria($filter);
         }
 
-        if (request('status', -1) != -1) {
+        if (request()->filled('status')) {
             $filter = new Where('result', request('status'));
             $repository->pushCriteria($filter);
         }

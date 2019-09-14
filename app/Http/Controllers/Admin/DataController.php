@@ -51,7 +51,7 @@ abstract class DataController extends Controller
             $model->fill(request()->all());
             $model->save();
         } catch (MassAssignmentException $e) {
-            app('log')->error($e->getMessage());
+            logger()->error($e->getMessage());
         }
 
         return $model;

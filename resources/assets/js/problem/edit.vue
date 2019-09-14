@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="title" size="large" :visible.sync="dialogFormVisible">
+    <el-dialog width="80%" :title="title" size="large" :visible.sync="dialogFormVisible">
         <el-form :model="item" ref="form" label-width="120px">
             <el-tabs type="border-card">
                 <el-tab-pane label="Basic">

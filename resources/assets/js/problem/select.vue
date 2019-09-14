@@ -45,7 +45,6 @@
                 total: 0,
                 dialogVisible: false,
                 params:{
-                    disable: 0,
                     per_page: 20,
                     page: 1
                 }

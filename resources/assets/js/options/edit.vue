@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="title" size="small" :visible.sync="dialogFormVisible">
+    <el-dialog width="80%" :title="title" size="small" :visible.sync="dialogFormVisible">
         <el-form :model="item" ref="form" label-width="120px">
             <el-form-item label="Key">
                 <el-input v-model="item.key"></el-input>

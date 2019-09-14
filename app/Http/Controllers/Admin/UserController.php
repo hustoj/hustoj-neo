@@ -12,20 +12,20 @@ class UserController extends DataController
 {
     public function index()
     {
-        if (request('id')) {
+        if (request()->filled('id')) {
             $this->repository->pushCriteria(new Where('id', request('id')));
         }
 
-        if (request('name')) {
+        if (request()->filled('name')) {
             $this->repository->pushCriteria(new Where('username', request('name')));
         }
 
-        if (request('email')) {
+        if (request()->filled('email')) {
             $this->repository->pushCriteria(new Where('email', request('email')));
         }
 
-        if (request('disable') >= 0) {
-            $this->repository->pushCriteria(new Where('status', request('disable')));
+        if (request()->filled('status')) {
+            $this->repository->pushCriteria(new Where('status', request('status')));
         }
 
         /** @var Collection $models */

@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="title" :visible.sync="dialogFormVisible">
+    <el-dialog width="80%" :title="title" :visible.sync="dialogFormVisible">
         <el-form :model="role">
             <el-form-item label="Role Name">
                 <el-input v-model="role.name"></el-input>

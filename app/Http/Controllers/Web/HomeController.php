@@ -20,7 +20,7 @@ class HomeController extends Controller
     {
         /** @var PostRepository $repo */
         $repo = app(PostRepository::class);
-        $repo->pushCriteria(new Where('status', 0));
+        $repo->pushCriteria(new Where('status', 1));
         $repo->pushCriteria(new OrderBy('created_at', 'desc'));
 
         return $repo->paginate(request('per_page', 3));

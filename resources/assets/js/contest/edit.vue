@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog :title="title" size="large" :visible.sync="dialogFormVisible">
+        <el-dialog width="80%" :title="title" size="large" :visible.sync="dialogFormVisible">
             <el-form ref="form" :model="item" label-width="90px">
                 <el-form-item label="Title">
                     <el-input v-model="item.title"></el-input>

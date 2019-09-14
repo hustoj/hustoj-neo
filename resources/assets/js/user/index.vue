@@ -12,8 +12,8 @@
                     <el-input @keyup.enter.native="search(params)" v-model="params.email" placeholder="email"></el-input>
                 </el-form-item>
                 <el-form-item label="Status">
-                    <el-select v-model="params.disable" placeholder="All">
-                        <el-option label="All" value="-1"></el-option>
+                    <el-select v-model="params.status" placeholder="All">
+                        <el-option label="All" value=""></el-option>
                         <el-option label="Enabled" value="0"></el-option>
                         <el-option label="Disabled" value="1"></el-option>
                     </el-select>
@@ -23,19 +23,19 @@
             </el-form>
         </div>
         <el-table size="medium" v-loading.body="loading" :data="tableData" :row-class-name="tableRowClassName" style="width: 100%">
-            <el-table-column prop="id" label="ID" width="180"></el-table-column>
-            <el-table-column prop="username" label="Account" width="180"></el-table-column>
+            <el-table-column prop="id" label="ID" width="100"></el-table-column>
+            <el-table-column prop="username" label="Account" width="160"></el-table-column>
             <el-table-column prop="nick" label="Nick" width="180"></el-table-column>
-            <el-table-column prop="email" label="E-mail" width="240"></el-table-column>
-            <el-table-column prop="access.created_at" label="Last Access at" width="180"></el-table-column>
-            <el-table-column prop="access.ip" label="Last Access IP" width="180"></el-table-column>
+            <el-table-column prop="email" label="E-mail" width="200"></el-table-column>
+            <el-table-column prop="access.created_at" label="Last Access at" width="160"></el-table-column>
+            <el-table-column prop="access.ip" label="Last Access IP" width="160"></el-table-column>
             <el-table-column>
                 <template slot-scope="scope">
-                    <el-button type="primary" plain size="mini" @click="toggleStatus(scope.row.id, scope.row.status)">
+                    <el-button type="warning" plain size="mini" @click="toggleStatus(scope.row.id, scope.row.status)">
                         {{ scope.row.status | showStatusBtn }}
                     </el-button>
-                    <el-button type="primary" plain size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
-                    <el-button type="danger" plain size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
+                    <el-button type="primary" circle size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
+                    <el-button type="danger" circle size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -71,7 +71,6 @@
                 tableData: null,
                 total: 0,
                 params: {
-                    disable: "-1",
                     per_page: 20,
                     page: 1
                 }
@@ -89,7 +88,7 @@
         },
         methods: {
             tableRowClassName(row, index) {
-                if(row.disable) {
+                if(row.status) {
                     return 'positive-row';
                 }
             },

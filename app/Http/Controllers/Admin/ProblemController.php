@@ -15,16 +15,19 @@ class ProblemController extends DataController
 {
     public function index()
     {
-        if (request('id')) {
+        if (request()->filled('id')) {
             $this->repository->pushCriteria(new Where('id', request('id')));
         }
 
-        if (request('title')) {
+        if (request()->filled('title')) {
             $this->repository->pushCriteria(new Like('title', request('title')));
         }
 
-        if (request('source')) {
+        if (request()->filled('source')) {
             $this->repository->pushCriteria(new Like('source', request('source')));
+        }
+        if (request()->filled('status')) {
+            $this->repository->pushCriteria(new Where('status', request('status')));
         }
 
         $this->repository->pushCriteria(new WithRelations(['author']));

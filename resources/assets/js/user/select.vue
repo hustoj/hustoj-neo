@@ -12,8 +12,8 @@
                     <el-input @keyup.enter.native="search(params)" size="small" v-model="params.email" placeholder="email"></el-input>
                 </el-form-item>
                 <el-form-item label="Status">
-                    <el-select v-model="params.disable" placeholder="All">
-                        <el-option label="All" value="-1"></el-option>
+                    <el-select v-model="params.status" placeholder="All">
+                        <el-option label="All" value="0"></el-option>
                         <el-option label="Enabled" value="0"></el-option>
                         <el-option label="Disabled" value="1"></el-option>
                     </el-select>
@@ -57,7 +57,6 @@
                 total: 0,
                 dialogVisible: false,
                 params: {
-                    disable: "0",
                     per_page: 20,
                     page: 1
                 }
@@ -71,7 +70,7 @@
         },
         methods: {
             tableRowClassName(row, index) {
-                if(row.disable) {
+                if(row.status) {
                     return 'positive-row';
                 }
             },

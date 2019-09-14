@@ -12,14 +12,14 @@
             </el-form>
         </div>
         <el-table size="medium" v-loading.body="loading" :data="tableData" style="width: 100%">
-            <el-table-column prop="id" label="Role ID" width="180"></el-table-column>
+            <el-table-column prop="id" label="Role ID" width="80"></el-table-column>
             <el-table-column prop="name" label="Role Name" width="180"></el-table-column>
             <el-table-column prop="display_name" label="Display Name" width="180"></el-table-column>
             <el-table-column prop="description" label="Description" width="180"></el-table-column>
             <el-table-column label="">
                 <template slot-scope="scope">
-                    <el-button type="primary" plain size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
-                    <el-button type="danger" plain size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
+                    <el-button type="primary" circle size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
+                    <el-button type="danger" circle size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>

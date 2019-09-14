@@ -14,8 +14,8 @@
         <div class="col-auto">
             <label class="sr-only" for="language">@lang('solution.filter.language')</label>
             <select class="form-control" id="language" name="language">
-                <option value="-1"
-                        @if(request('language', -1) !== -1)selected="selected" @endif>@lang('solution.filter.language')</option>
+                <option value=""
+                        @if(!request()->filled('language'))selected="selected" @endif>@lang('solution.filter.language')</option>
                 @foreach(App\Language::allLanguages() as $key => $name)
                     <option value="{{ $key }}"
                             @if(request()->has('language') && request('language') == $key)selected="selected" @endif>{{ $name }}</option>
@@ -25,11 +25,11 @@
         <div class="col-auto">
             <label class="sr-only" for="status">@lang('solution.filter.status')</label>
             <select class="form-control" id="status" name="status">
-                <option value="-1"
-                        @if(request('status', -1) !== -1)selected="selected" @endif>@lang('solution.filter.status')</option>
+                <option value=""
+                        @if(!request()->filled('status'))selected="selected" @endif>@lang('solution.filter.status')</option>
                 @foreach(App\Entities\Solution::$status as $key => $name)
                     <option value="{{ $key }}"
-                            @if(request()->filled('status') && request('status') == $key)selected="selected" @endif>{{ $name }}</option>
+                            @if(request()->filled('status') && request('status') == $key)selected="selected" @endif>{!! $name !!}</option>
                 @endforeach
             </select>
         </div>

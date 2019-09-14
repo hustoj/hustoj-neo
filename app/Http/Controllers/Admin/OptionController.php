@@ -9,15 +9,15 @@ class OptionController extends DataController
 {
     public function index()
     {
-        if (request()->has('id')) {
+        if (request()->filled('id')) {
             $this->repository->pushCriteria(new Where('id', request('id')));
         }
 
-        if (request()->has('key')) {
+        if (request()->filled('key')) {
             $this->repository->pushCriteria(new Where('key', request('key')));
         }
 
-        if (request()->has('category')) {
+        if (request()->filled('category')) {
             $this->repository->pushCriteria(new Where('category', request('category')));
         }
 

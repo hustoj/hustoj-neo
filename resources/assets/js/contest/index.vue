@@ -10,7 +10,7 @@
                 </el-form-item>
                 <el-form-item label="Status">
                     <el-select v-model="params.private" placeholder="All">
-                        <el-option label="All" value="-1"></el-option>
+                        <el-option label="All" value=""></el-option>
                         <el-option label="Private" value="1"></el-option>
                         <el-option label="Public" value="0"></el-option>
                     </el-select>
@@ -30,8 +30,8 @@
             <el-table-column prop="updated_at" label="Updated At" width="180"></el-table-column>
             <el-table-column>
                 <template slot-scope="scope">
-                    <el-button type="primary" plain size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
-                    <el-button type="danger" plain size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
+                    <el-button type="primary" circle size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
+                    <el-button type="danger" circle size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -62,7 +62,6 @@
                 tableData: null,
                 total: 0,
                 params: {
-                    private: '-1',
                     page: 1,
                     per_page: 20,
                 }

@@ -9,7 +9,7 @@ class RoleController extends DataController
 {
     public function index()
     {
-        if (request('name')) {
+        if (request()->filled('name')) {
             $this->repository->pushCriteria(new Where('name', request('name')));
         }
 

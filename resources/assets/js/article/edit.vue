@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="title" size="large" :visible.sync="dialogFormVisible">
+    <el-dialog width="80%" :title="title" size="large" :visible.sync="dialogFormVisible">
         <el-form :model="item" ref="form" label-width="120px">
             <el-form-item label="Title">
                 <el-input v-model="item.title"></el-input>
@@ -12,8 +12,8 @@
             </el-form-item>
             <el-form-item label="Draft">
                 <el-select v-model="item.status">
-                    <el-option value="1" label="Draft"></el-option>
-                    <el-option value="0" label="Published"></el-option>
+                    <el-option value="0" label="Draft"></el-option>
+                    <el-option value="1" label="Published"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>

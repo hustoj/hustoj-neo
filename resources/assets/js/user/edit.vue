@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="title" :visible.sync="dialogFormVisible">
+    <el-dialog width="80%" :title="title" :visible.sync="dialogFormVisible">
         <el-form ref="form" :rules="userRules" label-width="160px" :model="user">
             <el-form-item label="Account" required>
                 <el-input v-model="user.username"></el-input>

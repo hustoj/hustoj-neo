@@ -10,14 +10,14 @@ class ArticleController extends DataController
 {
     public function index()
     {
-        if (request('id')) {
+        if (request()->filled('id')) {
             $this->repository->pushCriteria(new Where('id', request('id')));
         }
-        if (request('title')) {
+        if (request()->filled('title')) {
             $this->repository->pushCriteria(new Like('title', request('title')));
         }
-        if (request('draft', -1) != -1) {
-            $this->repository->pushCriteria(new Where('draft', request('draft')));
+        if (request()->filled('status')) {
+            $this->repository->pushCriteria(new Where('status', request('status')));
         }
 
         return parent::index();
