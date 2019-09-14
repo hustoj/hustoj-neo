@@ -30,11 +30,12 @@ class UserService
     public function getUserStats($from)
     {
         $this->repository->clearCriteria();
+
         $rawSql = 'DATE_FORMAT(created_at,\'%Y-%m-%d\') as date, count(*) as number';
         $this->repository->pushCriteria(new RawSelect($rawSql));
         $this->repository->pushCriteria(new Where('created_at', $from->format('Y-m-d h:i:s'), '>'));
         $this->repository->pushCriteria(new GroupBy('date'));
-        $this->repository->pushCriteria(new OrderBy('created_at', 'desc'));
+        $this->repository->pushCriteria(new OrderBy('date', 'desc'));
 
         return $this->repository->all();
     }
