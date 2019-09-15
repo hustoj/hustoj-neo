@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ['as' => 'home', 'uses' => 'Web\HomeController@index']);
@@ -69,12 +70,12 @@ Route::get('/topic/create', [
     'as'         => 'topic.create',
     'uses'       => 'Web\TopicController@create',
     'middleware' => 'auth',
-]);
+])->middleware('verified');
 Route::post('/topic/store', [
     'as'         => 'topic.store',
     'uses'       => 'Web\TopicController@store',
     'middleware' => 'auth',
-]);
+])->middleware('verified');
 Route::get('/topic/{id}', [
     'as'   => 'topic.view',
     'uses' => 'Web\TopicController@show',
@@ -83,7 +84,7 @@ Route::post('/topic/{id}', [
     'as'         => 'topic.reply',
     'uses'       => 'Web\TopicController@reply',
     'middleware' => 'auth',
-]);
+])->middleware('verified');
 
 Route::get('/rank', [
     'as'   => 'user.index',
@@ -136,12 +137,12 @@ Route::get('/problem/{problem}/submit', [
     'as'         => 'problem.submit',
     'uses'       => 'Web\SolutionController@create',
     'middleware' => 'auth',
-]);
+])->middleware('verified');
 Route::post('/solution/store', [
     'as'         => 'solution.store',
     'uses'       => 'Web\SolutionController@store',
     'middleware' => 'auth',
-]);
+])->middleware('verified');
 
 // Single Pages
 Route::get('{page}', [
@@ -155,4 +156,4 @@ Route::get('{page}', [
 
 Route::get('logout', 'Auth\LoginController@logout');
 
-Auth::routes();
+Auth::routes(['verify' => true]);

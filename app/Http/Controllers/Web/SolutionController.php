@@ -86,6 +86,7 @@ class SolutionController extends Controller
         if (!can_view_code($solution)) {
             return redirect(route('solution.index'))->withErrors(__('You have no permission access solution source'));
         }
+
         return view('web.solution.source')->with('solution', $solution);
     }
 

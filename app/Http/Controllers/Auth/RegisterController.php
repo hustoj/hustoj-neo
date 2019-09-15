@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Entities\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -73,6 +74,7 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'nick'     => request('nick'),
             'email'    => $data['email'],
+            'status'   => User::ST_ACTIVE,
         ]);
         $user->password = app('hash')->make($data['password']);
         $user->save();

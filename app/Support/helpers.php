@@ -53,7 +53,8 @@ if (!function_exists('can_attend')) {
 }
 
 if (!function_exists('can_view_code')) {
-    function can_view_code($solution) {
+    function can_view_code($solution)
+    {
         /** @var User $user */
         $user = auth()->user();
         if (!$user) {
@@ -62,6 +63,7 @@ if (!function_exists('can_view_code')) {
         if ($user->hasRole('admin')) {
             return true;
         }
+
         return $solution->user_id == $user->id;
     }
 }

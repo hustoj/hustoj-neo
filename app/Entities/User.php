@@ -3,6 +3,8 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -22,12 +24,13 @@ use Laratrust\Traits\LaratrustUserTrait;
  * @property int $submit
  * @property int $solved
  * @property int $status
+ * @property Carbon $email_verified_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable, LaratrustUserTrait;
+    use Notifiable, LaratrustUserTrait, MustVerifyEmail;
 
     const ST_ACTIVE = 0;
     const ST_INACTIVE = 1;
