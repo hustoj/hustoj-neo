@@ -22,9 +22,9 @@
         <el-table v-loading.body="loading" :data="tableData" style="width: 100%" size="medium">
             <el-table-column prop="id" label="ID" width="80"></el-table-column>
             <el-table-column prop="title" label="Title" width="600"></el-table-column>
-            <el-table-column label="Draft" width="100">
+            <el-table-column prop="status" label="Draft" width="100">
                 <template slot-scope="scope">
-                    {{ scope.row.status == '1' ? 'Draft' : 'Published'}}
+                    {{ scope.row.status == '1' ? 'Published' : 'Draft'}}
                 </template>
             </el-table-column>
             <el-table-column prop="updated_at" label="Updated At" width="180"></el-table-column>

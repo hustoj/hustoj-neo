@@ -10,7 +10,7 @@ mix.sass('resources/assets/sass/admin.scss', 'public/css')
                 {
                     test: /\.css$/,
                     loader: "style-loader!css-loader"
-                },
+                }
             ]
         }
     })

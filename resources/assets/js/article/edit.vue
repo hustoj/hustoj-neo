@@ -1,16 +1,16 @@
 <template>
     <el-dialog width="80%" :title="title" size="large" :visible.sync="dialogFormVisible">
-        <el-form :model="item" ref="form" label-width="120px">
-            <el-form-item label="Title">
+        <el-form :rules="rules" :model="item" label-width="120px" ref="articleEditForm">
+            <el-form-item label="Title" prop="title">
                 <el-input v-model="item.title"></el-input>
             </el-form-item>
-            <el-form-item label="slug">
+            <el-form-item label="slug" prop="slug">
                 <el-input v-model="item.slug"></el-input>
             </el-form-item>
-            <el-form-item label="Content">
+            <el-form-item label="Content" prop="content">
                 <vue-html5-editor name="article-content" :content="item.content" :height="300" @change="updateContent"></vue-html5-editor>
             </el-form-item>
-            <el-form-item label="Draft">
+            <el-form-item label="Draft" prop="status">
                 <el-select v-model="item.status">
                     <el-option value="0" label="Draft"></el-option>
                     <el-option value="1" label="Published"></el-option>
@@ -30,32 +30,53 @@
             return {
                 title: 'Add Article',
                 dialogFormVisible: false,
-                item:{},
+                item:{
+                    title: '',
+                    slug: '',
+                    content: '',
+                    disable: 0
+                },
+                rules: {
+                    title: [
+                        { required: true, message: 'please input title', trigger: 'blur' }
+                    ],
+                    slug: [
+                        { required: true, message: 'please input slug', trigger: 'blur' }
+                    ],
+                    content: [
+                        { required: true, message: 'please input content', trigger: 'blur' }
+                    ]
+                }
             }
         },
         methods: {
             save(item) {
                 let self = this;
 
-                if (item.id) {
-                    this.$http.put('admin/articles/' + item.id, item)
-                        .then(function (resp) {
-                            self.$message.success('Save success!');
-                            self.dialogFormVisible = false;
-                            self.$bus.emit('reload-articles');
-                        }).catch(function (resp) {
+                this.$refs['articleEditForm'].validate().then(function(){
+                    if (item.id) {
+                        self.$http.put('admin/articles/' + item.id, item)
+                            .then(function (resp) {
+                                self.$message.success('Save success!');
+                                self.dialogFormVisible = false;
+                                self.$bus.emit('reload-articles');
+                            }).catch(function (resp) {
                             self.$message.error('Save failed!');
                         });
-                } else {
-                    this.$http.post('admin/articles', item)
-                        .then(function (resp) {
-                            self.$message.success('Save success!');
-                            self.dialogFormVisible = false;
-                            self.$bus.emit('reload-articles');
-                        }).catch(function (resp) {
+                    } else {
+                        this.$http.post('admin/articles', item)
+                            .then(function (resp) {
+                                self.$message.success('Save success!');
+                                self.dialogFormVisible = false;
+                                self.$bus.emit('reload-articles');
+                            }).catch(function (resp) {
                             self.$message.error('Save failed!');
                         })
-                }
+                    }
+                }).catch(function(resp) {
+                    self.$message.error('Miss some required fields');
+                    return false;
+                });
             },
             updateContent(content) {
                 this.item.content = content;
