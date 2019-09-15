@@ -84,3 +84,7 @@ If you discover a security vulnerability within HUST Online Judge, please send a
 ## License
 
 The HUST Online Judge Neo Version Under MIT license.
+
+## Thanks
+
+* Thanks to [Jetbrains](https://www.jetbrains.com/?from=HUSTOJ)
