@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'list' => [
+    'list'             => [
         'rank'     => '排名',
         'username' => '用户名',
         'nick'     => '昵称',
@@ -10,7 +10,7 @@ return [
         'ratio'    => '通过率',
     ],
     'edit_profile'     => '编辑信息',
-    'profile'          => '信息',
+    'profile_title'    => '信息',
     'username'         => '用户名',
     'nick'             => '昵称',
     'email'            => 'E-Mail',
@@ -27,5 +27,15 @@ return [
     'message'          => [
         'password_change_success' => '密码修改成功!',
         'password_not_match'      => '密码和当前密码不匹配!',
+    ],
+    'form'             => [
+        'email' => [
+            'privacy_level' => '隐私级别',
+            'level' => [
+                'Hidden' => '隐藏',
+                'Show'   => '展示',
+                'Base64' => 'Base64编码',
+            ],
+        ],
     ],
 ];

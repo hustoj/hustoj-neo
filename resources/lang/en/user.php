@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'list' => [
+    'list'             => [
         'rank'     => 'Rank',
         'username' => 'Username',
         'nick'     => 'Nick',
@@ -10,7 +10,7 @@ return [
         'ratio'    => 'Ratio',
     ],
     'edit_profile'     => 'Edit Profile',
-    'profile'          => 'Profile',
+    'profile_title'    => 'Profile',
     'username'         => 'User Name',
     'nick'             => 'Nick',
     'email'            => 'E-Mail',
@@ -27,5 +27,15 @@ return [
     'message'          => [
         'password_change_success' => 'Password Change Success!',
         'password_not_match'      => 'Password not match current password!',
+    ],
+    'form'             => [
+        'email' => [
+            'privacy_level' => 'Email Privacy',
+            'level' => [
+                'Hidden' => 'Hidden',
+                'Show'   => 'Show',
+                'Base64' => 'Base64',
+            ],
+        ],
     ],
 ];

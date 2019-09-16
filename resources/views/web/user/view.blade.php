@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-    @lang('user.profile') ::
+    @lang('user.profile_title') ::
     @parent
 @stop
 
@@ -18,7 +18,9 @@
                     <li class="list-group-item">@lang('user.nick'): {{ $user->nick }}</li>
                     <li class="list-group-item">@lang('user.created_at'): {{ $user->created_at }}</li>
                     <li class="list-group-item">@lang('user.school'): {{ $user->school }}</li>
-                    <li class="list-group-item">@lang('user.email'): {{ base64_encode($user->email) }}</li>
+                    @if($user->showEmail())
+                    <li class="list-group-item">@lang('user.email'): {{ $user->getEmail() }}</li>
+                    @endif
                 </ul>
             </div>
         </div>

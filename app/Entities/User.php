@@ -22,6 +22,7 @@ use Laratrust\Traits\LaratrustUserTrait;
  * @property string $password
  * @property string $remember_token
  * @property int $submit
+ * @property int $email_level
  * @property int $solved
  * @property int $status
  * @property Carbon $email_verified_at
@@ -45,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
         'email',
         'school',
         'nick',
+        'email_level',
         'confirmed',
         'language',
         'submit',
@@ -67,6 +69,19 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function lastAccess()
     {
         return $this->logs()->orderBy('created_at', 'desc')->limit(1);
+    }
+
+    public function showEmail()
+    {
+        return $this->email_level != 0;
+    }
+
+    public function getEmail()
+    {
+        if ($this->email_level == 2) {
+            return base64_encode($this->email);
+        }
+        return $this->email;
     }
 
     public function logs()
