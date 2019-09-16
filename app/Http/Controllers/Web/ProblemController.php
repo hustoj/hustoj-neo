@@ -23,13 +23,10 @@ class ProblemController extends Controller
         $this->repository = $repository;
     }
 
-    /**
-     * @param \App\Entities\Problem $problem
-     *
-     * @return mixed
-     */
-    public function show($problem)
+    public function show($id)
     {
+        /** @var Problem $problem */
+        $problem = $this->repository->findOrFail($id);
         if (!$problem->isAvailable()) {
             return back()->withErrors('Problem is not found!');
         }
@@ -52,13 +49,10 @@ class ProblemController extends Controller
         return view('web.problem.index', ['problems' => $problems]);
     }
 
-    /**
-     * @param Problem $problem
-     *
-     * @return mixed
-     */
-    public function summary($problem)
+    public function summary($id)
     {
+        /** @var Problem $problem */
+        $problem = $this->repository->findOrFail($id);
         if (!$problem->isAvailable()) {
             return back()->withErrors('Problem is not found!');
         }

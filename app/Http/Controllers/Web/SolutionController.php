@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Entities\Problem;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Solution\IndexRequest;
 use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
+use App\Repositories\ProblemRepository;
 use App\Repositories\SolutionRepository;
 use App\Services\UserService;
 use App\Status;
@@ -46,8 +48,10 @@ class SolutionController extends Controller
         return view('web.solution.index')->with('solutions', $solutions);
     }
 
-    public function create($problem)
+    public function create($id)
     {
+        /** @var Problem $problem */
+        $problem = app(ProblemRepository::class)->findOrFail($id);
         if (!auth()->user()) {
             return redirect(route('problem.view', ['problem' => $problem->id]))->withErrors(__('Login first'));
         }
@@ -81,8 +85,10 @@ class SolutionController extends Controller
         return redirect(route('solution.index'));
     }
 
-    public function source($solution)
+    public function source($id)
     {
+        /** @var \App\Entities\Solution $solution */
+        $solution = app(SolutionRepository::class)->findOrFail($id);
         if (!can_view_code($solution)) {
             return redirect(route('solution.index'))->withErrors(__('You have no permission access solution source'));
         }
@@ -90,38 +96,22 @@ class SolutionController extends Controller
         return view('web.solution.source')->with('solution', $solution);
     }
 
-    public function compileInfo($solution)
+    public function compileInfo($id)
     {
-        if (!$this->hasPrivilege($solution)) {
+        /** @var \App\Entities\Solution $solution */
+        $solution = app(SolutionRepository::class)->findOrFail($id);
+        if (!can_view_code($solution)) {
             return back()->withErrors(__('You cannot access this solution'));
         }
 
         return view('web.solution.compile_info')->with('solution', $solution);
     }
 
-    /**
-     * @param \App\Entities\Solution $solution
-     *
-     * @return bool
-     */
-    private function hasPrivilege($solution)
+    public function runtimeInfo($id)
     {
-        /** @var \App\Entities\User $currentUser */
-        $currentUser = app('auth')->user();
-
-        if ($currentUser->hasRole('admin')) {
-            return true;
-        }
-        if ($solution->user_id === $currentUser->id) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public function runtimeInfo($solution)
-    {
-        if (!$this->hasPrivilege($solution)) {
+        /** @var \App\Entities\Solution $solution */
+        $solution = app(SolutionRepository::class)->findOrFail($id);
+        if (!can_view_code($solution)) {
             return back()->withErrors(__('You cannot access this solution'));
         }
 

@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use App\Entities\Contest;
-use App\Entities\Problem;
-use App\Entities\Solution;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -18,20 +15,6 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
-
-    /**
-     * Define your route model bindings, pattern filters, etc.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        parent::boot();
-
-        app('router')->model('solution', Solution::class);
-        app('router')->model('problem', Problem::class);
-        app('router')->model('contest', Contest::class);
-    }
 
     /**
      * Define the routes for the application.
@@ -57,7 +40,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('judge')
-            // ->middleware('judge')
+             // ->middleware('judge')
              ->namespace($this->namespace)
              ->group(base_path('routes/judge.php'));
     }
