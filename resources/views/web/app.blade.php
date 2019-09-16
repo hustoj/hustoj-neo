@@ -33,22 +33,7 @@
 @show
 <div id="app">
     <div class="container">
-        @if(session()->has('success'))
-            <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>Notice!</strong> {{session('success')}}.
-            </div>
-        @endif
-        @if($errors->any())
-            <div class="alert alert-warning alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>Alert!</strong> {{$errors->first()}}.
-            </div>
-        @endif
+        @include('web.partials.notifications')
         <main class="py-4">
         @yield('content')
         </main>

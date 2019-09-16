@@ -59,9 +59,19 @@
                                     <label class="col-md-3 control-label" for="email">@lang('user.email')</label>
 
                                     <div class="col-md-9">
-                                        <input class="form-control" type="text" name="email" id="email"
+                                        <input class="form-control @if($user->hasVerifiedEmail()) border border-success @endif" type="text" name="email" id="email"
                                                value="{{ old('email', $user->email) }}"/>
+                                        @if($user->hasVerifiedEmail())
+                                            <small class="form-text text-success">
+                                                {{ __('You email has verified.') }}
+                                            </small>
+                                        @else
+                                            <small class="form-text text-danger">
+                                                {{ __('You email was not verified.') }}
+                                            </small>
+                                        @endif
                                     </div>
+
 
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">

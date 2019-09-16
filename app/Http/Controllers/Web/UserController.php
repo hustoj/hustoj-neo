@@ -73,9 +73,18 @@ class UserController extends Controller
         $user = auth()->user();
 
         if ($user) {
-            $user->update($request->all());
+            $user->fill($request->all());
+            $emailChanged = $user->isDirty('email');
+            if ($emailChanged) {
+                $user->email_verified_at = null;
+            }
+            $user->save();
+            if ($emailChanged) {
+                $user->sendEmailVerificationNotification();
+                return redirect()->back()->with('warning', __('Email has been modified, should verify again'));
+            }
 
-            return redirect()->back();
+            return redirect()->back()->with('success', __('Profile Update Success!'));
         }
 
         return redirect(route('home'));
