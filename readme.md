@@ -16,23 +16,28 @@ This version is not compatible with old version! The Judged is not upgrade!
 
 ## Install Tutorial
 
-1. clone this repository
+1. Clone this repository
 
-2. install vendor package via composer
+2. Install vendor package via composer
 
-    ```
+    ```bash
     cd hustoj-neo
-    composer install
+    composer install --no-dev
     ```
+    
+    if you want have some develop, you can run `composer install` to install dev packages
 
 3. config you application.
 
-    still under construction... 
+    ```bash
+    php artisan key:generate # generate private key
+    copy .env.example .env
+    ```
 
 4. database
 
-    1. config you database in .env such like
-    
+    1. config you database in .env 
+
         ```
         # new database
         DB_CONNECTION=mysql
@@ -41,7 +46,19 @@ This version is not compatible with old version! The Judged is not upgrade!
         DB_DATABASE=neo
         DB_USERNAME=root
         DB_PASSWORD=root
-        
+        ```
+
+    2. create new database structure
+
+        ```
+        php artisan migrate
+        ```
+
+    3. if you fresh to hustoj, can skip this step.
+    
+       migrate from old version hustoj, you can add old database configure:
+
+        ```env
         # old database
         OLD_DB_PORT=3306
         OLD_DB_HOST=127.0.0.1
@@ -49,29 +66,43 @@ This version is not compatible with old version! The Judged is not upgrade!
         OLD_DB_USERNAME=root
         OLD_DB_PASSWORD=root
         ```
-    
-    2. If you migrate from the initial version [hustoj](https://github.com/zhblue/hustoj), you should migrate database structure follow [this wiki](https://github.com/freefcw/hustoj/wiki/database-changed)
-    
-    3. migrate database structure via command:
-    
+
+
+       If you migrate from the initial version [hustoj](https://github.com/zhblue/hustoj), you need migrate exist database structure follow [this wiki](https://github.com/freefcw/hustoj/wiki/database-changed), migrate database data via command:
+
+        ```bash
+    	php artisan database:migrate
+    	```
+
+
+6. Git code come with packed frontweb, if you don't need develop, can skip this step. build front web
+
+        ```bash
+        npm install
+        npm run prod # build front web
+        npm run admin-prod # build admin front web
         ```
-        php artisan databse:migrate
-        ```
-        
-    4. make you account has administrator privilege.
-    
-        ```
+
+7. setup other configure
+
+        1. APP_NAME is your project name, will show on browser title and head brand.
+        2. APP_DEBUG is debug switch
+        3. APP_URL is your website url
+        4. RABBITMQ_* is rabbitmq host, used to maintain solution queue to judger server. detail can see config/rabbitmq.php
+        5. MAIL_* is config to setup email notify, detail can visit config/mail.php
+        6. other relate config can visit config/hustoj.php
+        7. Relate Project:
+        	1. [judger](https://github.com/hustoj/judger) is judger for handle solution compile and runner.
+        	2. [runner](https://github.com/hustoj/runner) is executor for compile solution source and execute program.
+
+8. register a user from web, make you account has administrator privilege.
+
+        ```bash
         php artisan assign:admin
         ```
 
-5. frontend, you should run this command for administrator ui 
-    
-    ```
-    npm install
-    npm run production
-    ``` 
+9. use you administrator account login front web, you will see admin link in your top right.
 
-6. continue...
 
 ## Contributing
 
@@ -79,7 +110,7 @@ Thank you for considering contributing to the HUST Online Judge! You can add iss
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within HUST Online Judge, please send an e-mail to freefcw at freefcw at qq.com. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within HUST Online Judge, please send an e-mail to freefcw at qq.com. All security vulnerabilities will be promptly addressed.
 
 ## License
 
