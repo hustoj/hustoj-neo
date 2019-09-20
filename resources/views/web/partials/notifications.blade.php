@@ -11,7 +11,7 @@
     <div class="alert alert-warning alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <h4 class="alert-heading">{{ __('Alert!') }}</h4>
-        @if(is_array($message))
+        @if(is_array($errors))
             <p class="mb-0">
                 @foreach ($errors as $m) {{ $m }} @endforeach
             </p>
