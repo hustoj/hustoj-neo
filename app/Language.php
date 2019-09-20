@@ -8,8 +8,8 @@ class Language
 {
     const LANG_C = 0;
     const LANG_CPP = 1;
-    const LANG_JAVA = 2;
-    const LANG_PAS = 3;
+    const LANG_PAS = 2;
+    const LANG_JAVA = 3;
 
     private static $languages = [
         self::LANG_C    => 'C',
