@@ -32,7 +32,7 @@ class Task
 
             'solution_id' => $this->solution->id,
             'code'        => $this->solution->source->code,
-            'language'    => $this->solution->language,
+            'language'    => intval($this->solution->language),
         ];
     }
 }
