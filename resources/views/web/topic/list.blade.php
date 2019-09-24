@@ -38,7 +38,7 @@
                 @endif
             </td>
             <td><a href="{{ route('topic.view', ['id' => $topic->id]) }}"> {{ $topic->title() }} </a></td>
-            <td><a href="{{ route('user.view', ['username' => $topic->user->username]) }}">{{ $topic->user->username }}</a></td>
+            <td><a href="{{ route('user.profile', ['username' => $topic->user->username]) }}">{{ $topic->user->username }}</a></td>
             <td>{{ $topic->created_at }}</td>
         </tr>
         @endforeach

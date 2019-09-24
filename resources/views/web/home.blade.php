@@ -14,7 +14,7 @@
                             {!! $post->content !!}
                         </p>
                         <div class="card-footer">
-                            <small class="text-muted"> <a href="{{ route('user.view', ['username' => $post->author->username]) }}">{{ $post->author->username }}</a> @ {{ $post->created_at }}</small>
+                            <small class="text-muted"> <a href="{{ route('user.profile', ['username' => $post->author->username]) }}">{{ $post->author->username }}</a> @ {{ $post->created_at }}</small>
                         </div>
                     </div>
                     <hr />

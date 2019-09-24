@@ -91,10 +91,10 @@ Route::get('/rank', [
     'uses' => 'Web\UserController@index',
 ]);
 Route::get('/profile/', [
-    'as'   => 'user.profile',
+    'as'   => 'user.edit',
     'uses' => 'Web\UserController@profile',
 ]);
-Route::post('/profile/edit', [
+Route::post('/profile', [
     'as'         => 'user.edit',
     'uses'       => 'Web\UserController@edit',
     'middleware' => 'auth',
@@ -110,7 +110,7 @@ Route::get('/profile/password', [
     'middleware' => 'auth',
 ]);
 Route::get('/user/{username}', [
-    'as'   => 'user.view',
+    'as'   => 'user.profile',
     'uses' => 'Web\UserController@show',
 ]);
 

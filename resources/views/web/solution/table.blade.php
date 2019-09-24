@@ -23,7 +23,7 @@
                     <a href="{{ route('problem.view', ['problem'=>$s->problem_id]) }}">{{$s->problem_id}}</a>
                 @endif
             </td>
-            <td><a href="{{ route('user.view', ['username' => $s->user->username]) }}">{{ $s->user->username}}</a></td>
+            <td><a href="{{ route('user.profile', ['username' => $s->user->username]) }}">{{ $s->user->username}}</a></td>
             <td>
                 @if(!can_view_code($s))
                 {{ $s->lang() }}

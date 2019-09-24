@@ -16,7 +16,7 @@
     <tr>
         <td>{{$loop->index + 1}}</td>
         <td>
-            <a href="{{ route('user.view', ['username' => $team->user()->username]) }}">{{$team->user()->username}}</a>
+            <a href="{{ route('user.profile', ['username' => $team->user()->username]) }}">{{$team->user()->username}}</a>
         </td>
         <td>{{$team->numberOfAccept()}}</td>
         <td>{{$team->getNumberOfSubmit()}}</td>

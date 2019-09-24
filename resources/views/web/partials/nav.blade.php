@@ -37,7 +37,7 @@
                         {{ auth()->user()->username }}
                     </a>
                     <div class="dropdown-menu" x-placement="bottom-start">
-                        <a class="dropdown-item" href="{{ route('user.profile') }}">
+                        <a class="dropdown-item" href="{{ route('user.edit') }}">
                             @lang('site.my_setting')</a>
                         <a class="dropdown-item" href="{{ route('user.password') }}">
                             @lang('site.edit_password')</a>

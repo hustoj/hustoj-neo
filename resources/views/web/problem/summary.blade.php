@@ -56,7 +56,7 @@
                     <td>{{ $solution->memory_cost }}kb</td>
                     <td>{{ $solution->time_cost }}ms</td>
                     <td>
-                        <a href="{{ route('user.view', ['username' => $solution->user->username]) }}">{{ $solution->user->username }}</a>
+                        <a href="{{ route('user.profile', ['username' => $solution->user->username]) }}">{{ $solution->user->username }}</a>
                     </td>
                     <td>{{ $solution->lang() }}</td>
                     <td>{{ $solution->created_at }}</td>

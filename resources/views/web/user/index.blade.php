@@ -21,7 +21,7 @@
         @foreach($users as $user)
         <tr>
             <td>{{ $loop->index + $offset}}</td>
-            <td><a href="{{ route('user.view', $user->username) }}">{{ $user->username }}</a></td>
+            <td><a href="{{ route('user.profile', $user->username) }}">{{ $user->username }}</a></td>
             <td>{{ $user->nick }}</td>
             <td>{{ $user->solved }}</td>
             <td>{{ $user->submit }}</td>
