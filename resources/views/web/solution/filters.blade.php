@@ -1,4 +1,4 @@
-<div class="s-filter text-center mb-3">
+<div class="text-center mb-3">
     <form class="form-inline align-items-center" method="get">
         <div class="col-auto">
             <label class="sr-only" for="username">@lang('solution.filter.username')</label>

@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name') }}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbrNavMarkup" aria-controls="navbrNavMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="navbrNavMarkup">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item {{ request()->is('/') ? 'active': '' }}">
                 <a class="nav-link" href="{{ url('') }}">@lang('site.home') <span class="sr-only">(current)</span></a>
@@ -30,7 +30,7 @@
                 <a class="nav-link" href="{{ route('topic.list') }}">@lang('site.discuss')</a>
             </li>
         </ul>
-        <ul class="form-inline my-2 my-lg-0 navbar-nav">
+        <ul class="form-inline my-2 my-md-0 navbar-nav">
             @if(auth()->check())
                 <li class="nav-item dropdown">
                     <a class="nav-link btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
