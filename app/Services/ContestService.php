@@ -67,9 +67,11 @@ class ContestService
      *
      * @return Problem
      */
-    public function getContestProblemByOrder($contest, $order)
+    public function getProblemByOrder($contest, $order)
     {
-        return $contest->problems()->wherePivot('order', '=', original_order($order))->first();
+        return $contest->problems()
+            ->wherePivot('order', '=', original_order($order))
+            ->first();
     }
 
     public function openingContest()

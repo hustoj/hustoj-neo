@@ -52,7 +52,7 @@ class ContestController extends Controller
         /** @var Contest $contest */
         $contest = app(ContestRepository::class)->findOrFail($id);
 
-        $problem = $this->contestService->getContestProblemByOrder($contest, $order);
+        $problem = $this->contestService->getProblemByOrder($contest, $order);
         if ($problem === null) {
             return back()->withErrors('Problem not found in contest!');
         }
@@ -65,11 +65,17 @@ class ContestController extends Controller
         /** @var Contest $contest */
         $contest = app(ContestRepository::class)->findOrFail($id);
 
-        if (!auth()->user()) {
-            return redirect(route('contest.view', $contest->id))->withErrors('Login first');
+        if ($contest->isEnd()) {
+            return redirect(route('contest.view', $contest->id))
+                ->withErrors('Contest is End!');
         }
 
-        $problem = $this->contestService->getContestProblemByOrder($contest, request('order'));
+        if (!auth()->user()) {
+            return redirect(route('contest.view', $contest->id))
+                ->withErrors('Login first');
+        }
+
+        $problem = $this->contestService->getProblemByOrder($contest, request('order'));
 
         return view('web.contest.submit', compact('contest', 'problem'));
     }
@@ -116,7 +122,10 @@ class ContestController extends Controller
 
         $standing = new Ranking($contest);
 
-        return view('web.contest.standing', ['contest' => $contest, 'teams' => $standing->result()]);
+        return view('web.contest.standing', [
+            'contest' => $contest,
+            'teams' => $standing->result()
+        ]);
     }
 
     public function clarify($id)
