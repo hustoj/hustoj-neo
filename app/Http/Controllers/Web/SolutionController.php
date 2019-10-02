@@ -50,10 +50,16 @@ class SolutionController extends Controller
 
     public function create($id)
     {
+        if (!auth()->user()) {
+            return redirect(route('problem.view', ['problem' => $id]))->withErrors(__('Login first'));
+        }
+
         /** @var Problem $problem */
         $problem = app(ProblemRepository::class)->findOrFail($id);
-        if (!auth()->user()) {
-            return redirect(route('problem.view', ['problem' => $problem->id]))->withErrors(__('Login first'));
+
+        if (!config('hustoj.special_judge_enabled') && $problem->isSpecialJudge()) {
+            return redirect(route('problem.view', ['problem' => $id]))
+                ->withErrors(__('Special judge current disabled!'));
         }
 
         return view('web.problem.submit', ['problem' => $problem]);
