@@ -19,7 +19,7 @@ class AuthorizeContest
         $contest = $route->parameter('contest');
 
         /** @var \App\Entities\Contest $contest */
-        $contest = app(ContestRepository::class)->find($contest);
+        $contest = app(ContestRepository::class)->findOrFail($contest);
 
         if (!$contest->isAvailable()) {
             return back()->withErrors('Contest not found!');
