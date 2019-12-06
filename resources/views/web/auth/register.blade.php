@@ -27,12 +27,10 @@
 						</div>
 
 						<div class="form-group row">
-							<label class="col-md-4 control-label text-md-right">@lang('auth.nick')</label>
+							<label class="col-md-4 control-label text-md-right" for="nick">@lang('auth.nick')</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="nick" value="{{ old('nick') }}">
+								<input type="text" id="nick" class="form-control" name="nick" required="required" value="{{ old('nick') }}">
 							</div>
-
-
 						</div>
 
 						<div class="form-group row">
