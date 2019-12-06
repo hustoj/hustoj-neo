@@ -6,18 +6,20 @@
 @stop
 
 @section('content')
-    <form class="form-inline mb-3" role="form" action="{{ route('topic.list') }}" method="get">
-        <div class="col-auto">
-            <label class="sr-only" for="pid">@lang('topic.form.problem_id')</label>
-            <input placeholder="@lang('topic.form.problem_id')" name="pid" id="pid" value="{{ request('pid') }}" class="form-control"/>
-        </div>
-        <div class="col-auto">
-            <label class="sr-only" for="uid">@lang('topic.form.user_id')</label>
-            <input placeholder="@lang('topic.form.user_id')" name="uid" id="uid" value="{{ request('uid') }}" class="form-control"/>
-        </div>
-        <input type="submit" value="@lang('topic.form.filter')" class="btn btn-primary">
-        <a href="{{ route('topic.create') }}" class="btn btn-info float-right">@lang('topic.form.new_topic')</a>
-    </form>
+    <div class="row">
+        <form class="form-inline mb-3" role="form" action="{{ route('topic.list') }}" method="get">
+            <div class="col-auto">
+                <label class="sr-only" for="pid">@lang('topic.form.problem_id')</label>
+                <input placeholder="@lang('topic.form.problem_id')" name="pid" id="pid" value="{{ request('pid') }}" class="form-control"/>
+            </div>
+            <div class="col-auto">
+                <label class="sr-only" for="uid">@lang('topic.form.user_id')</label>
+                <input placeholder="@lang('topic.form.user_id')" name="uid" id="uid" value="{{ request('uid') }}" class="form-control"/>
+            </div>
+            <input type="submit" value="@lang('topic.form.filter')" class="btn btn-primary">
+            <a href="{{ route('topic.create') }}" class="btn btn-info float-right">@lang('topic.form.new_topic')</a>
+        </form>
+    </div>
 
     <table class="table table-striped">
         <thead>
