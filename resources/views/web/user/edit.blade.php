@@ -80,6 +80,20 @@
                                     @enderror
                                 </div>
                                 <!-- ./ email -->
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" for="school">@lang('user.school')</label>
+
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" name="school" id="school"
+                                               value="{{ old('username', $user->school) }}"/>
+                                    </div>
+
+                                    @error('school')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
 
                                 <!-- locale -->
                                 <div class="form-group row">
