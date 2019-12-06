@@ -6,8 +6,8 @@ class Status
 {
     const PENDING = 0;
     const PENDING_REJUDGE = 1;
-    const COMPILE = 2;
-    const REJUDGING = 3;
+    const COMPILING = 2;
+    const RUNNING = 3;
     const ACCEPT = 4;
     const PRESENTATION_ERROR = 5;
     const WRONG_ANSWER = 6;
