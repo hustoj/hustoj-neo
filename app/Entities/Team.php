@@ -92,9 +92,11 @@ class Team
 
     private function shouldMarkAsPenalty(Solution $solution): bool
     {
-        if ($this->timePassed[$solution->order]
-            && $this->timePassed[$solution->order]->gt($solution->created_at)) {
-            return false;
+        if (array_key_exists($solution->order, $this->timePassed)) {
+            if ($this->timePassed[$solution->order]
+                && $this->timePassed[$solution->order]->gt($solution->created_at)) {
+                return false;
+            }
         }
 
         return true;
