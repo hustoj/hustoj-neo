@@ -124,7 +124,7 @@ class ContestController extends Controller
 
         return view('web.contest.standing', [
             'contest' => $contest,
-            'teams' => $standing->result()
+            'teams'   => $standing->result(),
         ]);
     }
 

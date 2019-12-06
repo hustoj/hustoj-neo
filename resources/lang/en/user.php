@@ -31,7 +31,7 @@ return [
     'form'             => [
         'email' => [
             'privacy_level' => 'Email Privacy',
-            'level' => [
+            'level'         => [
                 'Hidden' => 'Hidden',
                 'Show'   => 'Show',
                 'Base64' => 'Base64',

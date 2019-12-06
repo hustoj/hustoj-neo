@@ -31,7 +31,7 @@ return [
     'form'             => [
         'email' => [
             'privacy_level' => '隐私级别',
-            'level' => [
+            'level'         => [
                 'Hidden' => '隐藏',
                 'Show'   => '展示',
                 'Base64' => 'Base64编码',

@@ -81,6 +81,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
         if ($this->email_level == 2) {
             return base64_encode($this->email);
         }
+
         return $this->email;
     }
 
