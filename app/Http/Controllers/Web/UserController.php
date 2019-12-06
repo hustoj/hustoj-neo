@@ -81,6 +81,7 @@ class UserController extends Controller
             $user->save();
             if ($emailChanged) {
                 $user->sendEmailVerificationNotification();
+
                 return redirect()->back()->with('warning', __('Email has been modified, should verify again'));
             }
 

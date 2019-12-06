@@ -7,7 +7,7 @@ return [
         ],
     ],
     'special_judge_enabled' => false,
-    'submit' => [
+    'submit'                => [
         'interval' => 10,
     ],
     'data_path'            => env('HOJ_DATA_PATH', storage_path('data')),
