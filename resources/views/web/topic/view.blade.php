@@ -47,7 +47,7 @@
             <div class="form-group">
                 <label for="content">Add Reply</label>
                 {{ csrf_field() }}
-                <textarea id="content" name="content" class="form-control" rows="5"></textarea>
+                <textarea id="content" name="content" class="form-control" rows="5" required minlength="10"></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Add</button>

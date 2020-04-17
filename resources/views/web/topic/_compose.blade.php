@@ -27,7 +27,7 @@
         <label for="content" class="col-sm-1">Content</label>
 
         <div class="col-sm-8">
-            <textarea id="content" name="content" class="form-control" rows="6"></textarea>
+            <textarea id="content" name="content" class="form-control" rows="6" minlength="10" required></textarea>
         </div>
     </div>
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Entities\Topic;
 use App\Entities\User;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Topic\ReplyStoreRequest;
+use App\Http\Requests\Topic\StoreRequest;
 use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
 use App\Repositories\TopicRepository;
@@ -18,7 +20,7 @@ class TopicController extends Controller
         $this->repository = $repository;
     }
 
-    public function reply($id)
+    public function reply($id, ReplyStoreRequest $request)
     {
         /** @var Topic $topic */
         $topic = $this->repository->find($id);
@@ -26,7 +28,7 @@ class TopicController extends Controller
             $reply = [
                 'user_id'  => app('auth')->guard()->id(),
                 'topic_id' => $id,
-                'content'  => request('content'),
+                'content'  => $request->getBody(),
             ];
             $topic->replies()->create($reply);
         }
@@ -43,21 +45,21 @@ class TopicController extends Controller
         return redirect(route('topic.list'))->withErrors('You should login first');
     }
 
-    public function store()
+    public function store(StoreRequest $request)
     {
         $data = [
             'user_id'    => app('auth')->guard()->id(),
-            'title'      => request('title'),
-            'content'    => request('content'),
-            'contest_id' => request('contest_id', 0),
-            'problem_id' => request('problem_id', 0),
+            'title'      => $request->getTitle(),
+            'content'    => $request->getBody(),
+            'contest_id' => $request->getContestId(),
+            'problem_id' => $request->getProblemId(),
         ];
 
-        $data['user_id'] = request()->user()->id;
+        $data['user_id'] = $request->user()->id;
         $this->repository->create($data);
 
-        if (request()->filled('contest_id')) {
-            return redirect(route('contest.clarify', ['contest' => request('contest_id')]));
+        if ($request->filled('contest_id')) {
+            return redirect(route('contest.clarify', ['contest' => $request->getContestId()]));
         }
 
         return redirect(route('topic.list'));
