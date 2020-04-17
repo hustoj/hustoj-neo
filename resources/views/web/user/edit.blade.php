@@ -42,8 +42,7 @@
                                     <label class="col-md-3 col-form-label" for="nick">@lang('user.nick')</label>
 
                                     <div class="col-md-9">
-                                        <input class="form-control" type="text" name="nick" id="nick"
-                                               value="{{ old('nick', $user->nick) }}"/>
+                                        <input class="form-control" type="text" name="nick" id="nick" value="{{ old('nick', $user->nick) }}" required/>
                                     </div>
 
                                     @error('nick')

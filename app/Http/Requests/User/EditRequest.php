@@ -15,6 +15,7 @@ class EditRequest extends Request
     {
         return [
             'email' => 'required|email',
+            'nick' => 'required',
         ];
     }
 }
