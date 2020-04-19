@@ -70,7 +70,7 @@ class ContestController extends Controller
                 ->withErrors('Contest is End!');
         }
 
-        if (!auth()->user()) {
+        if (! auth()->user()) {
             return redirect(route('contest.view', $contest->id))
                 ->withErrors('Login first');
         }
@@ -124,7 +124,7 @@ class ContestController extends Controller
 
         return view('web.contest.standing', [
             'contest' => $contest,
-            'teams' => $standing->result()
+            'teams' => $standing->result(),
         ]);
     }
 

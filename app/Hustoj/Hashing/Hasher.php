@@ -42,7 +42,7 @@ class Hasher implements HashingContract
     public function make($value, array $options = [])
     {
         $salt = Arr::get($options, 'salt');
-        if (!$salt) {
+        if (! $salt) {
             $this->generateSalt();
         }
 

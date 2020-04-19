@@ -69,7 +69,7 @@ class Team
     private function markProblemAccept($solution)
     {
         $pid = $solution->order;
-        if (!array_key_exists($pid, $this->timePassed) || $this->timePassed[$pid] === null) {
+        if (! array_key_exists($pid, $this->timePassed) || $this->timePassed[$pid] === null) {
             $this->timePassed[$pid] = $solution->created_at;
             $this->accepts++;
         } else {
@@ -81,7 +81,7 @@ class Team
 
     private function addFailedCount(Solution $solution)
     {
-        if (!array_key_exists($solution->order, $this->waCounts)) {
+        if (! array_key_exists($solution->order, $this->waCounts)) {
             $this->waCounts[$solution->order] = 0;
         }
 

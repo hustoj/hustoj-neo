@@ -12,7 +12,7 @@ class LoginListener
 {
     public function handle($event)
     {
-        if (!$event->user) {
+        if (! $event->user) {
             // no such user in system, don't record it
             $information = [
                 'name' => $event->credentials['username'],

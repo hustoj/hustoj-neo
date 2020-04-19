@@ -47,7 +47,7 @@ class AssignAdmin extends Command
     private function getAdminRole()
     {
         $role = Role::where('name', 'admin')->first();
-        if (!$role) {
+        if (! $role) {
             $role = $this->initialRole();
         }
 

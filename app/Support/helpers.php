@@ -9,14 +9,14 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Ramsey\Uuid\Uuid;
 
-if (!function_exists('new_judge_code')) {
+if (! function_exists('new_judge_code')) {
     function new_judge_code()
     {
         return Uuid::getFactory()->uuid4();
     }
 }
 
-if (!function_exists('get_option')) {
+if (! function_exists('get_option')) {
     function get_option($name, $default = null)
     {
         /** @var Collection|Option[] $options */
@@ -31,7 +31,7 @@ if (!function_exists('get_option')) {
     }
 }
 
-if (!function_exists('can_attend')) {
+if (! function_exists('can_attend')) {
     /**
      * @param Contest $contest
      *
@@ -41,7 +41,7 @@ if (!function_exists('can_attend')) {
     {
         /** @var User $user */
         $user = auth()->user();
-        if (!$user) {
+        if (! $user) {
             return false;
         }
         if ($user->hasRole('admin')) {
@@ -52,12 +52,12 @@ if (!function_exists('can_attend')) {
     }
 }
 
-if (!function_exists('can_view_code')) {
+if (! function_exists('can_view_code')) {
     function can_view_code($solution)
     {
         /** @var User $user */
         $user = auth()->user();
-        if (!$user) {
+        if (! $user) {
             return false;
         }
         if ($user->hasRole('admin')) {
@@ -68,7 +68,7 @@ if (!function_exists('can_view_code')) {
     }
 }
 
-if (!function_exists('show_ratio')) {
+if (! function_exists('show_ratio')) {
     function show_ratio($number, $total)
     {
         $result = 0;
@@ -80,7 +80,7 @@ if (!function_exists('show_ratio')) {
     }
 }
 
-if (!function_exists('display_penalize_time')) {
+if (! function_exists('display_penalize_time')) {
     function display_penalize_time($seconds)
     {
         $hour = (int) ($seconds / (Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR));
@@ -92,14 +92,14 @@ if (!function_exists('display_penalize_time')) {
     }
 }
 
-if (!function_exists('show_order')) {
+if (! function_exists('show_order')) {
     function show_order($order)
     {
         return chr($order + ord('A'));
     }
 }
 
-if (!function_exists('show_problem_id')) {
+if (! function_exists('show_problem_id')) {
     /**
      * @param Solution $solution
      *
@@ -115,21 +115,21 @@ if (!function_exists('show_problem_id')) {
     }
 }
 
-if (!function_exists('opening_contest')) {
+if (! function_exists('opening_contest')) {
     function opening_contest()
     {
         return (new ContestService())->openingContest();
     }
 }
 
-if (!function_exists('original_order')) {
+if (! function_exists('original_order')) {
     function original_order($order)
     {
         return ord($order) - ord('A');
     }
 }
 
-if (!function_exists('!show_status')) {
+if (! function_exists('!show_status')) {
     function show_status($status)
     {
         if (array_key_exists($status, Solution::$status)) {

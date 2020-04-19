@@ -82,7 +82,7 @@ class ProblemController extends DataController
         if ($problem) {
             $fs = new Filesystem();
             $path = config('hustoj.data_path').'/'.$id;
-            if (!$fs->exists($path)) {
+            if (! $fs->exists($path)) {
                 $fs->makeDirectory($path);
             }
             $files = $fs->files($path);
@@ -105,7 +105,7 @@ class ProblemController extends DataController
         if ($problem && request()->hasFile('files')) {
             $fs = new Filesystem();
             $path = config('hustoj.data_path').'/'.$id;
-            if (!$fs->exists($path)) {
+            if (! $fs->exists($path)) {
                 $fs->makeDirectory($path);
             }
             /** @var UploadedFile[] $files */
