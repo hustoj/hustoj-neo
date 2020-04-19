@@ -46,7 +46,7 @@ class Ranking
 
     private function addSolution(Solution $solution)
     {
-        if (!array_key_exists($solution->user_id, $this->teams)) {
+        if (! array_key_exists($solution->user_id, $this->teams)) {
             $this->teams[$solution->user_id] = new Team($this->contest);
         }
 
@@ -63,7 +63,7 @@ class Ranking
         /** @var $result Team[] */
         $result = array_values($this->teams);
         usort($result, function ($team1, $team2) {
-            return !$this->isBetter($team1, $team2);
+            return ! $this->isBetter($team1, $team2);
         });
 
         return $result;

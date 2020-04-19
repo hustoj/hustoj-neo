@@ -20,7 +20,7 @@ class JudgerRequest extends Request
 
     public function getJudger()
     {
-        if (!$this->judger) {
+        if (! $this->judger) {
             $this->judger = app(JudgerService::class)->find($this->getJudgeId());
         }
 

@@ -17,7 +17,7 @@ class DataProvider
 
         $data = [];
         foreach ($dataInput as $name => $content) {
-            if (!array_key_exists($name, $dataOutput)) {
+            if (! array_key_exists($name, $dataOutput)) {
                 $message = 'Problem Data is not match!';
                 app('log')->error($message, ['pid' => $id]);
 

@@ -50,14 +50,14 @@ class SolutionController extends Controller
 
     public function create($id)
     {
-        if (!auth()->user()) {
+        if (! auth()->user()) {
             return redirect(route('problem.view', ['problem' => $id]))->withErrors(__('Login first'));
         }
 
         /** @var Problem $problem */
         $problem = app(ProblemRepository::class)->findOrFail($id);
 
-        if (!config('hustoj.special_judge_enabled') && $problem->isSpecialJudge()) {
+        if (! config('hustoj.special_judge_enabled') && $problem->isSpecialJudge()) {
             return redirect(route('problem.view', ['problem' => $id]))
                 ->withErrors(__('Special judge current disabled!'));
         }
@@ -95,7 +95,7 @@ class SolutionController extends Controller
     {
         /** @var \App\Entities\Solution $solution */
         $solution = app(SolutionRepository::class)->findOrFail($id);
-        if (!can_view_code($solution)) {
+        if (! can_view_code($solution)) {
             return redirect(route('solution.index'))->withErrors(__('You have no permission access solution source'));
         }
 
@@ -106,7 +106,7 @@ class SolutionController extends Controller
     {
         /** @var \App\Entities\Solution $solution */
         $solution = app(SolutionRepository::class)->findOrFail($id);
-        if (!can_view_code($solution)) {
+        if (! can_view_code($solution)) {
             return back()->withErrors(__('You cannot access this solution'));
         }
 
@@ -117,7 +117,7 @@ class SolutionController extends Controller
     {
         /** @var \App\Entities\Solution $solution */
         $solution = app(SolutionRepository::class)->findOrFail($id);
-        if (!can_view_code($solution)) {
+        if (! can_view_code($solution)) {
             return back()->withErrors(__('You cannot access this solution'));
         }
 

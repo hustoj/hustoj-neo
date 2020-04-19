@@ -19,7 +19,7 @@ class GenerateTask extends Command
             return new SolutionServer();
         });
         if (strpos($id, '-') !== false) {
-            list($start, $end) = explode('-', $id, 2);
+            [$start, $end] = explode('-', $id, 2);
             $start = intval($start);
             $end = intval($end);
             for ($i = $start; $i <= $end; $i++) {

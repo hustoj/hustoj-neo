@@ -34,5 +34,4 @@ class StoreRequest extends Request
             'contest_id' => 'sometimes|numeric',
         ];
     }
-
 }

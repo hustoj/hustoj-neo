@@ -26,7 +26,7 @@ class TopicMigration extends Migration
         $topic->title = $item->title;
         $topic->contest_id = $item->cid;
         $topic->problem_id = $item->pid;
-        if (!$topic->contest_id) {
+        if (! $topic->contest_id) {
             $topic->contest_id = 0;
         }
         $user = app(UserService::class)->findByName($item->author_id);

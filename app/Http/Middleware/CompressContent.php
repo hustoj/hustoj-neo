@@ -19,6 +19,7 @@ class CompressContent
             $compressedResponse->header('Content-Length', strlen($compressed));
 
             $this->setZlib();
+
             return $compressedResponse;
         }
 
@@ -40,7 +41,8 @@ class CompressContent
         ];
     }
 
-    private function compress($data) {
+    private function compress($data)
+    {
         return gzencode($data);
     }
 }

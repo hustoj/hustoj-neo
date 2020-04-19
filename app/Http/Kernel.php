@@ -96,7 +96,7 @@ class Kernel extends HttpKernel
         'throttle'         => ThrottleRequests::class,
         'verified'         => EnsureEmailIsVerified::class,
         'authorizeContest' => AuthorizeContest::class,
-        'zip.response'     => CompressContent::class
+        'zip.response'     => CompressContent::class,
     ];
     /**
      * The priority-sorted list of middleware.

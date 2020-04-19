@@ -13,7 +13,7 @@ class HeartBeatTest extends TestCase
         $response->assertStatus(200);
         $response->assertExactJson([
             'code' => 500,
-            'message' => 'auth code invalid'
+            'message' => 'auth code invalid',
         ]);
     }
 
@@ -21,13 +21,14 @@ class HeartBeatTest extends TestCase
     {
         $judger = $this->getValidJudger();
 
-        if (!$judger) {
+        if (! $judger) {
             $this->markTestIncomplete('No Valid Judger');
+
             return;
         }
         $response = $this->json('post', '/judge/api/heartbeat', [], ['Judge-Code' => $judger->code]);
         $response->assertStatus(200);
-        $response->assertSee("");
+        $response->assertSee('');
     }
 
     /**
