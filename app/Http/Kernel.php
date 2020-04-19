@@ -6,6 +6,7 @@ use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\AuthorizeContest;
 use App\Http\Middleware\BackendAuthorize;
 use App\Http\Middleware\CheckForMaintenanceMode;
+use App\Http\Middleware\CompressContent;
 use App\Http\Middleware\EnableCrossSite;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -95,6 +96,7 @@ class Kernel extends HttpKernel
         'throttle'         => ThrottleRequests::class,
         'verified'         => EnsureEmailIsVerified::class,
         'authorizeContest' => AuthorizeContest::class,
+        'zip.response'     => CompressContent::class
     ];
     /**
      * The priority-sorted list of middleware.
