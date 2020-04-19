@@ -71,9 +71,5 @@
         ]
     },
     "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/freefcw/laravel-repository"
-        }
     ]
 }
