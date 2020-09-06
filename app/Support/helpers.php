@@ -52,6 +52,21 @@ if (! function_exists('can_attend')) {
     }
 }
 
+if (! function_exists('contest_permission')) {
+    /**
+     * @param Contest $contest
+     *
+     * @return string
+     */
+    function contest_permission($contest) {
+        if ($contest instanceof Contest) {
+            $contest = $contest->id;
+        }
+
+        return 'contest.'. $contest;
+    }
+}
+
 if (! function_exists('can_view_code')) {
     function can_view_code($solution)
     {

@@ -40,7 +40,7 @@ class ContestService
      */
     public function getContestPermission($contest)
     {
-        $name = self::permissionOfContest($contest);
+        $name = contest_permission($contest);
         /** @var PermissionRepository $repository */
         $repository = app(PermissionRepository::class);
         $perms = $repository->findBy('name', $name);
@@ -49,16 +49,11 @@ class ContestService
         }
         $perm = new Permission();
         $perm->name = $name;
-        $perm->display_name = 'Contest .'.$contest->id;
-        $perm->description = 'Privilege For Contest .'.$contest->id;
+        $perm->display_name = 'Contest '.$contest->id;
+        $perm->description = 'Privilege For Contest '.$contest->id;
         $perm->save();
 
         return $perm;
-    }
-
-    public static function permissionOfContest($contest)
-    {
-        return 'contest.'.$contest->id;
     }
 
     /**

@@ -6,7 +6,7 @@ use App\Entities\Contest;
 use App\Repositories\ContestRepository;
 use App\Repositories\Criteria\Like;
 use App\Repositories\Criteria\Where;
-use Carbon\Carbon;
+use App\Services\Contest\ContestManager;
 use Illuminate\Database\Eloquent\Model;
 
 class ContestController extends DataController
@@ -44,51 +44,37 @@ class ContestController extends DataController
 
     public function store()
     {
-        $model = new Contest();
-
-        $this->updateOrSave($model);
-    }
-
-    /**
-     * @param Contest $model ;
-     */
-    protected function updateOrSave($model)
-    {
-        app('db')->transaction(function () use ($model) {
+        app('db')->transaction(function () {
+            $manager = new ContestManager();
             $attrs = request()->except(['start_time', 'end_time']);
-            $model->fill($attrs);
-            $model->start_time = Carbon::parse(request('start_time'));
-            $model->end_time = Carbon::parse(request('end_time'));
-            $model->save();
-
+            $contest = $manager->create($attrs, request('start_time'), request('end_time'));
             if (request()->has('problem_list')) {
-                $problemIds = request('problem_list', []);
-                $relations = [];
-                $index = 0;
-                foreach ($problemIds as $id) {
-                    $relations[$id] = ['order' => $index];
-                    $index++;
-                }
-                $model->problems()->sync($relations);
+                $manager->syncProblems($contest, request('problem_list', []));
             }
-
             if (request()->has('user_list')) {
-                $userIds = request('user_list', []);
-                $model->users()->sync($userIds);
+                $manager->syncProblems($contest, request('user_list', []));
             }
         });
     }
 
-    public function update($id)
+    public function update($contest)
     {
-        /* @var Contest $model */
-        if ($id instanceof Model) {
-            $model = $id;
-        } else {
-            $model = $this->repository->findOrFail($id);
+        /* @var Contest $contest */
+        if (!($contest instanceof Model)) {
+            $contest = $this->repository->findOrFail($contest);
         }
 
-        $this->updateOrSave($model);
+        app('db')->transaction(function () use ($contest) {
+            $manager = new ContestManager();
+            $attrs = request()->except(['start_time', 'end_time']);
+            $contest = $manager->update($contest, $attrs, request('start_time'), request('end_time'));
+            if (request()->has('problem_list')) {
+                $manager->syncProblems($contest, request('problem_list', []));
+            }
+            if (request()->has('user_list')) {
+                $manager->syncProblems($contest, request('user_list', []));
+            }
+        });
     }
 
     protected function getRepository()
