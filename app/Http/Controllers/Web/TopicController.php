@@ -98,6 +98,7 @@ class TopicController extends Controller
         // 获取非比赛的clarity
         $this->repository->pushCriteria(new Where('contest_id', 1, '<'));
         $topics = $this->repository->paginate(request('per_page', 50));
+        $topics->load("user");
 
         return view('web.topic.list')->with('topics', $topics);
     }
