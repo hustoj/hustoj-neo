@@ -22,6 +22,12 @@ class TopicController extends Controller
 
     public function reply($id, ReplyStoreRequest $request)
     {
+        /** @var User $user */
+        $user = auth()->user();
+        if ($user->email_verified_at == null) {
+            return redirect(route('topic.list'))->withErrors("Please verify you email first");
+        }
+
         /** @var Topic $topic */
         $topic = $this->repository->find($id);
         if ($topic) {
@@ -38,6 +44,12 @@ class TopicController extends Controller
 
     public function create()
     {
+        /** @var User $user */
+        $user = auth()->user();
+        if ($user->email_verified_at == null) {
+            return redirect(route('topic.list'))->withErrors("Please verify you email first");
+        }
+
         if (auth()->user()) {
             return view('web.topic.create');
         }
@@ -47,6 +59,11 @@ class TopicController extends Controller
 
     public function store(StoreRequest $request)
     {
+        /** @var User $user */
+        $user = $request->user();
+        if ($user->email_verified_at == null) {
+            return redirect(route('topic.list'))->withErrors("Please verify you email first");
+        }
         $data = [
             'user_id'    => app('auth')->guard()->id(),
             'title'      => $request->getTitle(),

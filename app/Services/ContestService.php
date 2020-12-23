@@ -38,7 +38,7 @@ class ContestService
      *
      * @return Permission
      */
-    public function getContestPermission($contest)
+    public function getContestPermission($contest): Permission
     {
         $name = contest_permission($contest);
         /** @var PermissionRepository $repository */
