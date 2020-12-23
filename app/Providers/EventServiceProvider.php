@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Entities\User;
 use App\Listeners\DatabaseListener;
 use App\Listeners\LoginListener;
+use App\Listeners\UserDeletedObserver;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
@@ -42,6 +44,6 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        User::deleted(UserDeletedObserver::class);
     }
 }
