@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entities\User;
+use App\Repositories\Criteria\Like;
 use App\Repositories\Criteria\Where;
 use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,11 +18,11 @@ class UserController extends DataController
         }
 
         if (request()->filled('name')) {
-            $this->repository->pushCriteria(new Where('username', request('name')));
+            $this->repository->pushCriteria(new Like('username', request('name')));
         }
 
         if (request()->filled('email')) {
-            $this->repository->pushCriteria(new Where('email', request('email')));
+            $this->repository->pushCriteria(new Like('email', request('email')));
         }
 
         if (request()->filled('status')) {
