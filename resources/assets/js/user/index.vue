@@ -20,14 +20,36 @@
                 </el-form-item>
                 <el-button type="primary" plain @click="search(params)">Search</el-button>
                 <el-button type="success" plain @click="handleAdd()">Add</el-button>
+                <el-button type="danger" plain @click="batchRemoveUser()">Remove Selected Users</el-button>
             </el-form>
         </div>
-        <el-table size="medium" v-loading.body="loading" :data="tableData" :row-class-name="tableRowClassName" style="width: 100%">
+        <el-table size="medium" v-loading.body="loading" :data="tableData"
+                  @selection-change="handleSelectionChange"
+                  :row-class-name="tableRowClassName" style="width: 100%">
+            <el-table-column
+                type="selection"
+                width="55">
+            </el-table-column>
             <el-table-column prop="id" label="ID" width="100"></el-table-column>
             <el-table-column prop="username" label="Account" width="160"></el-table-column>
             <el-table-column prop="nick" label="Nick" width="180"></el-table-column>
-            <el-table-column prop="email" label="E-mail" width="200"></el-table-column>
-            <el-table-column prop="access.created_at" label="Last Access at" width="160"></el-table-column>
+            <el-table-column label="E-mail" width="240">
+                <template slot-scope="scope">
+                    <el-tooltip placement="top">
+                        <div slot="content" v-if="scope.row.email_verified_at">{{ scope.row.email_verified_at }}</div>
+                        <div slot="content" v-if="!scope.row.email_verified_at">not verified</div>
+                        <el-button size="small" v-if="scope.row.email_verified_at" type="success" plain>{{ scope.row.email }}</el-button>
+                        <el-button size="small" v-if="!scope.row.email_verified_at" plain>{{ scope.row.email }}</el-button>
+                    </el-tooltip>
+                </template>
+            </el-table-column>
+            <el-table-column label="Submit/Accepted" width="150">
+                <template slot-scope="scope">
+                    {{ scope.row.submit }} / {{ scope.row.solved }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="created_at" label="Registered At" width="160"></el-table-column>
+            <el-table-column prop="access.updated_at" label="Last Access at" width="160"></el-table-column>
             <el-table-column prop="access.ip" label="Last Access IP" width="160"></el-table-column>
             <el-table-column>
                 <template slot-scope="scope">
@@ -73,7 +95,8 @@
                 params: {
                     per_page: 20,
                     page: 1
-                }
+                },
+                multipleSelection: []
             }
         },
         created() {
@@ -92,6 +115,24 @@
                     return 'positive-row';
                 }
             },
+            batchRemoveUser() {
+                if (this.multipleSelection.length === 0) {
+                    this.$message("no user selected!");
+                    return;
+                }
+                console.log("batch remove users!");
+                let self = this;
+                this.multipleSelection.map(function (user) {
+                    self.doDeleteUser(user).then(function (resp) {
+                        self.$message("user " + user.username + " is deleted!");
+                    });
+                })
+                self.loadData();
+            },
+            handleSelectionChange(val) {
+                console.log(val);
+                this.multipleSelection = val;
+            },
             search(params) {
                 this.loadData();
             },
@@ -104,7 +145,7 @@
             toggleStatus(id, status) {
                 let self = this;
                 let data = {};
-                if (status == 1) {
+                if (status === 1) {
                     data.status = 0;
                 } else {
                     data.status = 1;
@@ -123,12 +164,15 @@
                         });
                 });
             },
+            doDeleteUser(user) {
+                return this.$http.delete('/admin/users/' + user.id);
+            },
             handleDelete(item) {
                 let self = this;
                 let message = 'Will delete (' + item.username + '), are you sure?';
                 this.$confirm(message, 'notice', {type: 'warning'})
                     .then(() => {
-                    self.$http.delete('/admin/users/' + item.id)
+                        this.doDeleteUser(item)
                         .then(() => {
                             self.$message.success('Delete Done!');
                             self.loadData();
