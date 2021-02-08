@@ -2,9 +2,9 @@
 
 namespace App\Exceptions\Judger;
 
-use App\Exceptions\HustException;
+use App\Exceptions\ApiException;
 
-class JudgerNameExist extends HustException
+class JudgerNameExist extends ApiException
 {
     protected $message = 'this name is exist!';
 }
