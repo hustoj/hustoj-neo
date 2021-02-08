@@ -42,7 +42,7 @@
         </div>
     @endforeach
 
-    @if(auth()->check())
+    @if(auth()->check() && $isUserCanReply)
         <form class="form mt-4" role="form" method="post">
             <div class="form-group">
                 <label for="content">Add Reply</label>

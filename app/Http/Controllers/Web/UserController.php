@@ -108,17 +108,16 @@ class UserController extends Controller
     public function password(PasswordRequest $request)
     {
         /** @var User $user */
-        $user = auth()->user();
-        if ($user) {
-            if (app('hash')->make($request->input('password')) === $user->password) {
-                $user->password = app('hash')->make($request->input('password_new'));
-                $user->save();
+        $user = $request->user();
 
-                return redirect()->back()->with('success', trans('user.message.password_change_success'));
-            }
-            $errors = new MessageBag(['password' => trans('user.message.password_not_match')]);
+        if (app('hash')->make($request->input('password')) === $user->password) {
+            $user->password = app('hash')->make($request->input('password_new'));
+            $user->save();
 
-            return redirect()->back()->withErrors($errors);
+            return redirect()->back()->with('success', trans('user.message.password_change_success'));
         }
+        $errors = new MessageBag(['password' => trans('user.message.password_not_match')]);
+
+        return redirect()->back()->withErrors($errors);
     }
 }
