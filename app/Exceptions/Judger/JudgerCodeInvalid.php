@@ -2,9 +2,9 @@
 
 namespace App\Exceptions\Judger;
 
-use App\Exceptions\HustException;
+use App\Exceptions\ApiException;
 
-class JudgerCodeInvalid extends HustException
+class JudgerCodeInvalid extends ApiException
 {
     protected $message = 'auth code invalid';
 }

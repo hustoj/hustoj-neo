@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class HustException extends Exception
+class ApiException extends Exception
 {
     public function render()
     {
