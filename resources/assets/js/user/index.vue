@@ -23,9 +23,11 @@
                 <el-button type="danger" plain @click="batchRemoveUser()">Remove Selected Users</el-button>
             </el-form>
         </div>
-        <el-table size="medium" v-loading.body="loading" :data="tableData"
+        <el-table size="medium" v-loading.body="loading"
+                  :data="tableData"
                   @selection-change="handleSelectionChange"
-                  :row-class-name="tableRowClassName" style="width: 100%">
+                  :row-class-name="tableRowClassName"
+                  style="width: 100%">
             <el-table-column
                 type="selection"
                 width="55">
@@ -74,9 +76,13 @@
         <user-edit></user-edit>
     </div>
 </template>
-<style>
-    .el-table .positive-row {
-        background: #e2f0e4;
+<style scoped>
+    .el-table >>> .positive-row {
+        background: oldlace;
+    }
+
+    .el-table >>> .success-row {
+        background: #f0f9eb;
     }
 </style>
 <script>
@@ -110,27 +116,57 @@
             '$route': 'loadData',
         },
         methods: {
-            tableRowClassName(row, index) {
-                if(row.status) {
+            tableRowClassName(params) {
+                let user = params.row;
+
+                if(user.status) {
                     return 'positive-row';
                 }
+                if (user.submit > 0) {
+                    return 'success-row';
+                }
+                return '';
             },
             batchRemoveUser() {
                 if (this.multipleSelection.length === 0) {
                     this.$message("no user selected!");
                     return;
                 }
-                console.log("batch remove users!");
+                console.log("batch remove " + this.multipleSelection.length + " users!");
                 let self = this;
+                let total_removed = 0;
                 this.multipleSelection.map(function (user) {
+                    if (user.submit > 0) {
+                        let message = "user [" + user.username + "] has submit solutions, will skip batch delete!";
+                        console.log('batchRemoveUser', message)
+                        self.$notify({
+                            title: 'warn',
+                            message: message,
+                            type: 'warning'
+                        });
+                        return;
+                    }
+
                     self.doDeleteUser(user).then(function (resp) {
-                        self.$message("user " + user.username + " is deleted!");
+                        console.log("user " + user.username + " is deleted!")
                     });
+                    total_removed++;
                 })
+                if (total_removed > 0) {
+                    self.$message({
+                        message: 'total ' + total_removed + ' users removed',
+                        type: 'success'
+                    })
+                } else {
+                    self.$message({
+                        message: 'no user removed',
+                        type: 'success'
+                    })
+                }
+
                 self.loadData();
             },
             handleSelectionChange(val) {
-                console.log(val);
                 this.multipleSelection = val;
             },
             search(params) {
