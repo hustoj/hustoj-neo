@@ -51,7 +51,7 @@
                 </template>
             </el-table-column>
             <el-table-column prop="created_at" label="Registered At" width="160"></el-table-column>
-            <el-table-column prop="access.updated_at" label="Last Access at" width="160"></el-table-column>
+            <el-table-column prop="access.created_at" label="Last Access at" width="160"></el-table-column>
             <el-table-column prop="access.ip" label="Last Access IP" width="160"></el-table-column>
             <el-table-column>
                 <template slot-scope="scope">
