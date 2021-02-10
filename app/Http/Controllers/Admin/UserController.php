@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entities\LoginLog;
 use App\Entities\User;
 use App\Repositories\Criteria\Like;
 use App\Repositories\Criteria\Where;
@@ -31,12 +32,9 @@ class UserController extends DataController
 
         /** @var Collection $models */
         $models = parent::index();
-        $models->load('lastAccess', 'roles');
+        $models->load('roles');
 
         foreach ($models as $model) {
-            $model->access = $model->lastAccess->first();
-            $model->addHidden('lastAccess');
-
             $model->roles_edit = $model->roles->map(function ($role) {
                 return $role->id;
             });

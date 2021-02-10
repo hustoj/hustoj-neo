@@ -7,6 +7,7 @@ use App\Entities\User;
 use App\Services\LoginLogService;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Support\Carbon;
 
 class LoginListener
 {
@@ -32,9 +33,15 @@ class LoginListener
         if ($event instanceof Login) {
             $password = '*'; // if login ok, then no credentials
             $this->loggingOk($event->user, $password);
+            $this->refreshAccessTime($event->user);
         }
 
         $this->cleanUserRecentLog($event->user);
+    }
+
+    private function refreshAccessTime(User $user) {
+        $user->access_at = Carbon::now();
+        $user->save();
     }
 
     private function loggingFailed($user, $password)

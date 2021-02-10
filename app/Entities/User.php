@@ -26,6 +26,7 @@ use Laratrust\Traits\LaratrustUserTrait;
  * @property int $solved
  * @property int $status
  * @property Carbon $email_verified_at
+ * @property Carbon $access_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -57,7 +58,8 @@ class User extends Authenticatable implements MustVerifyEmailContract
     ];
 
     public $dates = [
-        'email_verified_at'
+        'email_verified_at',
+        'access_at'
     ];
 
     /**
@@ -69,11 +71,6 @@ class User extends Authenticatable implements MustVerifyEmailContract
         'password',
         'remember_token',
     ];
-
-    public function lastAccess()
-    {
-        return $this->logs()->orderBy('created_at', 'desc')->limit(1);
-    }
 
     public function showEmail()
     {
@@ -91,7 +88,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
 
     public function logs()
     {
-        return $this->hasMany(LoginLog::class, 'user_id');
+        return $this->hasMany(LoginLog::class, 'user_id')->orderBy('created_at', 'desc');
     }
 
     public function contests()

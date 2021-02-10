@@ -51,8 +51,11 @@
                 </template>
             </el-table-column>
             <el-table-column prop="created_at" label="Registered At" width="160"></el-table-column>
-            <el-table-column prop="access.created_at" label="Last Access at" width="160"></el-table-column>
-            <el-table-column prop="access.ip" label="Last Access IP" width="160"></el-table-column>
+            <el-table-column prop="last_access_at" label="Last Access at" width="160">
+                <template slot-scope="scope">
+                    {{ scope.row.access_at }} <el-button plain size="mini" @click="showRecentLogging(scope.row)">view login log</el-button>
+                </template>
+            </el-table-column>
             <el-table-column>
                 <template slot-scope="scope">
                     <el-button type="warning" plain size="mini" @click="toggleStatus(scope.row.id, scope.row.status)">
@@ -74,6 +77,7 @@
         </el-pagination>
 
         <user-edit></user-edit>
+        <logging-records></logging-records>
     </div>
 </template>
 <style scoped>
@@ -87,11 +91,14 @@
 </style>
 <script>
     import UserEdit from './edit.vue';
+    import LoggingRecords from './logging.vue';
+
     import {showStatusBtn} from '../filter';
 
     export default {
         components: {
-            UserEdit
+            UserEdit,
+            LoggingRecords
         },
         data() {
             return {
@@ -168,6 +175,9 @@
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+            },
+            showRecentLogging(user) {
+                this.$bus.emit('view-user-login-log', user.id);
             },
             search(params) {
                 this.loadData();

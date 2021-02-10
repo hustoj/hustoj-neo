@@ -12,6 +12,7 @@ app('router')->resource('contests', 'Admin\ContestController');
 app('router')->get('contests/{id}/problems', 'Admin\ContestController@problems');
 app('router')->get('contests/{id}/users', 'Admin\ContestController@users');
 app('router')->resource('users', 'Admin\UserController');
+app('router')->resource('user/logging', 'Admin\User\LoggingController');
 app('router')->resource('articles', 'Admin\ArticleController');
 app('router')->resource('topics', 'Admin\TopicController');
 app('router')->resource('roles', 'Admin\RoleController');
