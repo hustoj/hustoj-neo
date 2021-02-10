@@ -51,9 +51,11 @@
                 </template>
             </el-table-column>
             <el-table-column prop="created_at" label="Registered At" width="160"></el-table-column>
-            <el-table-column prop="last_access_at" label="Last Access at" width="160">
+            <el-table-column prop="last_access_at" label="Last Access at" width="200">
                 <template slot-scope="scope">
-                    {{ scope.row.access_at }} <el-button plain size="mini" @click="showRecentLogging(scope.row)">view login log</el-button>
+                    <el-tooltip content="show more" placement="top">
+                        <el-button @click="showRecentLogging(scope.row)" type="text">{{ scope.row.access_at }} </el-button>
+                    </el-tooltip>
                 </template>
             </el-table-column>
             <el-table-column>
