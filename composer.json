@@ -10,17 +10,18 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ext-json": "*",
+        "ext-zlib": "*",
+        "czim/laravel-repository": "^2.0",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.0",
+        "mews/captcha": "^3.2",
         "php-amqplib/php-amqplib": "^2.10",
         "santigarcor/laratrust": "^5.2",
-        "sentry/sentry-laravel": "^1.5",
-        "czim/laravel-repository": "^2.0",
-        "ext-zlib": "*",
-        "ext-json": "*"
+        "sentry/sentry-laravel": "^1.5"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

@@ -116,4 +116,5 @@ return [
 
     'attributes' => [],
 
+    'captcha' => '验证码不正确!',
 ];
