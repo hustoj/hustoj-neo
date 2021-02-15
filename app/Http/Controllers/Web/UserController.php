@@ -9,6 +9,7 @@ use App\Http\Requests\User\PasswordRequest;
 use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
 use App\Repositories\UserRepository;
+use App\Services\User\UserSolutions;
 use App\Services\UserService;
 use Illuminate\Support\MessageBag;
 
@@ -53,11 +54,11 @@ class UserController extends Controller
             return back()->withErrors('User is not found!');
         }
 
-        if ($user) {
-            return view('web.user.view')->with('user', $user);
-        }
 
-        return redirect(route('home'));
+        $problems = app(UserSolutions::class)->getResolvedProblems($user);
+
+        return view('web.user.view')->with('user', $user)
+            ->with('problems', $problems);
     }
 
     public function profile()
