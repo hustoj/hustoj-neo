@@ -60,7 +60,7 @@ class ContestController extends DataController
     public function update($contest)
     {
         /* @var Contest $contest */
-        if (!($contest instanceof Model)) {
+        if (! ($contest instanceof Model)) {
             $contest = $this->repository->findOrFail($contest);
         }
 

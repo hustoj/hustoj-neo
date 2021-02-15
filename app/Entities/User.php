@@ -59,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
 
     public $dates = [
         'email_verified_at',
-        'access_at'
+        'access_at',
     ];
 
     /**

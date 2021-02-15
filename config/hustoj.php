@@ -13,7 +13,7 @@ return [
     'user' => [
         'topic' => [
             'verified_after' => 24, // hours
-        ]
+        ],
     ],
     'data_path'            => env('HOJ_DATA_PATH', storage_path('data')),
     'google_analytic_code' => env('GOOGLE_ANALYTIC_CODE', 'UA-6733942-1'),

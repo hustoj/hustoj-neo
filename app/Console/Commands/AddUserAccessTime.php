@@ -59,5 +59,4 @@ class AddUserAccessTime extends Command
             $this->info("process {$this->total}");
         });
     }
-
 }
