@@ -39,7 +39,8 @@ class LoginListener
         $this->cleanUserRecentLog($event->user);
     }
 
-    private function refreshAccessTime(User $user) {
+    private function refreshAccessTime(User $user)
+    {
         $user->access_at = Carbon::now();
         $user->save();
     }

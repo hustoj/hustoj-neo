@@ -14,7 +14,8 @@ class ContestManager
      *
      * @return \App\Entities\Contest
      */
-    public function create($attrs, $startAt, $endAt) {
+    public function create($attrs, $startAt, $endAt)
+    {
         $model = new Contest();
 
         return $this->update($model, $attrs, $startAt, $endAt);
@@ -28,7 +29,8 @@ class ContestManager
      *
      * @return \App\Entities\Contest
      */
-    public function update($contest, $attrs, $startAt, $endAt) {
+    public function update($contest, $attrs, $startAt, $endAt)
+    {
         $contest->fill($attrs);
         $contest->start_time = Carbon::parse($startAt);
         $contest->end_time = Carbon::parse($endAt);
@@ -42,7 +44,8 @@ class ContestManager
      * @param Contest $contest
      * @param array $problemIds
      */
-    public function syncProblems($contest, $problemIds) {
+    public function syncProblems($contest, $problemIds)
+    {
         $relations = [];
         $index = 0;
         foreach ($problemIds as $id) {
@@ -56,7 +59,8 @@ class ContestManager
      * @param Contest $contest
      * @param array $userIds
      */
-    public function syncUser($contest, $userIds) {
+    public function syncUser($contest, $userIds)
+    {
         $contest->users()->sync($userIds);
     }
 }

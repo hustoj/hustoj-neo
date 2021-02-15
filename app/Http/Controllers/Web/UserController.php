@@ -54,7 +54,6 @@ class UserController extends Controller
             return back()->withErrors('User is not found!');
         }
 
-
         $problems = app(UserSolutions::class)->getResolvedProblems($user);
 
         return view('web.user.view')->with('user', $user)

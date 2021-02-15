@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Listeners;
-
 
 use App\Entities\Topic;
 use App\Entities\User;
@@ -20,7 +18,8 @@ class UserDeletedObserver
         $this->topicRepository = app(TopicRepository::class);
     }
 
-    public function handle(User $user) {
+    public function handle(User $user)
+    {
         $this->cleanRelatedTopic($user);
     }
 

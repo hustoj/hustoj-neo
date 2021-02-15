@@ -58,12 +58,13 @@ if (! function_exists('contest_permission')) {
      *
      * @return string
      */
-    function contest_permission($contest) {
+    function contest_permission($contest)
+    {
         if ($contest instanceof Contest) {
             $contest = $contest->id;
         }
 
-        return 'contest.'. $contest;
+        return 'contest.'.$contest;
     }
 }
 

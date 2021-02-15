@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Entities\LoginLog;
 use App\Entities\User;
 use App\Repositories\Criteria\Like;
 use App\Repositories\Criteria\Where;

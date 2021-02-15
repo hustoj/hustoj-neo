@@ -55,6 +55,7 @@ class TopicController extends Controller
         } catch (WebException $exception) {
             return redirect(route('topic.list'))->withErrors($exception->getMessage());
         }
+
         return view('web.topic.create');
     }
 
@@ -101,7 +102,7 @@ class TopicController extends Controller
         // 获取非比赛的clarity
         $this->repository->pushCriteria(new Where('contest_id', 1, '<'));
         $topics = $this->repository->paginate(request('per_page', 50));
-        $topics->load("user");
+        $topics->load('user');
 
         return view('web.topic.list')->with('topics', $topics);
     }
@@ -119,7 +120,7 @@ class TopicController extends Controller
 
         return view('web.topic.view', [
             'topic' => $topic,
-            'isUserCanReply' => $isUserCanReply
+            'isUserCanReply' => $isUserCanReply,
         ]);
     }
 }
