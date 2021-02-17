@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Entities\User;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
 
@@ -76,6 +77,7 @@ class RegisterController extends Controller
             'nick'     => request('nick'),
             'email'    => $data['email'],
             'status'   => User::ST_ACTIVE,
+            'access_at' => Carbon::now(),
         ]);
         $user->password = app('hash')->make($data['password']);
         $user->save();
