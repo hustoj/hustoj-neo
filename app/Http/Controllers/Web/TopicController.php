@@ -12,6 +12,7 @@ use App\Repositories\Criteria\OrderBy;
 use App\Repositories\Criteria\Where;
 use App\Repositories\TopicRepository;
 use App\Services\Topic\Validator\UserValidator;
+use Illuminate\Database\Eloquent\Collection;
 
 class TopicController extends Controller
 {
@@ -101,6 +102,7 @@ class TopicController extends Controller
         $this->repository->pushCriteria(new OrderBy('id', 'desc'));
         // 获取非比赛的clarity
         $this->repository->pushCriteria(new Where('contest_id', 1, '<'));
+        /** @var Collection $topics */
         $topics = $this->repository->paginate(request('per_page', 50));
         $topics->load('user');
 

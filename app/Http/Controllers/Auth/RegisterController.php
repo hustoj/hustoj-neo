@@ -69,12 +69,13 @@ class RegisterController extends Controller
      * @param array $data
      *
      * @return User|bool
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function create(array $data)
     {
         $user = new User([
             'username' => $data['username'],
-            'nick'     => request('nick'),
+            'nick'     => $data['nick'],
             'email'    => $data['email'],
             'status'   => User::ST_ACTIVE,
             'access_at' => Carbon::now(),

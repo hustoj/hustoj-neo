@@ -19,7 +19,7 @@ class ApiController extends Controller
     /**
      * ApiController constructor.
      *
-     * @param \App\Http\Requests\Judger\JudgerRequest $request
+     * @param JudgerRequest $request
      *
      * @throws \App\Exceptions\Judger\JudgerCodeInvalid
      */
@@ -40,10 +40,6 @@ class ApiController extends Controller
 
             return $dp->getData($pid);
         } catch (LogicException $e) {
-            return [
-                'message' => $e->getMessage(),
-            ];
-        } catch (FileNotFoundException $e) {
             return [
                 'message' => $e->getMessage(),
             ];
