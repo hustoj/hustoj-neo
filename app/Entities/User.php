@@ -55,6 +55,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
         'locale',
         'language',
         'status',
+        'access_at',
     ];
 
     public $dates = [
