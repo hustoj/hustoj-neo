@@ -23,7 +23,9 @@ class SolutionController extends Controller
 
         if ($request->getUserName()) {
             $user = app(UserService::class)->findByName($request->getUserName());
-            $repository->pushCriteria(new Where('user_id', $user->id));
+            if ($user != null) {
+                $repository->pushCriteria(new Where('user_id', $user->id));
+            }
         }
 
         if ($request->getProblemId()) {
