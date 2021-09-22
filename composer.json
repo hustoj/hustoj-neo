@@ -9,7 +9,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": ">=7.4",
         "ext-json": "*",
         "ext-zlib": "*",
         "czim/laravel-repository": "^2.0",
@@ -20,8 +20,8 @@
         "laravel/ui": "^1.0",
         "mews/captcha": "^3.2",
         "php-amqplib/php-amqplib": "^2.10",
-        "santigarcor/laratrust": "^5.2",
-        "sentry/sentry-laravel": "^1.5"
+        "santigarcor/laratrust": "~6.3",
+        "sentry/sentry-laravel": ">=1.5"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
