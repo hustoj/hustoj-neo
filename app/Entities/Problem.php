@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,7 +36,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Problem extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, CustomDateFormat;
 
     const ST_NORMAL = 0;
     const ST_HIDE = 1;

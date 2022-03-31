@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Reply extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, CustomDateFormat;
 
     protected $fillable = [
         'user_id',
@@ -37,5 +38,10 @@ class Reply extends Model
     public function topic()
     {
         return $this->belongsTo(Topic::class);
+    }
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format($this->dateFormat ?: 'Y-m-d H:i:s');
     }
 }

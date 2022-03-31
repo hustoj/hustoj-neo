@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -23,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Post extends Model
 {
+    use CustomDateFormat;
     protected $table = 'posts';
     protected $fillable = [
         'user_id',

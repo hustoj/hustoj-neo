@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Solution extends Model
 {
+    use CustomDateFormat;
     public static $status = [
         4  => 'Accepted',
         5  => 'Presentation Error',

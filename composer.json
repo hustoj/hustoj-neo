@@ -12,23 +12,22 @@
         "php": ">=7.4",
         "ext-json": "*",
         "ext-zlib": "*",
-        "czim/laravel-repository": "^2.0",
-        "fideloper/proxy": "^4.0",
-        "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "^6.0",
-        "laravel/tinker": "^1.0",
-        "laravel/ui": "^1.0",
+        "czim/laravel-repository": "^2.1",
+        "fideloper/proxy": "^4.4",
+        "guzzlehttp/guzzle": "^7.4",
+        "laravel/framework": "^8.0",
+        "laravel/tinker": "^2.0",
+        "laravel/ui": "^3.0",
         "mews/captcha": "^3.2",
-        "php-amqplib/php-amqplib": "^2.10",
-        "santigarcor/laratrust": "~6.3",
-        "sentry/sentry-laravel": ">=1.5"
+        "php-amqplib/php-amqplib": "^3.1",
+        "santigarcor/laratrust": "~7.1",
+        "sentry/sentry-laravel": ">=2.1"
     },
     "require-dev": {
-        "facade/ignition": "^1.4",
-        "fzaninotto/faker": "^1.4",
+        "facade/ignition": "^2.3.6",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^3.0.1",
-        "phpunit/phpunit": "^8.0"
+        "nunomaduro/collision": "^5.0",
+        "phpunit/phpunit": "^9.0"
     },
     "config": {
         "optimize-autoloader": true,

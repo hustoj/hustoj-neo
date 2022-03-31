@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,7 +24,8 @@ use Illuminate\Support\Carbon;
  */
 class Contest extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, CustomDateFormat;
+
     const PRIVATE = 1;
     const PUBLIC = 0;
 

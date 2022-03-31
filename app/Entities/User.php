@@ -32,7 +32,7 @@ use Laratrust\Traits\LaratrustUserTrait;
  */
 class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable, LaratrustUserTrait, MustVerifyEmail;
+    use Notifiable, LaratrustUserTrait, MustVerifyEmail, CustomDateFormat;
 
     const ST_ACTIVE = 0;
     const ST_INACTIVE = 1;

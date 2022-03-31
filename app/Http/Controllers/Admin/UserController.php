@@ -37,7 +37,7 @@ class UserController extends DataController
             $model->roles_edit = $model->roles->map(function ($role) {
                 return $role->id;
             });
-            $model->addHidden('roles');
+            $model->makeHidden('roles');
         }
 
         return $models;
