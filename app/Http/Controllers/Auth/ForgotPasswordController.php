@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Entities\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Request;
-use App\Repositories\UserRepository;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\Password;
 
@@ -64,7 +64,7 @@ class ForgotPasswordController extends Controller
 
     private function hasManyUser($email)
     {
-        return app(UserRepository::class)->findWhere(['email' => $email])->count();
+        return User::query()->where('email', $email)->count();
     }
 
     public function showLinkRequestForm()

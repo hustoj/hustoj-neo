@@ -4,17 +4,17 @@ namespace App\Services;
 
 use App\Entities\Judger;
 use App\Exceptions\Judger\JudgerNameExist;
-use App\Repositories\JudgerRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class JudgerService
 {
     /**
      * @param string $name
-     * @param null   $bind_ip
-     *
-     * @throws \App\Exceptions\Judger\JudgerNameExist
+     * @param null $bind_ip
      *
      * @return \App\Entities\Judger
+     * @throws \App\Exceptions\Judger\JudgerNameExist
+     *
      */
     public function newJudger($name, $bind_ip = null)
     {
@@ -35,12 +35,7 @@ class JudgerService
 
     private function exist($name)
     {
-        return app(JudgerRepository::class)->findBy('name', $name);
-    }
-
-    public function find($id)
-    {
-        return app(JudgerRepository::class)->findOrFail($id);
+        return Judger::query()->where('name', $name)->first();
     }
 
     /**
@@ -50,10 +45,6 @@ class JudgerService
      */
     public function getJudger($code)
     {
-        if ($code) {
-            return app(JudgerRepository::class)->findBy('code', $code);
-        }
-
-        return null;
+        return Judger::query()->where('code', $code)->first();
     }
 }

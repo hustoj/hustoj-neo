@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Judger;
 
+use App\Entities\Judger;
 use App\Exceptions\Judger\JudgerCodeInvalid;
 use App\Http\Requests\Request;
-use App\Services\JudgerService;
 
 class JudgerRequest extends Request
 {
@@ -21,7 +21,7 @@ class JudgerRequest extends Request
     public function getJudger()
     {
         if (! $this->judger) {
-            $this->judger = app(JudgerService::class)->find($this->getJudgeId());
+            $this->judger = Judger::query()->find($this->getJudgeId());
         }
 
         return $this->judger;

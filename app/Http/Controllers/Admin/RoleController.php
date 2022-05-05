@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repositories\Criteria\Where;
-use App\Repositories\RoleRepository;
+use App\Entities\Role;
 
 class RoleController extends DataController
 {
     public function index()
     {
+        $query = Role::query();
         if (request()->filled('name')) {
-            $this->repository->pushCriteria(new Where('name', request('name')));
+            $query->where('name', request('name'));
         }
 
-        return parent::index();
+        return parent::paginate($query);
     }
 
-    protected function getRepository()
+    protected function getQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return RoleRepository::class;
+        return Role::query();
     }
 }

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Entities\Post;
 use App\Http\Controllers\Controller;
-use App\Repositories\Criteria\Where;
-use App\Repositories\PostRepository;
-use Czim\Repository\Criteria\Common\OrderBy;
 
 class HomeController extends Controller
 {
@@ -18,11 +16,11 @@ class HomeController extends Controller
 
     private function getHomePageNews()
     {
-        /** @var PostRepository $repo */
-        $repo = app(PostRepository::class);
-        $repo->pushCriteria(new Where('status', 1));
-        $repo->pushCriteria(new OrderBy('created_at', 'desc'));
+        $query = Post::query();
+        $query->where('status', 1)
+            ->orderByDesc('created_at');
 
-        return $repo->paginate(request('per_page', 3));
+
+        return $query->paginate(request('per_page', 3));
     }
 }

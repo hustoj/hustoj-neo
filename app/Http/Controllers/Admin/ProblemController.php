@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repositories\Criteria\Like;
-use App\Repositories\Criteria\Where;
-use App\Repositories\ProblemRepository;
+use App\Entities\Problem;
 use App\Services\DataProvider;
-use Czim\Repository\Criteria\Common\WithRelations;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
@@ -15,35 +12,37 @@ class ProblemController extends DataController
 {
     public function index()
     {
+        $query = Problem::query();
+
         if (request()->filled('id')) {
-            $this->repository->pushCriteria(new Where('id', request('id')));
+            $query->where('id', request('id'));
         }
 
         if (request()->filled('title')) {
-            $this->repository->pushCriteria(new Like('title', request('title')));
+            $query->where('title', where_like(request('title')));
         }
 
         if (request()->filled('source')) {
-            $this->repository->pushCriteria(new Like('source', request('source')));
+            $query->where('source', where_like(request('like')));
         }
         if (request()->filled('status')) {
-            $this->repository->pushCriteria(new Where('status', request('status')));
+            $query->where('status', request('status'));
         }
 
-        $this->repository->pushCriteria(new WithRelations(['author']));
+        $query->with(['author']);
 
-        return parent::index();
+        return parent::paginate($query);
     }
 
     public function getFile($id, $name)
     {
         $name = htmlspecialchars($name);
-        $problem = $this->repository->find($id);
+        $problem = Problem::query()->find($id);
 
         if ($problem) {
             $dp = app(DataProvider::class);
 
-            $path = $dp->getDataPath($id).$name;
+            $path = $dp->getDataPath($id) . $name;
 
             return response()->download($path, $name);
         }
@@ -56,20 +55,20 @@ class ProblemController extends DataController
         $name = htmlspecialchars($name);
 
         try {
-            $this->repository->findOrFail($id);
+            $problem = Problem::query()->findOrFail($id);
             $fs = new Filesystem();
-            $path = config('hustoj.data_path').'/'.$id.'/'.$name;
+            $path = config('hustoj.data_path') . '/' . $id . '/' . $name;
             if ($fs->exists($path) && $fs->delete($path)) {
                 return ['code' => 0];
             }
 
             return [
-                'code'    => -1,
+                'code' => -1,
                 'message' => 'file not exist or you have no permission delete it!',
             ];
         } catch (ModelNotFoundException $e) {
             return [
-                'code'    => -1,
+                'code' => -1,
                 'message' => 'File not found!',
             ];
         }
@@ -77,12 +76,12 @@ class ProblemController extends DataController
 
     public function dataFiles($id)
     {
-        $problem = $this->repository->find($id);
+        $problem = Problem::query()->find($id);
 
         if ($problem) {
             $fs = new Filesystem();
-            $path = config('hustoj.data_path').'/'.$id;
-            if (! $fs->exists($path)) {
+            $path = config('hustoj.data_path') . '/' . $id;
+            if (!$fs->exists($path)) {
                 $fs->makeDirectory($path);
             }
             $files = $fs->files($path);
@@ -100,12 +99,12 @@ class ProblemController extends DataController
 
     public function upload($id)
     {
-        $problem = $this->repository->find($id);
+        $problem = Problem::query()->find($id);
 
         if ($problem && request()->hasFile('files')) {
             $fs = new Filesystem();
-            $path = config('hustoj.data_path').'/'.$id;
-            if (! $fs->exists($path)) {
+            $path = config('hustoj.data_path') . '/' . $id;
+            if (!$fs->exists($path)) {
                 $fs->makeDirectory($path);
             }
             /** @var UploadedFile[] $files */
@@ -116,8 +115,8 @@ class ProblemController extends DataController
         }
     }
 
-    protected function getRepository()
+    protected function getQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return ProblemRepository::class;
+        return Problem::query();
     }
 }

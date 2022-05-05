@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entities\User;
-use App\Repositories\Criteria\Like;
-use App\Repositories\Criteria\Where;
-use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 
@@ -13,24 +10,28 @@ class UserController extends DataController
 {
     public function index()
     {
+        $query = User::query();
         if (request()->filled('id')) {
-            $this->repository->pushCriteria(new Where('id', request('id')));
+            $query->where('id', request('id'));
         }
 
         if (request()->filled('name')) {
-            $this->repository->pushCriteria(new Like('username', request('name')));
+            $query->where('name', where_like(request('name')));
+//            $this->repository->pushCriteria(new Like('username', request('name')));
         }
 
         if (request()->filled('email')) {
-            $this->repository->pushCriteria(new Like('email', request('email')));
+            $query->where('email', where_like(request('email')));
+//            $this->repository->pushCriteria(new Like('email', request('email')));
         }
 
         if (request()->filled('status')) {
-            $this->repository->pushCriteria(new Where('status', request('status')));
+            $query->where('status', request('status'));
+//            $this->repository->pushCriteria(new Where('status', request('status')));
         }
 
         /** @var Collection $models */
-        $models = parent::index();
+        $models = parent::paginate($query);
         $models->load('roles');
 
         foreach ($models as $model) {
@@ -46,7 +47,7 @@ class UserController extends DataController
     public function update($id)
     {
         /** @var User $model */
-        $model = $this->repository->findOrFail($id);
+        $model = User::query()->findOrFail($id);
 
         try {
             $model->fill(request()->all());
@@ -63,8 +64,8 @@ class UserController extends DataController
         return $model;
     }
 
-    protected function getRepository()
+    protected function getQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return UserRepository::class;
+        return User::query();
     }
 }

@@ -8,21 +8,10 @@ use App\Exceptions\WebException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Topic\ReplyStoreRequest;
 use App\Http\Requests\Topic\StoreRequest;
-use App\Repositories\Criteria\OrderBy;
-use App\Repositories\Criteria\Where;
-use App\Repositories\TopicRepository;
 use App\Services\Topic\Validator\UserValidator;
-use Illuminate\Database\Eloquent\Collection;
 
 class TopicController extends Controller
 {
-    private $repository;
-
-    public function __construct(TopicRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     public function reply($id, ReplyStoreRequest $request)
     {
         /** @var User $user */
@@ -34,7 +23,7 @@ class TopicController extends Controller
         }
 
         /** @var Topic $topic */
-        $topic = $this->repository->find($id);
+        $topic = Topic::query()->find($id);
         if ($topic) {
             $reply = [
                 'user_id' => app('auth')->guard()->id(),
@@ -78,7 +67,7 @@ class TopicController extends Controller
             'problem_id' => $request->getProblemId(),
         ];
 
-        $this->repository->create($data);
+        Topic::query()->create($data);
 
         if ($request->filled('contest_id')) {
             return redirect(route('contest.clarify', ['contest' => $request->getContestId()]));
@@ -89,21 +78,22 @@ class TopicController extends Controller
 
     public function index()
     {
+        $query = Topic::query();
         if (request()->filled('uid')) {
             /** @var User $user */
             $user = User::query()->where('username', request()->input('uid'))->first();
             if ($user) {
-                $this->repository->pushCriteria(new Where('user_id', $user->id));
+                $query->where('user_id', $user->id);
             }
         }
         if (request()->filled('pid')) {
-            $this->repository->pushCriteria(new Where('problem_id', request('pid')));
+            $query->where('problem_id', request('pid'));
         }
-        $this->repository->pushCriteria(new OrderBy('id', 'desc'));
-        // 获取非比赛的clarity
-        $this->repository->pushCriteria(new Where('contest_id', 1, '<'));
-        /** @var Collection $topics */
-        $topics = $this->repository->paginate(request('per_page', 50));
+        $topics = $query
+            ->where('contest_id', '<', 1)
+            ->orderByDesc('id')
+            ->paginate(request('per_page', 50));
+
         $topics->load('user');
 
         return view('web.topic.list')->with('topics', $topics);
@@ -111,7 +101,7 @@ class TopicController extends Controller
 
     public function show($id)
     {
-        $topic = $this->repository->findOrFail($id);
+        $topic = Topic::query()->findOrFail($id);
         /** @var User $user */
         $user = auth()->user();
 

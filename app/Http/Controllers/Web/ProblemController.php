@@ -4,30 +4,15 @@ namespace App\Http\Controllers\Web;
 
 use App\Entities\Problem;
 use App\Http\Controllers\Controller;
-use App\Repositories\Criteria\SearchByColumn;
-use App\Repositories\Criteria\Where;
-use App\Repositories\ProblemRepository;
 use App\Services\SummaryService;
 
 class ProblemController extends Controller
 {
-    private $repository;
-
-    /**
-     * ProblemController constructor.
-     *
-     * @param ProblemRepository $repository
-     */
-    public function __construct(ProblemRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     public function show($id)
     {
         /** @var Problem $problem */
-        $problem = $this->repository->findOrFail($id);
-        if (! $problem->isAvailable()) {
+        $problem = Problem::query()->findOrFail($id);
+        if (!$problem->isAvailable()) {
             return back()->withErrors('Problem is not found!');
         }
 
@@ -36,15 +21,13 @@ class ProblemController extends Controller
 
     public function index()
     {
+        $query = Problem::query();
         if (request('text')) {
-            $searchByColumn = new SearchByColumn(request('text'), request('area'));
-            $this->repository->pushCriteria($searchByColumn);
+            $query->where(request('area'), 'like', where_like(request('text')));
         }
-
-        $this->repository->pushCriteria(new Where('status', Problem::ST_NORMAL));
-
-        $perPage = request('per_page', 100);
-        $problems = $this->repository->paginate($perPage);
+        $problems = $query->where('status', Problem::ST_NORMAL)
+            ->orderBy('id')
+            ->paginate(request('per_page', 100));
 
         return view('web.problem.index', ['problems' => $problems]);
     }
@@ -52,8 +35,8 @@ class ProblemController extends Controller
     public function summary($id)
     {
         /** @var Problem $problem */
-        $problem = $this->repository->findOrFail($id);
-        if (! $problem->isAvailable()) {
+        $problem = Problem::query()->findOrFail($id);
+        if (!$problem->isAvailable()) {
             return back()->withErrors('Problem is not found!');
         }
 

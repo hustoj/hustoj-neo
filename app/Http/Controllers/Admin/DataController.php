@@ -3,48 +3,47 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Criteria\OrderBy;
-use App\Repositories\Repository;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class DataController extends Controller
 {
-    /** @var Repository */
-    protected $repository;
 
-    public function __construct()
-    {
-        $this->repository = app($this->getRepository());
-    }
-
-    abstract protected function getRepository();
+    abstract protected function getQuery(): \Illuminate\Database\Eloquent\Builder;
 
     public function index()
     {
-        $this->repository->pushCriteria(new OrderBy('id', 'desc'));
+        $query = $this->getQuery();
+        return $this->paginate($query);
+    }
 
-        return $this->repository->paginate(request('per_page'));
+    protected function paginate(Builder $query)
+    {
+        $query->orderByDesc('id');
+
+
+        return $query->paginate(request('per_page'));
     }
 
     public function store()
     {
-        return $this->repository->create(request()->all());
+        return $this->getQuery()->create(request()->all());
     }
 
     /**
      * @param $id
      *
+     * @return mixed
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      *
-     * @return mixed
      */
     public function update($id)
     {
         if ($id instanceof Model) {
             $model = $id;
         } else {
-            $model = $this->repository->findOrFail($id);
+            $model = $this->getQuery()->findOrFail($id);
         }
 
         try {
@@ -62,7 +61,7 @@ abstract class DataController extends Controller
         if ($id instanceof Model) {
             $id->delete();
         } else {
-            $model = $this->repository->findOrFail($id);
+            $model = $this->getQuery()->findOrFail($id);
             $model->delete();
         }
     }

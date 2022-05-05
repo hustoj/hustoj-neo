@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repositories\Criteria\Like;
-use App\Repositories\Criteria\Where;
-use App\Repositories\PostRepository;
+use App\Entities\Post;
 
 class ArticleController extends DataController
 {
     public function index()
     {
+        $query = Post::query();
         if (request()->filled('id')) {
-            $this->repository->pushCriteria(new Where('id', request('id')));
+            $query->where('id', request('id'));
         }
         if (request()->filled('title')) {
-            $this->repository->pushCriteria(new Like('title', request('title')));
+            $query->where('title', where_like(request('title')));
+//            $this->repository->pushCriteria(new Like('title', request('title')));
         }
         if (request()->filled('status')) {
-            $this->repository->pushCriteria(new Where('status', request('status')));
+            $query->where('status', request('status'));
+//            $this->repository->pushCriteria(new Where('status', request('status')));
         }
 
-        return parent::index();
+        return parent::paginate($query);
     }
 
     public function store()
@@ -28,11 +29,11 @@ class ArticleController extends DataController
         $attrs = request()->all();
         $attrs['user_id'] = request('user_id', request()->user()->id);
 
-        return $this->repository->create($attrs);
+        return $this->getQuery()->create($attrs);
     }
 
-    protected function getRepository()
+    protected function getQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return PostRepository::class;
+        return Post::query();
     }
 }

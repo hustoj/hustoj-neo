@@ -6,8 +6,6 @@ use App\Entities\Contest;
 use App\Entities\Solution;
 use App\Entities\Team;
 use App\Entities\User;
-use App\Repositories\Criteria\WhereIn;
-use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -81,11 +79,7 @@ class Ranking
      */
     protected function getTeams()
     {
-        $repo = app(UserRepository::class);
-        $whereIn = new WhereIn('id', $this->getTeamsId());
-        $repo->pushCriteria($whereIn);
-
-        return $repo->all();
+        return User::query()->whereIn('id', $this->getTeamsId())->get();
     }
 
     /**

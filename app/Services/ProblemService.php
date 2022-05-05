@@ -2,36 +2,28 @@
 
 namespace App\Services;
 
-use App\Repositories\Criteria\BestSolution;
-use App\Repositories\Criteria\Distinct;
-use App\Repositories\Criteria\GroupBy;
-use App\Repositories\Criteria\OrderBy;
-use App\Repositories\Criteria\RawSelect;
-use App\Repositories\Criteria\Where;
-use App\Repositories\SolutionRepository;
+use App\Entities\Solution;
 use App\Status;
 
 class ProblemService
 {
     public function numberOfAcceptedUser($problemId)
     {
-        /** @var SolutionRepository $repository */
-        $repository = app(SolutionRepository::class);
-        $repository->pushCriteria(new Where('problem_id', $problemId));
-        $repository->pushCriteria(new Where('result', Status::ACCEPT));
-        $repository->pushCriteria(new Distinct('user_id'));
+        $query = Solution::query();
 
-        return $repository->count();
+        return $query->where('problem_id', $problemId)
+            ->where('result', Status::ACCEPT)
+            ->distinct('user_id')
+            ->count();
     }
 
     public function numberOfSubmitUser($problemId)
     {
-        /** @var SolutionRepository $repository */
-        $repository = app(SolutionRepository::class);
-        $repository->pushCriteria(new Where('problem_id', $problemId));
-        $repository->pushCriteria(new Distinct('user_id'));
+        $query = Solution::query();
 
-        return $repository->count();
+        return $query->where('problem_id', $problemId)
+            ->distinct('user_id')
+            ->count();
     }
 
     /**
@@ -41,30 +33,40 @@ class ProblemService
      */
     public function getResultCount($problemId)
     {
-        /** @var SolutionRepository $repository */
-        $repository = app(SolutionRepository::class);
-        $repository->pushCriteria(new Where('problem_id', $problemId));
-        $repository->pushCriteria(new RawSelect('count(*) as user_count, result'));
-        $repository->pushCriteria(new GroupBy('result'));
+        $query = Solution::query();
 
-        app('db')->connection()->statement('SET sql_mode = \'\'');
-
-        return $repository->all();
+        $query->getConnection()->statement('SET sql_mode = \'\'');
+        return $query
+            ->selectRaw('count(*) as user_count, result')
+            ->where('problem_id', $problemId)
+            ->groupBy('result')
+            ->get();
     }
 
     public function bestSolutions($problemId, $perPage = 50)
     {
-        /** @var SolutionRepository $repository */
-        $repository = app(SolutionRepository::class);
-
-        $repository->pushCriteria(new BestSolution());
-        $repository->pushCriteria(new Where('problem_id', $problemId));
-        $repository->pushCriteria(new Where('result', Status::ACCEPT));
-        $repository->pushCriteria(new OrderBy('time_cost', 'asc'));
-        $repository->pushCriteria(new OrderBy('score', 'asc'));
-        $repository->pushCriteria(new OrderBy('id', 'asc'));
-        $repository->pushCriteria(new GroupBy('user_id'));
-
-        return $repository->paginate($perPage);
+        $query = Solution::query();
+        $query->getConnection()->statement('SET sql_mode = \'\'');
+        $rawCount = 'count(*) as att';
+        $rawGrade = 'min(10000000000000000000 + time_cost * 100000000000 + memory_cost * 100000) as score';
+        $columns = ['id',
+            'problem_id',
+            'user_id',
+            'language',
+            'memory_cost',
+            'time_cost',
+            'created_at',
+            $query->raw($rawCount),
+            $query->raw($rawGrade)
+        ];
+        return $query
+            ->select($columns)
+            ->where('problem_id', $problemId)
+            ->where('result', Status::ACCEPT)
+            ->orderBy('time_cost')
+            ->orderBy('score')
+            ->orderBy('id')
+            ->groupBy('user_id')
+            ->paginate($perPage);
     }
 }

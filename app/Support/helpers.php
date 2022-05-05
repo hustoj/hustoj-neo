@@ -10,9 +10,16 @@ use Illuminate\Database\Eloquent\Collection;
 use Ramsey\Uuid\Uuid;
 
 if (! function_exists('new_judge_code')) {
-    function new_judge_code()
+    function new_judge_code(): \Ramsey\Uuid\UuidInterface
     {
         return Uuid::getFactory()->uuid4();
+    }
+}
+
+if (! function_exists('where_like')) {
+    function where_like($term): string
+    {
+        return sprintf('%%%s%%', $term);
     }
 }
 
@@ -37,7 +44,7 @@ if (! function_exists('can_attend')) {
      *
      * @return bool
      */
-    function can_attend($contest)
+    function can_attend($contest): bool
     {
         /** @var User $user */
         $user = auth()->user();

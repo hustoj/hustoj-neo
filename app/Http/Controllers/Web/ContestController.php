@@ -3,21 +3,16 @@
 namespace App\Http\Controllers\Web;
 
 use App\Entities\Contest;
+use App\Entities\Solution;
+use App\Entities\Topic;
+use App\Entities\User;
 use App\Http\Controllers\Controller;
-use App\Repositories\ContestRepository;
-use App\Repositories\Criteria\OrderBy;
-use App\Repositories\Criteria\Where;
-use App\Repositories\SolutionRepository;
 use App\Services\ContestService;
 use App\Services\Ranking;
-use App\Services\TopicService;
-use App\Services\UserService;
-use Czim\Repository\Criteria\Common\WithRelations;
 
 class ContestController extends Controller
 {
-    /** @var ContestService */
-    private $contestService;
+    private ContestService $contestService;
 
     public function __construct(ContestService $service)
     {
@@ -26,13 +21,10 @@ class ContestController extends Controller
 
     public function index()
     {
-        /** @var ContestRepository $repository */
-        $repository = app(ContestRepository::class);
-        $repository->clearCriteria();
-        $repository->pushCriteria(new Where('status', Contest::ST_NORMAL));
-        $repository->pushCriteria(new OrderBy('id', 'desc'));
+        $query = Contest::query()->where('status', Contest::ST_NORMAL);
+        $query->orderByDesc('id');
 
-        $contests = $repository->paginate(request('per_page', 100));
+        $contests = $query->paginate(request('per_page', 100));
 
         return view('web.contest.index', ['contests' => $contests]);
     }
@@ -40,7 +32,7 @@ class ContestController extends Controller
     public function show($id)
     {
         /** @var Contest $contest */
-        $contest = app(ContestRepository::class)->findOrFail($id);
+        $contest = Contest::query()->findOrFail($id);
 
         $problems = $contest->problems;
 
@@ -50,7 +42,7 @@ class ContestController extends Controller
     public function problem($id, $order)
     {
         /** @var Contest $contest */
-        $contest = app(ContestRepository::class)->findOrFail($id);
+        $contest = Contest::query()->findOrFail($id);
 
         $problem = $this->contestService->getProblemByOrder($contest, $order);
         if ($problem === null) {
@@ -63,14 +55,14 @@ class ContestController extends Controller
     public function submit($id)
     {
         /** @var Contest $contest */
-        $contest = app(ContestRepository::class)->findOrFail($id);
+        $contest = Contest::query()->findOrFail($id);
 
         if ($contest->isEnd()) {
             return redirect(route('contest.view', $contest->id))
                 ->withErrors('Contest is End!');
         }
 
-        if (! auth()->user()) {
+        if (!auth()->user()) {
             return redirect(route('contest.view', $contest->id))
                 ->withErrors('Login first');
         }
@@ -82,35 +74,38 @@ class ContestController extends Controller
 
     public function status($id)
     {
-        $contest = $this->contestService->getContest($id);
-        /** @var SolutionRepository $repository */
-        $repository = app(SolutionRepository::class);
+        /** @var Contest $contest */
+        $contest = Contest::query()->findOrFail($id);
 
-        if (request('username')) {
-            $user = app(UserService::class)->findByName(request('username'));
-            $repository->pushCriteria(new Where('user_id', $user->id));
+        $query = Solution::query();
+
+        if (request()->filled('username')) {
+            /** @var User $user */
+            $user = User::query()->where('username', request('username'))->first();
+            if ($user == null) {
+                $solutions = [];
+                return view('web.contest.status', compact('contest', 'solutions'));
+            }
+            $query->where('user_id', $user->id);
         }
 
         if (request('problem_id')) {
             $order = ord(strtolower(request('problem_id'))) - ord('a');
-            $repository->pushCriteria(new Where('order', $order));
+            $query->where('order', $order);
         }
 
         if (request()->filled('language')) {
-            $filter = new Where('language', request('language'));
-            $repository->pushCriteria($filter);
+            $query->where('language', request('language'));
         }
 
         if (request()->filled('status')) {
-            $filter = new Where('result', request('status'));
-            $repository->pushCriteria($filter);
+            $query->where('result', request('status'));
         }
 
-        $repository->pushCriteria(new Where('contest_id', $contest->id));
-
-        $repository->pushCriteria(new WithRelations(['user']));
-        $repository->pushCriteria(new OrderBy('created_at', 'desc'));
-        $solutions = $repository->paginate(request('per_page', 50));
+        $solutions = $query->where('contest_id', $contest->id)
+            ->with(['user'])
+            ->orderByDesc('created_at')
+            ->paginate(request('per_page', 50));
 
         return view('web.contest.status', compact('contest', 'solutions'));
     }
@@ -118,7 +113,7 @@ class ContestController extends Controller
     public function standing($id)
     {
         /** @var Contest $contest */
-        $contest = app(ContestRepository::class)->findOrFail($id);
+        $contest = Contest::query()->findOrFail($id);
 
         $standing = new Ranking($contest);
 
@@ -131,9 +126,11 @@ class ContestController extends Controller
     public function clarify($id)
     {
         /** @var Contest $contest */
-        $contest = app(ContestRepository::class)->findOrFail($id);
+        $contest = Contest::query()->findOrFail($id);
 
-        $topics = (new TopicService())->topicsForContest($contest->id);
+        $topics = Topic::query()->where('contest_id', $id)
+            ->orderByDesc('created_at')
+            ->paginate(request('per_page', 50));
 
         return view('web.contest.clarify', compact('contest', 'topics'));
     }

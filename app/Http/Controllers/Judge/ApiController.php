@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Judge;
 
+use App\Entities\Problem;
 use App\Entities\Solution;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Judger\JudgerRequest;
 use App\Http\Requests\Judger\ReportRequest;
-use App\Repositories\ProblemRepository;
 use App\Services\DataProvider;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use LogicException;
 
 class ApiController extends Controller
@@ -32,7 +31,7 @@ class ApiController extends Controller
     public function data(JudgerRequest $request)
     {
         $pid = $request->input('pid');
-        app(ProblemRepository::class)->findOrFail($pid);
+        Problem::query()->findOrFail($pid);
 
         try {
             /** @var DataProvider $dp */

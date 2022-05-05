@@ -9,13 +9,11 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=7.4",
+        "php": "^8.0.2",
         "ext-json": "*",
         "ext-zlib": "*",
-        "czim/laravel-repository": "^2.1",
-        "fideloper/proxy": "^4.4",
         "guzzlehttp/guzzle": "^7.4",
-        "laravel/framework": "^8.0",
+        "laravel/framework": "^9.11",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "mews/captcha": "^3.2",
@@ -24,10 +22,11 @@
         "sentry/sentry-laravel": ">=2.1"
     },
     "require-dev": {
-        "facade/ignition": "^2.3.6",
+        "fakerphp/faker": "^1.9.1",
+        "spatie/laravel-ignition": "^1.0",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.0"
+        "nunomaduro/collision": "^6.1",
+        "phpunit/phpunit": "^9.5.10"
     },
     "config": {
         "optimize-autoloader": true,
@@ -41,12 +40,10 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         },
-        "classmap": [
-            "database/seeds",
-            "database/factories"
-        ],
         "files": [
             "app/Support/helpers.php"
         ]
@@ -69,7 +66,5 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
-    },
-    "repositories": [
-    ]
+    }
 }

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repositories\TopicRepository;
+use App\Entities\Topic;
 
 class TopicController extends DataController
 {
-    protected function getRepository()
+    protected function getQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return TopicRepository::class;
+        return Topic::query();
     }
 }

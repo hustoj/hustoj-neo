@@ -6,37 +6,31 @@ use App\Entities\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\EditRequest;
 use App\Http\Requests\User\PasswordRequest;
-use App\Repositories\Criteria\OrderBy;
-use App\Repositories\Criteria\Where;
-use App\Repositories\UserRepository;
 use App\Services\User\UserSolutions;
 use App\Services\UserService;
 use Illuminate\Support\MessageBag;
 
 class UserController extends Controller
 {
-    private $repository;
-
-    /**
-     * UserController constructor.
-     *
-     * @param UserRepository $repository
-     */
-    public function __construct(UserRepository $repository)
-    {
-        $this->repository = $repository;
-    }
 
     public function index()
     {
         $per_page = 100;
         $offset = (request('page', 1) - 1) * $per_page + 1;
 
-        $this->repository->pushCriteria(new Where('status', User::ST_ACTIVE));
-        $this->repository->pushCriteria(new OrderBy('solved', 'desc'));
-        $this->repository->pushCriteria(new OrderBy('submit', 'asc'));
+        $query = User::query();
+        $query->where('status', User::ST_ACTIVE)
+            ->orderByDesc('solved')
+            ->orderBy('submit');
 
-        $users = $this->repository->paginate($per_page);
+        $users = $query->paginate($per_page);
+
+
+//        $this->repository->pushCriteria(new Where('status', User::ST_ACTIVE));
+//        $this->repository->pushCriteria(new OrderBy('solved', 'desc'));
+//        $this->repository->pushCriteria(new OrderBy('submit', 'asc'));
+//
+//        $users = $this->repository->paginate($per_page);
 
         return view('web.user.index', ['users' => $users, 'offset' => $offset]);
     }
@@ -45,12 +39,12 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = app(UserService::class)->findByName($username);
-        if (! $user) {
+        if (!$user) {
             // user may not exist
             return redirect(route('home'))->withErrors('user is not exist!');
         }
 
-        if (! $user->isActive()) {
+        if (!$user->isActive()) {
             return back()->withErrors('User is not found!');
         }
 

@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entities\Contest;
-use App\Repositories\ContestRepository;
-use App\Repositories\Criteria\Like;
-use App\Repositories\Criteria\Where;
 use App\Services\Contest\ContestManager;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,23 +10,25 @@ class ContestController extends DataController
 {
     public function index()
     {
+        $query = Contest::query();
+
         if (request()->filled('id')) {
-            $this->repository->pushCriteria(new Where('id', request('id')));
+            $query->where('id', request('id'));
         }
         if (request()->filled('title')) {
-            $this->repository->pushCriteria(new Like('title', request('title')));
+            $query->where('title', 'like', where_like(request('title')));
         }
         if (request()->filled('private')) {
-            $this->repository->pushCriteria(new Where('private', request('private')));
+            $query->where('private', request('private'));
         }
 
-        return parent::index();
+        return parent::paginate($query);
     }
 
     public function problems($contestId)
     {
         /** @var Contest $contest */
-        $contest = $this->repository->findOrFail($contestId);
+        $contest = Contest::query()->findOrFail($contestId);
 
         return $contest->problems;
     }
@@ -37,7 +36,7 @@ class ContestController extends DataController
     public function users($contestId)
     {
         /** @var Contest $contest */
-        $contest = $this->repository->findOrFail($contestId);
+        $contest = Contest::query()->findOrFail($contestId);
 
         return $contest->users;
     }
@@ -60,8 +59,8 @@ class ContestController extends DataController
     public function update($contest)
     {
         /* @var Contest $contest */
-        if (! ($contest instanceof Model)) {
-            $contest = $this->repository->findOrFail($contest);
+        if (!($contest instanceof Model)) {
+            $contest = Contest::query()->findOrFail($contest);
         }
 
         app('db')->transaction(function () use ($contest) {
@@ -77,8 +76,8 @@ class ContestController extends DataController
         });
     }
 
-    protected function getRepository()
+    protected function getQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return ContestRepository::class;
+        return Contest::query();
     }
 }

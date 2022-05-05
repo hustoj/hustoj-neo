@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class LoginLog extends Model
 {
+    use CustomDateFormat;
     const ST_OK = 0;
     const ST_FAILED = 1;
 

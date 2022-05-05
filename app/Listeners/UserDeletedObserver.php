@@ -4,20 +4,9 @@ namespace App\Listeners;
 
 use App\Entities\Topic;
 use App\Entities\User;
-use App\Repositories\TopicRepository;
 
 class UserDeletedObserver
 {
-    /**
-     * @var TopicRepository
-     */
-    private $topicRepository;
-
-    public function __construct()
-    {
-        $this->topicRepository = app(TopicRepository::class);
-    }
-
     public function handle(User $user)
     {
         $this->cleanRelatedTopic($user);
@@ -29,8 +18,8 @@ class UserDeletedObserver
     public function cleanRelatedTopic(User $user): void
     {
         /** @var Topic[] $topics */
-        app('log')->info("user {$user->id} deleted, remove related topics");
-        $topics = $this->topicRepository->findAllBy('user_id', $user->id);
+        logger()->info("user {$user->id} deleted, remove related topics");
+        $topics = Topic::query()->where('user_id', $user->id)->get();
         foreach ($topics as $topic) {
             try {
                 $topic->replies()->delete();

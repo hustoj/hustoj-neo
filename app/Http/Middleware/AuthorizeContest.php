@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Repositories\ContestRepository;
+use App\Entities\Contest;
 use Illuminate\Http\Request;
 
 class AuthorizeContest
@@ -18,8 +18,8 @@ class AuthorizeContest
         $route = app('router')->getRoutes()->match($request);
         $contest = $route->parameter('contest');
 
-        /** @var \App\Entities\Contest $contest */
-        $contest = app(ContestRepository::class)->findOrFail($contest);
+        /** @var Contest $contest */
+        $contest = Contest::query()->findOrFail($contest);
 
         if (! $contest->isAvailable()) {
             return back()->withErrors('Contest not found!');

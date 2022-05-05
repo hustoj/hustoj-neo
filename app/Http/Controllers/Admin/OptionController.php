@@ -2,30 +2,34 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repositories\Criteria\Where;
-use App\Repositories\OptionRepository;
+use App\Entities\Option;
 
 class OptionController extends DataController
 {
     public function index()
     {
+        $query = Option::query();
+
         if (request()->filled('id')) {
-            $this->repository->pushCriteria(new Where('id', request('id')));
+            $query->where('id', request('id'));
+//            $this->repository->pushCriteria(new Where('id', request('id')));
         }
 
         if (request()->filled('key')) {
-            $this->repository->pushCriteria(new Where('key', request('key')));
+            $query->where('key', request('key'));
+//            $this->repository->pushCriteria(new Where('key', request('key')));
         }
 
         if (request()->filled('category')) {
-            $this->repository->pushCriteria(new Where('category', request('category')));
+            $query->where('category', request('category'));
+//            $this->repository->pushCriteria(new Where('category', request('category')));
         }
 
-        return parent::index();
+        return parent::paginate($query);
     }
 
-    protected function getRepository()
+    protected function getQuery(): \Illuminate\Database\Eloquent\Builder
     {
-        return OptionRepository::class;
+        return Option::query();
     }
 }
