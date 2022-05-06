@@ -32,9 +32,9 @@ class Contest extends Model
     const ST_NORMAL = 0;
     const ST_HIDE = 1;
 
-    protected $dates = [
-        'start_time',
-        'end_time',
+    protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
     ];
 
     protected $fillable = [
