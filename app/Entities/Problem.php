@@ -74,7 +74,7 @@ class Problem extends Model
      */
     public function isSpecialJudge()
     {
-        return (int) $this->spj === 1;
+        return $this->spj === 1;
     }
 
     /**

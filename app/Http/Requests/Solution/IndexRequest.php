@@ -18,7 +18,13 @@ class IndexRequest extends Request
 
     public function getLanguage()
     {
-        return $this->input('language', -1);
+        $default = -1;
+
+        $x = $this->input('language');
+        if ($x == '') {
+            return $default;
+        }
+        return $x;
     }
 
     public function getStatus()

@@ -66,6 +66,9 @@ class ContestController extends DataController
         app('db')->transaction(function () use ($contest) {
             $manager = new ContestManager();
             $attrs = request()->except(['start_time', 'end_time']);
+            $attrs = array_filter($attrs, function ($v) {
+                return $v != null;
+            });
             $contest = $manager->update($contest, $attrs, request('start_time'), request('end_time'));
             if (request()->has('problem_list')) {
                 $manager->syncProblems($contest, request('problem_list', []));

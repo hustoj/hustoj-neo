@@ -47,7 +47,10 @@ abstract class DataController extends Controller
         }
 
         try {
-            $model->fill(request()->all());
+            $values = array_filter(request()->all(), function ($v) {
+                return $v != null;
+            });
+            $model->fill($values);
             $model->save();
         } catch (MassAssignmentException $e) {
             logger()->error($e->getMessage());
