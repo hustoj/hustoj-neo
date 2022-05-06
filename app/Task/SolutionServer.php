@@ -2,6 +2,8 @@
 
 namespace App\Task;
 
+use PhpAmqpLib\Exception\AMQPIOException;
+
 class SolutionServer
 {
     private $task;
@@ -19,11 +21,16 @@ class SolutionServer
 
     public function send()
     {
-        if (config('hustoj.services.judge.status') == false) {
+        if (!config('hustoj.services.judge.status')) {
             return;
         }
-        $queue = app(TaskQueue::class);
-        $queue->add($this->task);
-        $queue->done();
+        try {
+            $queue = app(TaskQueue::class);
+            $queue->add($this->task);
+            $queue->done();
+        } catch (AMQPIOException $e) {
+            logger()->error("send to queue failed!", ["message" => $e->getMessage()]);
+        }
+
     }
 }

@@ -18,7 +18,7 @@
                         @if(!request()->filled('language'))selected="selected" @endif>@lang('solution.filter.language')</option>
                 @foreach(App\Language::allLanguages() as $key => $name)
                     <option value="{{ $key }}"
-                            @if(request()->has('language') && request('language') == $key)selected="selected" @endif>{{ $name }}</option>
+                            @if(request()->filled('language') && request('language') == $key)selected="selected" @endif>{{ $name }}</option>
                 @endforeach
             </select>
         </div>

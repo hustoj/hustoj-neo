@@ -83,7 +83,9 @@ if (! function_exists('can_view_code')) {
         if (! $user) {
             return false;
         }
-        if ($user->hasRole('admin')) {
+        /** @var \App\Services\AdminChecker $adminChecker */
+        $adminChecker = app(\App\Services\AdminChecker::class);
+        if ($adminChecker->isAdmin($user)) {
             return true;
         }
 
