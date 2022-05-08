@@ -5,9 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\AuthorizeContest;
 use App\Http\Middleware\BackendAuthorize;
-use App\Http\Middleware\CheckForMaintenanceMode;
 use App\Http\Middleware\CompressContent;
-use App\Http\Middleware\EnableCrossSite;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\SetupConfig;
@@ -20,7 +18,9 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Http\Middleware\SetCacheHeaders;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
@@ -40,9 +40,10 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         TrustProxies::class,
-        CheckForMaintenanceMode::class,
+        HandleCors::class,
+        PreventRequestsDuringMaintenance::class,
         ValidatePostSize::class,
-        EnableCrossSite::class,
+//        EnableCrossSite::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
     ];
@@ -53,7 +54,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewareGroups = [
-        'web'   => [
+        'web' => [
             EncryptCookies::class,
             AddQueuedCookiesToResponse::class,
             StartSession::class,
@@ -72,7 +73,7 @@ class Kernel extends HttpKernel
             SubstituteBindings::class,
             BackendAuthorize::class,
         ],
-        'api'   => [
+        'api' => [
             'throttle:60,1',
             'bindings',
         ],
@@ -86,17 +87,18 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'             => Authenticate::class,
-        'auth.basic'       => AuthenticateWithBasicAuth::class,
-        'bindings'         => SubstituteBindings::class,
-        'cache.headers'    => SetCacheHeaders::class,
-        'can'              => Authorize::class,
-        'guest'            => RedirectIfAuthenticated::class,
-        'signed'           => ValidateSignature::class,
-        'throttle'         => ThrottleRequests::class,
-        'verified'         => EnsureEmailIsVerified::class,
+        'auth' => Authenticate::class,
+        'auth.basic' => AuthenticateWithBasicAuth::class,
+        'bindings' => SubstituteBindings::class,
+        'cache.headers' => SetCacheHeaders::class,
+        'can' => Authorize::class,
+        'guest' => RedirectIfAuthenticated::class,
+        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
+        'signed' => ValidateSignature::class,
+        'throttle' => ThrottleRequests::class,
+        'verified' => EnsureEmailIsVerified::class,
         'authorizeContest' => AuthorizeContest::class,
-        'zip.response'     => CompressContent::class,
+        'zip.response' => CompressContent::class,
     ];
     /**
      * The priority-sorted list of middleware.
