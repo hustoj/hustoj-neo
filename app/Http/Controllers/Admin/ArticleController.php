@@ -13,12 +13,10 @@ class ArticleController extends DataController
             $query->where('id', request('id'));
         }
         if (request()->filled('title')) {
-            $query->where('title', where_like(request('title')));
-//            $this->repository->pushCriteria(new Like('title', request('title')));
+            $query->where('title', 'like', where_like(request('title')));
         }
         if (request()->filled('status')) {
             $query->where('status', request('status'));
-//            $this->repository->pushCriteria(new Where('status', request('status')));
         }
 
         return parent::paginate($query);

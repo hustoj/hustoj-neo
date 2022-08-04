@@ -19,11 +19,11 @@ class ProblemController extends DataController
         }
 
         if (request()->filled('title')) {
-            $query->where('title', where_like(request('title')));
+            $query->where('title', 'like', where_like(request('title')));
         }
 
         if (request()->filled('source')) {
-            $query->where('source', where_like(request('like')));
+            $query->where('source', 'like', where_like(request('like')));
         }
         if (request()->filled('status')) {
             $query->where('status', request('status'));

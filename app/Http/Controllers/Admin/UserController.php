@@ -16,11 +16,11 @@ class UserController extends DataController
         }
 
         if (request()->filled('name')) {
-            $query->where('username', where_like(request('name')));
+            $query->where('username', 'like', where_like(request('name')));
         }
 
         if (request()->filled('email')) {
-            $query->where('email', where_like(request('email')));
+            $query->where('email', 'like', where_like(request('email')));
         }
 
         if (request()->filled('status')) {
