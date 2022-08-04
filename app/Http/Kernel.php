@@ -43,7 +43,7 @@ class Kernel extends HttpKernel
         HandleCors::class,
         PreventRequestsDuringMaintenance::class,
         ValidatePostSize::class,
-//        EnableCrossSite::class,
+        //        EnableCrossSite::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
     ];

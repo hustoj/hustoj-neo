@@ -20,7 +20,6 @@ class HomeController extends Controller
         $query->where('status', 1)
             ->orderByDesc('created_at');
 
-
         return $query->paginate(request('per_page', 3));
     }
 }

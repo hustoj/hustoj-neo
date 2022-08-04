@@ -21,7 +21,7 @@ class SolutionServer
 
     public function send()
     {
-        if (!config('hustoj.services.judge.status')) {
+        if (! config('hustoj.services.judge.status')) {
             return;
         }
         try {
@@ -29,8 +29,7 @@ class SolutionServer
             $queue->add($this->task);
             $queue->done();
         } catch (AMQPIOException $e) {
-            logger()->error("send to queue failed!", ["message" => $e->getMessage()]);
+            logger()->error('send to queue failed!', ['message' => $e->getMessage()]);
         }
-
     }
 }

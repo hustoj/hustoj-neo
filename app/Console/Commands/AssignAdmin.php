@@ -33,7 +33,7 @@ class AssignAdmin extends Command
     }
 
     /**
-     * @param User $user
+     * @param  User  $user
      */
     private function assignAdmin($user)
     {

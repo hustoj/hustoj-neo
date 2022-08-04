@@ -2,7 +2,6 @@
 
 namespace App\Entities;
 
-use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**

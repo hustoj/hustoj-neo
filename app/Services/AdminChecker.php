@@ -32,6 +32,7 @@ class AdminChecker
                 return true;
             }
         }
+
         return false;
     }
 }

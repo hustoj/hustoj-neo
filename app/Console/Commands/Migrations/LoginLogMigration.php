@@ -10,7 +10,7 @@ use Illuminate\Console\Command;
 class LoginLogMigration extends Migration
 {
     /**
-     * @param Command $command
+     * @param  Command  $command
      */
     public function handle($command)
     {
@@ -38,7 +38,7 @@ class LoginLogMigration extends Migration
     }
 
     /**
-     * @param User $user
+     * @param  User  $user
      */
     private function getUserRecentLogs($user, $days)
     {

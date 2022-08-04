@@ -24,6 +24,7 @@ class IndexRequest extends Request
         if ($x == '') {
             return $default;
         }
+
         return $x;
     }
 

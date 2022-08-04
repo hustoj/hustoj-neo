@@ -8,10 +8,10 @@ use Carbon\Carbon;
 
 class LoginLogService
 {
-
     public function getUserRecentRecord(User $user)
     {
         $query = LoginLog::query();
+
         return $query->where('user_id', $user->id)
             ->limit(19)
             ->orderByDesc('id')

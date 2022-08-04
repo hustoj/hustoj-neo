@@ -41,7 +41,7 @@ class ContestMigration extends Migration
     }
 
     /**
-     * @param Contest $contest
+     * @param  Contest  $contest
      */
     private function migrateProblemRelation($contest)
     {
@@ -57,7 +57,7 @@ class ContestMigration extends Migration
     }
 
     /**
-     * @param Contest $contest
+     * @param  Contest  $contest
      */
     private function migratePrivilege($contest)
     {

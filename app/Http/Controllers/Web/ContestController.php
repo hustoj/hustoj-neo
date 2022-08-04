@@ -62,7 +62,7 @@ class ContestController extends Controller
                 ->withErrors('Contest is End!');
         }
 
-        if (!auth()->user()) {
+        if (! auth()->user()) {
             return redirect(route('contest.view', $contest->id))
                 ->withErrors('Login first');
         }
@@ -84,6 +84,7 @@ class ContestController extends Controller
             $user = User::query()->where('username', request('username'))->first();
             if ($user == null) {
                 $solutions = [];
+
                 return view('web.contest.status', compact('contest', 'solutions'));
             }
             $query->where('user_id', $user->id);

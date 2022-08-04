@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ContestService
 {
-
     public function getContestPermission(Contest $contest)
     {
         $name = contest_permission($contest);
@@ -22,8 +21,8 @@ class ContestService
 
         $perm = new Permission();
         $perm->name = $name;
-        $perm->display_name = 'Contest ' . $contest->id;
-        $perm->description = 'Privilege For Contest ' . $contest->id;
+        $perm->display_name = 'Contest '.$contest->id;
+        $perm->description = 'Privilege For Contest '.$contest->id;
         $perm->save();
 
         return $perm;

@@ -28,7 +28,6 @@ class ProblemService
 
     /**
      * @param $problemId
-     *
      * @return array
      */
     public function getResultCount($problemId)
@@ -36,6 +35,7 @@ class ProblemService
         $query = Solution::query();
 
         $query->getConnection()->statement('SET sql_mode = \'\'');
+
         return $query
             ->selectRaw('count(*) as user_count, result')
             ->where('problem_id', $problemId)
@@ -57,8 +57,9 @@ class ProblemService
             'time_cost',
             'created_at',
             $query->raw($rawCount),
-            $query->raw($rawGrade)
+            $query->raw($rawGrade),
         ];
+
         return $query
             ->select($columns)
             ->where('problem_id', $problemId)

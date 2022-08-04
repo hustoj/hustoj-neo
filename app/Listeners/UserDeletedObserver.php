@@ -13,7 +13,7 @@ class UserDeletedObserver
     }
 
     /**
-     * @param User $user
+     * @param  User  $user
      */
     public function cleanRelatedTopic(User $user): void
     {

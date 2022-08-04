@@ -45,7 +45,7 @@ class Team
     /**
      * 添加新的solution，统计数据.
      *
-     * @param Solution $solution
+     * @param  Solution  $solution
      */
     public function addSolution(Solution $solution)
     {
@@ -64,7 +64,7 @@ class Team
     }
 
     /**
-     * @param Solution $solution
+     * @param  Solution  $solution
      */
     private function markProblemAccept($solution)
     {
@@ -158,7 +158,6 @@ class Team
      * 获取单个题目的罚时.
      *
      * @param $pid
-     *
      * @return mixed
      */
     public function getPenaltyOfProblem($pid)
@@ -170,7 +169,6 @@ class Team
      * 获取题目的尝试次数.
      *
      * @param $pid
-     *
      * @return mixed
      */
     public function getProblemWACount($pid)

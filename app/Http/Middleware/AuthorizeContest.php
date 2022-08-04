@@ -8,9 +8,8 @@ use Illuminate\Http\Request;
 class AuthorizeContest
 {
     /**
-     * @param Request $request
-     * @param         $next
-     *
+     * @param  Request  $request
+     * @param  $next
      * @return \Illuminate\Http\RedirectResponse
      */
     public function handle($request, $next)

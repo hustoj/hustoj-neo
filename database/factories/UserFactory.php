@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Factories;
 
 use App\Entities\User;
@@ -8,7 +9,7 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
-     * 工厂对应模型名称
+     * 工厂对应模型名称.
      *
      * @var string
      */

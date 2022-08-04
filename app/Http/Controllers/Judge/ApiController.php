@@ -18,7 +18,7 @@ class ApiController extends Controller
     /**
      * ApiController constructor.
      *
-     * @param JudgerRequest $request
+     * @param  JudgerRequest  $request
      *
      * @throws \App\Exceptions\Judger\JudgerCodeInvalid
      */
