@@ -19,7 +19,7 @@ return [
     'google_analytic_code' => env('GOOGLE_ANALYTIC_CODE', 'UA-6733942-1'),
     'log' => [
         'login' => [
-            'limit' => 10
-        ]
-    ]
+            'limit' => 10,
+        ],
+    ],
 ];

@@ -12,7 +12,6 @@ use Illuminate\Support\MessageBag;
 
 class UserController extends Controller
 {
-
     public function index()
     {
         $per_page = 100;
@@ -24,7 +23,6 @@ class UserController extends Controller
             ->orderBy('submit');
 
         $users = $query->paginate($per_page);
-
 
 //        $this->repository->pushCriteria(new Where('status', User::ST_ACTIVE));
 //        $this->repository->pushCriteria(new OrderBy('solved', 'desc'));
@@ -39,12 +37,12 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = app(UserService::class)->findByName($username);
-        if (!$user) {
+        if (! $user) {
             // user may not exist
             return redirect(route('home'))->withErrors('user is not exist!');
         }
 
-        if (!$user->isActive()) {
+        if (! $user->isActive()) {
             return back()->withErrors('User is not found!');
         }
 

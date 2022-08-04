@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 class OptionMigration extends Migration
 {
     /**
-     * @param Command $command
+     * @param  Command  $command
      */
     public function handle($command)
     {

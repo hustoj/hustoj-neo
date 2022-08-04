@@ -8,12 +8,11 @@ use Illuminate\Auth\AuthenticationException;
 class BackendAuthorize
 {
     /**
-     * @param Request $request
-     * @param         $next
+     * @param  Request  $request
+     * @param  $next
+     * @return \Illuminate\Http\RedirectResponse
      *
      * @throws AuthenticationException
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function handle($request, $next)
     {

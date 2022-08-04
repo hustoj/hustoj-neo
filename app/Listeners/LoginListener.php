@@ -54,8 +54,7 @@ class LoginListener
     }
 
     /**
-     * @param User $user
-     *
+     * @param  User  $user
      * @return LoginLog
      */
     private function createLog($user)

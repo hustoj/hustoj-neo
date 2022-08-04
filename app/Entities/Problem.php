@@ -3,7 +3,6 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
-use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

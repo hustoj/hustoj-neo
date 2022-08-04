@@ -9,19 +9,18 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class DataController extends Controller
 {
-
     abstract protected function getQuery(): \Illuminate\Database\Eloquent\Builder;
 
     public function index()
     {
         $query = $this->getQuery();
+
         return $this->paginate($query);
     }
 
     protected function paginate(Builder $query)
     {
         $query->orderByDesc('id');
-
 
         return $query->paginate(request('per_page'));
     }
@@ -33,10 +32,9 @@ abstract class DataController extends Controller
 
     /**
      * @param $id
-     *
      * @return mixed
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function update($id)
     {

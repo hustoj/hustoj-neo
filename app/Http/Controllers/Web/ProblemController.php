@@ -12,7 +12,7 @@ class ProblemController extends Controller
     {
         /** @var Problem $problem */
         $problem = Problem::query()->findOrFail($id);
-        if (!$problem->isAvailable()) {
+        if (! $problem->isAvailable()) {
             return back()->withErrors('Problem is not found!');
         }
 
@@ -36,7 +36,7 @@ class ProblemController extends Controller
     {
         /** @var Problem $problem */
         $problem = Problem::query()->findOrFail($id);
-        if (!$problem->isAvailable()) {
+        if (! $problem->isAvailable()) {
             return back()->withErrors('Problem is not found!');
         }
 

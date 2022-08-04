@@ -10,10 +10,9 @@ class Hasher implements HashingContract
     /**
      * Check the given plain value against a hash.
      *
-     * @param string $value
-     * @param string $hashedValue
-     * @param array  $options
-     *
+     * @param  string  $value
+     * @param  string  $hashedValue
+     * @param  array  $options
      * @return bool
      */
     public function check($value, $hashedValue, array $options = [])
@@ -34,9 +33,8 @@ class Hasher implements HashingContract
     /**
      * Hash the given value.
      *
-     * @param string $value
-     * @param array  $options
-     *
+     * @param  string  $value
+     * @param  array  $options
      * @return string
      */
     public function make($value, array $options = [])
@@ -61,9 +59,8 @@ class Hasher implements HashingContract
     /**
      * Check if the given hash has been hashed using the given options.
      *
-     * @param string $hashedValue
-     * @param array  $options
-     *
+     * @param  string  $hashedValue
+     * @param  array  $options
      * @return bool
      */
     public function needsRehash($hashedValue, array $options = [])
@@ -75,8 +72,7 @@ class Hasher implements HashingContract
     /**
      * Get information about the given hashed value.
      *
-     * @param string $hashedValue
-     *
+     * @param  string  $hashedValue
      * @return array
      */
     public function info($hashedValue)
@@ -91,8 +87,7 @@ class Hasher implements HashingContract
     /**
      * detect password is old md5 password.
      *
-     * @param string $password
-     *
+     * @param  string  $password
      * @return bool
      */
     protected function isDeprecated($password)
@@ -113,7 +108,6 @@ class Hasher implements HashingContract
      * detect charactor is 0-9a-z.
      *
      * @param $char
-     *
      * @return bool
      */
     private function isCharactorInHexScope($char)

@@ -4,17 +4,15 @@ namespace App\Services;
 
 use App\Entities\Judger;
 use App\Exceptions\Judger\JudgerNameExist;
-use Illuminate\Database\Eloquent\Collection;
 
 class JudgerService
 {
     /**
-     * @param string $name
-     * @param null $bind_ip
-     *
+     * @param  string  $name
+     * @param  null  $bind_ip
      * @return \App\Entities\Judger
-     * @throws \App\Exceptions\Judger\JudgerNameExist
      *
+     * @throws \App\Exceptions\Judger\JudgerNameExist
      */
     public function newJudger($name, $bind_ip = null)
     {
@@ -40,7 +38,6 @@ class JudgerService
 
     /**
      * @param $code
-     *
      * @return Judger
      */
     public function getJudger($code)

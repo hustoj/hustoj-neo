@@ -35,10 +35,9 @@ class DataProvider
 
     /**
      * @param $id
+     * @return array
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     *
-     * @return array
      */
     public function getInputFiles($id)
     {
@@ -49,7 +48,6 @@ class DataProvider
 
     /**
      * @param $id
-     *
      * @return string
      */
     public function getDataPath($id)
@@ -59,10 +57,9 @@ class DataProvider
 
     /**
      * @param $id
+     * @return array
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     *
-     * @return array
      */
     public function getOutputFiles($id)
     {

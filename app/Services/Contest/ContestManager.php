@@ -8,10 +8,9 @@ use Carbon\Carbon;
 class ContestManager
 {
     /**
-     * @param array $attrs
-     * @param string $startAt
-     * @param string $endAt
-     *
+     * @param  array  $attrs
+     * @param  string  $startAt
+     * @param  string  $endAt
      * @return \App\Entities\Contest
      */
     public function create($attrs, $startAt, $endAt)
@@ -22,11 +21,10 @@ class ContestManager
     }
 
     /**
-     * @param Contest $contest
-     * @param array $attrs
-     * @param string $startAt
-     * @param string $endAt
-     *
+     * @param  Contest  $contest
+     * @param  array  $attrs
+     * @param  string  $startAt
+     * @param  string  $endAt
      * @return \App\Entities\Contest
      */
     public function update($contest, $attrs, $startAt, $endAt)
@@ -41,8 +39,8 @@ class ContestManager
     }
 
     /**
-     * @param Contest $contest
-     * @param array $problemIds
+     * @param  Contest  $contest
+     * @param  array  $problemIds
      */
     public function syncProblems($contest, $problemIds)
     {
@@ -56,8 +54,8 @@ class ContestManager
     }
 
     /**
-     * @param Contest $contest
-     * @param array $userIds
+     * @param  Contest  $contest
+     * @param  array  $userIds
      */
     public function syncUser($contest, $userIds)
     {

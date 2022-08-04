@@ -29,8 +29,7 @@ class Ranking
     /**
      * 在比赛开始和结束之间的提交才是比赛的合法提交.
      *
-     * @param Contest $contest
-     *
+     * @param  Contest  $contest
      * @return Collection|Solution[]
      */
     private function getValidSolutions($contest)
@@ -91,9 +90,8 @@ class Ranking
     }
 
     /**
-     * @param Team $team
-     * @param Team $current
-     *
+     * @param  Team  $team
+     * @param  Team  $current
      * @return bool
      */
     private function isBetter($team, $current)

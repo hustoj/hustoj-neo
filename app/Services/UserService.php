@@ -8,8 +8,7 @@ use Carbon\Carbon;
 class UserService
 {
     /**
-     * @param Carbon $from
-     *
+     * @param  Carbon  $from
      * @return mixed
      */
     public function getUserStats(Carbon $from)
@@ -21,7 +20,6 @@ class UserService
             ->where('created_at', '>', $from->format('Y-m-d h:i:s'))
             ->groupBy('date')
             ->orderByDesc('date');
-
 
         return $query->get();
     }

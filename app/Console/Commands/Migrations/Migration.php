@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 abstract class Migration
 {
     /**
-     * @param Command $command
+     * @param  Command  $command
      */
     abstract public function handle($command);
 

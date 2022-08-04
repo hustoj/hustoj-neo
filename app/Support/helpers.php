@@ -40,8 +40,7 @@ if (! function_exists('get_option')) {
 
 if (! function_exists('can_attend')) {
     /**
-     * @param Contest $contest
-     *
+     * @param  Contest  $contest
      * @return bool
      */
     function can_attend($contest): bool
@@ -61,8 +60,7 @@ if (! function_exists('can_attend')) {
 
 if (! function_exists('contest_permission')) {
     /**
-     * @param Contest $contest
-     *
+     * @param  Contest  $contest
      * @return string
      */
     function contest_permission($contest)
@@ -126,8 +124,7 @@ if (! function_exists('show_order')) {
 
 if (! function_exists('show_problem_id')) {
     /**
-     * @param Solution $solution
-     *
+     * @param  Solution  $solution
      * @return int|string
      */
     function show_problem_id($solution)

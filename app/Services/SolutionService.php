@@ -7,10 +7,8 @@ use Carbon\Carbon;
 
 class SolutionService
 {
-
     /**
-     * @param Carbon $from
-     *
+     * @param  Carbon  $from
      * @return mixed
      */
     public function getSubmissionStats($from)
