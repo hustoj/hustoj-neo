@@ -16,18 +16,15 @@ class UserController extends DataController
         }
 
         if (request()->filled('name')) {
-            $query->where('name', where_like(request('name')));
-//            $this->repository->pushCriteria(new Like('username', request('name')));
+            $query->where('username', where_like(request('name')));
         }
 
         if (request()->filled('email')) {
             $query->where('email', where_like(request('email')));
-//            $this->repository->pushCriteria(new Like('email', request('email')));
         }
 
         if (request()->filled('status')) {
             $query->where('status', request('status'));
-//            $this->repository->pushCriteria(new Where('status', request('status')));
         }
 
         /** @var Collection $models */
