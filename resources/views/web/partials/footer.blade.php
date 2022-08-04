@@ -6,6 +6,6 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'UA-6733942-1');
+        gtag('config', '{{get_option('google_analytic_code')}}');
     </script>
 @endif
