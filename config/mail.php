@@ -15,7 +15,7 @@ return [
     |            "postmark", "log", "array"
     |
     */
-    'defualt' => env('MAIL_MAILER', 'smtp'),
+    'default' => env('MAIL_MAILER', 'smtp'),
 
     'mailers' => [
         'smtp' => [
