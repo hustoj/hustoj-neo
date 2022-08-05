@@ -19,6 +19,9 @@
                         <li class="list-group-item">@lang('user.nick'): {{ $user->nick }}</li>
                         <li class="list-group-item">@lang('user.created_at'): {{ $user->created_at }}</li>
                         <li class="list-group-item">@lang('user.school'): {{ $user->school }}</li>
+                        <li class="list-group-item">@lang('user.list.submit'): {{ $user->submit }}</li>
+                        <li class="list-group-item">@lang('user.list.solved'): {{ $user->solved }}</li>
+
                         @if($user->showEmail())
                         <li class="list-group-item">@lang('user.email'): {{ $user->getEmail() }}</li>
                         @endif
