@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Observers;
 
+use App\Entities\Reply;
 use App\Entities\Topic;
 use App\Entities\User;
 
@@ -10,6 +11,7 @@ class UserDeletedObserver
     public function handle(User $user)
     {
         $this->cleanRelatedTopic($user);
+        $this->cleanRelatedReplies($user);
     }
 
     /**
@@ -28,5 +30,13 @@ class UserDeletedObserver
                 app('log')->error("remove topic failed! {$e->getMessage()}");
             }
         }
+    }
+
+    private function cleanRelatedReplies(User $user)
+    {
+        $replies = Reply::query()->where('user_id', $user->id)->get();
+        $replies->each(function (Reply $reply) {
+            $reply->delete();
+        });
     }
 }
