@@ -7,6 +7,7 @@ use App\Entities\User;
 use App\Observers\UserDeletedObserver;
 use App\Observers\UserSolutionCountObserver;
 use App\Services\AdminChecker;
+use App\Services\OptionProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,6 +35,9 @@ class AppServiceProvider extends ServiceProvider
         $this->mergeConfig();
         $this->app->singleton(AdminChecker::class, function ($app) {
             return new AdminChecker();
+        });
+        $this->app->singleton(OptionProvider::class, function ($app) {
+            return new OptionProvider();
         });
     }
 
