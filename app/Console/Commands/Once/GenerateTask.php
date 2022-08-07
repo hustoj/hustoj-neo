@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Once;
 
 use App\Entities\Solution;
-use App\Task\SolutionServer;
+use App\Task\SolutionQueue;
 use Illuminate\Console\Command;
 
 class GenerateTask extends Command
@@ -15,8 +15,8 @@ class GenerateTask extends Command
     public function handle()
     {
         $id = $this->argument('id');
-        app()->singleton(SolutionServer::class, function () {
-            return new SolutionServer();
+        app()->singleton(SolutionQueue::class, function () {
+            return new SolutionQueue();
         });
         if (strpos($id, '-') !== false) {
             [$start, $end] = explode('-', $id, 2);
@@ -33,6 +33,6 @@ class GenerateTask extends Command
     private function addTask($id)
     {
         $solution = Solution::query()->findOrFail($id);
-        app(SolutionServer::class)->add($solution)->send();
+        app(SolutionQueue::class)->add($solution);
     }
 }

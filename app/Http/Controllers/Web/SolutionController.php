@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Solution\IndexRequest;
 use App\Services\UserService;
 use App\Status;
-use App\Task\SolutionServer;
+use App\Task\SolutionQueue;
 
 class SolutionController extends Controller
 {
@@ -78,7 +78,7 @@ class SolutionController extends Controller
             'code' => request('code', ''),
         ]);
 
-        app(SolutionServer::class)->add($solution)->send();
+        app(SolutionQueue::class)->add($solution);
 
         return redirect(route('solution.index'));
     }
