@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Entities\Problem;
 use App\Entities\Solution;
+use App\Entities\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Solution\IndexRequest;
 use App\Services\UserService;
@@ -44,7 +45,9 @@ class SolutionController extends Controller
 
     public function create($id)
     {
-        if (! auth()->user()) {
+        /** @var User $user */
+        $user = auth()->user();
+        if (! $user) {
             return redirect(route('problem.view', ['problem' => $id]))->withErrors(__('Login first'));
         }
 
@@ -53,7 +56,7 @@ class SolutionController extends Controller
 
         if (! config('hustoj.special_judge_enabled') && $problem->isSpecialJudge()) {
             return redirect(route('problem.view', ['problem' => $id]))
-                ->withErrors(__('Special judge current disabled!'));
+                ->withErrors(__('solution.alert.special_judge_disabled'));
         }
 
         return view('web.problem.submit', ['problem' => $problem]);
@@ -98,7 +101,7 @@ class SolutionController extends Controller
     {
         /** @var Solution $solution */
         $solution = Solution::query()->findOrFail($id);
-        if (! can_view_code($solution)) {
+        if (!can_view_code($solution)) {
             return back()->withErrors(__('You cannot access this solution'));
         }
 
@@ -109,7 +112,7 @@ class SolutionController extends Controller
     {
         /** @var Solution $solution */
         $solution = Solution::query()->findOrFail($id);
-        if (! can_view_code($solution)) {
+        if (!can_view_code($solution)) {
             return back()->withErrors(__('You cannot access this solution'));
         }
 

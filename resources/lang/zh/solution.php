@@ -12,4 +12,7 @@ return [
         'compile_information_of_solution' => '提交编译信息',
         'runtime_information_of_solution' => '提交运行信息',
     ],
+    'alert' => [
+        'special_judge_disabled' => '特别判题已停用',
+    ]
 ];
