@@ -174,9 +174,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Hustoj\Hashing\HashServiceProvider::class,
-        Mews\Captcha\CaptchaServiceProvider::class,
-
         Aws\Laravel\AwsServiceProvider::class,
+        App\Providers\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -227,8 +226,7 @@ return [
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
-        'Captcha' => Mews\Captcha\Facades\Captcha::class,
-        'AWS' => Aws\Laravel\AwsFacade::class,
+        'AWS'          => Aws\Laravel\AwsFacade::class,
     ],
 
 ];

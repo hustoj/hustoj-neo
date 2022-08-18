@@ -14,6 +14,13 @@ if (!function_exists('new_judge_code')) {
     }
 }
 
+if (!function_exists('captcha_enabled')) {
+    function captcha_enabled() : bool
+    {
+        return config('captcha.enabled');
+    }
+}
+
 if (!function_exists('where_like')) {
     function where_like($term): string
     {

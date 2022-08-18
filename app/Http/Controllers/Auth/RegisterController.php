@@ -53,13 +53,16 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $rules = [
             'username' => 'required|max:255|unique:users',
             'nick'     => 'required',
             'email'    => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'captcha'  => 'required|captcha',
-        ]);
+        ];
+        if (captcha_enabled()) {
+            $rules['g-recaptcha-response'] = 'required|captcha';
+        }
+        return Validator::make($data, $rules);
     }
 
     /**

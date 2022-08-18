@@ -1,5 +1,16 @@
 @extends('web.app')
 
+@section('scripts')
+    @if(captcha_enabled())
+        <script>
+            function onSubmit(token) {
+                document.getElementById("register-form").submit();
+            }
+        </script>
+        {!! NoCaptcha::renderJs() !!}
+    @endif
+@endsection
+
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">
@@ -9,7 +20,7 @@
 				<div class="card-body">
 					@include('web.auth.errors')
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url(route('register')) }}">
+					<form class="form-horizontal" id="register-form" role="form" method="POST" action="{{ url(route('register')) }}">
                         @csrf
 
 						<div class="form-group row">
@@ -64,31 +75,25 @@
 								<input type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
 							</div>
 						</div>
-
-                        <div class="form-group row">
-                            <label for="captcha" class="col-md-4 col-form-label text-md-right">{{ __('Captcha') }}</label>
-
-                            <div class="col-md-6 row">
-                                <div class="col-md-7">
-                                    <input id="captcha" type="text" class="form-control @error('captcha') is-invalid @enderror" name="captcha" required >
-                                </div>
-                                <div class="col-md-5">
-                                    <img src="{{captcha_src()}}">
-                                </div>
-
-                                @error('captcha')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
                         <div class="form-group row">
 							<div class="col-md-6 offset-md-4">
-								<button type="submit" class="btn btn-primary">
-									@lang('auth.register')
-								</button>
+                                @if(captcha_enabled())
+                                    <button
+                                        class="btn btn-primary g-recaptcha"
+                                        data-sitekey="{{ config('captcha.sitekey') }}"
+                                        data-callback='onSubmit'
+                                        data-action='submit'
+                                    >
+                                        @lang('auth.register')
+                                    </button>
+                                @else
+                                    <button
+                                        class="btn btn-primary"
+                                        data-action='submit'
+                                    >
+                                        @lang('auth.register')
+                                    </button>
+                                @endif
 							</div>
 						</div>
 					</form>
