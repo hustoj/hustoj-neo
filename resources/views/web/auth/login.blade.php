@@ -3,11 +3,11 @@
 @section('scripts')
     @if(captcha_enabled())
         <script>
-            function onSubmit(token) {
+            function onSubmit() {
                 document.getElementById("login-form").submit();
             }
         </script>
-        {!! NoCaptcha::renderJs() !!}
+        <script src="{{ config('captcha.recaptcha.script_url') }}" async defer></script>
     @endif
 @endsection
 
