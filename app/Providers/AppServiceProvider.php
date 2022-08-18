@@ -8,7 +8,6 @@ use App\Observers\UserDeletedObserver;
 use App\Observers\UserSolutionCountObserver;
 use App\Services\AdminChecker;
 use App\Services\OptionProvider;
-use Aws\Laravel\AwsServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -40,7 +39,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(OptionProvider::class, function ($app) {
             return new OptionProvider();
         });
-        $this->app->register(AwsServiceProvider::class);
     }
 
     private function mergeConfig()
