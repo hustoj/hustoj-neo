@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class OptionProvider
 {
-    /** @var Collection|Option[] $options */
+    /** @var Collection|Option[] */
     private $options;
 
     private function loadOptions(): array|Collection
@@ -18,7 +18,6 @@ class OptionProvider
 
         return $this->options;
     }
-
 
     public function getOption($name, $default = null)
     {

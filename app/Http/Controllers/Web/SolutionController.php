@@ -101,7 +101,7 @@ class SolutionController extends Controller
     {
         /** @var Solution $solution */
         $solution = Solution::query()->findOrFail($id);
-        if (!can_view_code($solution)) {
+        if (! can_view_code($solution)) {
             return back()->withErrors(__('You cannot access this solution'));
         }
 
@@ -112,7 +112,7 @@ class SolutionController extends Controller
     {
         /** @var Solution $solution */
         $solution = Solution::query()->findOrFail($id);
-        if (!can_view_code($solution)) {
+        if (! can_view_code($solution)) {
             return back()->withErrors(__('You cannot access this solution'));
         }
 

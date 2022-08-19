@@ -62,6 +62,7 @@ class RegisterController extends Controller
         if (captcha_enabled()) {
             $rules['g-recaptcha-response'] = 'required|captcha';
         }
+
         return Validator::make($data, $rules);
     }
 

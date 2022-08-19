@@ -14,5 +14,5 @@ return [
     ],
     'alert' => [
         'special_judge_disabled' => '特别判题已停用',
-    ]
+    ],
 ];

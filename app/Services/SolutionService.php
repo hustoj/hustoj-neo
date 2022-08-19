@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class SolutionService
 {
     /**
-     * @param Carbon $from
+     * @param  Carbon  $from
      * @return Solution[]
      */
     public function getSubmissionStats($from)
@@ -27,7 +27,7 @@ class SolutionService
     }
 
     /**
-     * @param int|User $user
+     * @param  int|User  $user
      * @return int
      */
     public function getUserSubmit(User|int $user): int
@@ -37,11 +37,12 @@ class SolutionService
         } else {
             $userId = $user;
         }
+
         return Solution::query()->where('user_id', $userId)->count();
     }
 
     /**
-     * @param int|User $user
+     * @param  int|User  $user
      * @return int
      */
     public function getUserResolved(User|int $user): int
@@ -51,6 +52,7 @@ class SolutionService
         } else {
             $userId = $user;
         }
+
         return Solution::query()->where('user_id', $userId)
             ->where('result', Status::ACCEPT)
             ->count();

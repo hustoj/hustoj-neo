@@ -14,7 +14,7 @@ class JudgeJob implements Jsonable
     private Problem $problem;
 
     /**
-     * @param Solution $solution
+     * @param  Solution  $solution
      */
     public function __construct(Solution $solution)
     {
@@ -50,5 +50,4 @@ class JudgeJob implements Jsonable
     {
         return json_encode($this->asQueueInfo());
     }
-
 }
