@@ -32,5 +32,4 @@ class EventServiceProvider extends ServiceProvider
             DatabaseListener::class,
         ],
     ];
-    
 }

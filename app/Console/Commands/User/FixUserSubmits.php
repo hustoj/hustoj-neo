@@ -26,7 +26,7 @@ class FixUserSubmits extends Command
     private SolutionService $solutionService;
 
     /**
-     * @param SolutionService $solutionService
+     * @param  SolutionService  $solutionService
      */
     public function __construct(SolutionService $solutionService)
     {
@@ -47,6 +47,7 @@ class FixUserSubmits extends Command
             $user = User::query()->find($solution->user_id);
             if ($user == null) {
                 app('log')->error("user {$solution->user_id} not found!");
+
                 return;
             }
             $submit = $this->solutionService->getUserSubmit($user);
@@ -63,6 +64,7 @@ class FixUserSubmits extends Command
             }
             $user->save();
         });
+
         return 0;
     }
 }

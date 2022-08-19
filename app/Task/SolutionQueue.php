@@ -23,7 +23,7 @@ class SolutionQueue
 
     protected function send(JudgeJob $task)
     {
-        if (!config('hustoj.services.judge.status')) {
+        if (! config('hustoj.services.judge.status')) {
             return;
         }
         $this->queue->pushRaw($task->toJson());

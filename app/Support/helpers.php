@@ -7,44 +7,44 @@ use App\Services\ContestService;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 
-if (!function_exists('new_judge_code')) {
+if (! function_exists('new_judge_code')) {
     function new_judge_code(): \Ramsey\Uuid\UuidInterface
     {
         return Uuid::getFactory()->uuid4();
     }
 }
 
-if (!function_exists('captcha_enabled')) {
-    function captcha_enabled() : bool
+if (! function_exists('captcha_enabled')) {
+    function captcha_enabled(): bool
     {
         return config('captcha.enabled');
     }
 }
 
-if (!function_exists('where_like')) {
+if (! function_exists('where_like')) {
     function where_like($term): string
     {
         return sprintf('%%%s%%', $term);
     }
 }
 
-if (!function_exists('get_option')) {
+if (! function_exists('get_option')) {
     function get_option($name, $default = null)
     {
         return app(\App\Services\OptionProvider::class)->getOption($name, $default);
     }
 }
 
-if (!function_exists('can_attend')) {
+if (! function_exists('can_attend')) {
     /**
-     * @param Contest $contest
+     * @param  Contest  $contest
      * @return bool
      */
     function can_attend(Contest $contest): bool
     {
         /** @var User $user */
         $user = auth()->user();
-        if (!$user) {
+        if (! $user) {
             return false;
         }
         if ($user->hasRole('admin')) {
@@ -55,9 +55,9 @@ if (!function_exists('can_attend')) {
     }
 }
 
-if (!function_exists('contest_permission')) {
+if (! function_exists('contest_permission')) {
     /**
-     * @param Contest $contest
+     * @param  Contest  $contest
      * @return string
      */
     function contest_permission($contest)
@@ -66,16 +66,16 @@ if (!function_exists('contest_permission')) {
             $contest = $contest->id;
         }
 
-        return 'contest.' . $contest;
+        return 'contest.'.$contest;
     }
 }
 
-if (!function_exists('can_view_code')) {
+if (! function_exists('can_view_code')) {
     function can_view_code($solution)
     {
         /** @var User $user */
         $user = auth()->user();
-        if (!$user) {
+        if (! $user) {
             return false;
         }
         /** @var \App\Services\AdminChecker $adminChecker */
@@ -88,7 +88,7 @@ if (!function_exists('can_view_code')) {
     }
 }
 
-if (!function_exists('show_ratio')) {
+if (! function_exists('show_ratio')) {
     function show_ratio($number, $total)
     {
         $result = 0;
@@ -100,28 +100,28 @@ if (!function_exists('show_ratio')) {
     }
 }
 
-if (!function_exists('display_penalize_time')) {
+if (! function_exists('display_penalize_time')) {
     function display_penalize_time($seconds)
     {
-        $hour = (int)($seconds / (Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR));
+        $hour = (int) ($seconds / (Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR));
         $seconds -= $hour * Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR;
-        $minute = (int)($seconds / Carbon::SECONDS_PER_MINUTE);
+        $minute = (int) ($seconds / Carbon::SECONDS_PER_MINUTE);
         $leftSeconds = $seconds % Carbon::SECONDS_PER_MINUTE;
 
         return sprintf('%d:%02d:%02d', $hour, $minute, $leftSeconds);
     }
 }
 
-if (!function_exists('show_order')) {
+if (! function_exists('show_order')) {
     function show_order($order)
     {
         return chr($order + ord('A'));
     }
 }
 
-if (!function_exists('show_problem_id')) {
+if (! function_exists('show_problem_id')) {
     /**
-     * @param Solution $solution
+     * @param  Solution  $solution
      * @return int|string
      */
     function show_problem_id($solution)
@@ -134,21 +134,21 @@ if (!function_exists('show_problem_id')) {
     }
 }
 
-if (!function_exists('opening_contest')) {
+if (! function_exists('opening_contest')) {
     function opening_contest()
     {
         return (new ContestService())->openingContest();
     }
 }
 
-if (!function_exists('original_order')) {
+if (! function_exists('original_order')) {
     function original_order($order)
     {
         return ord($order) - ord('A');
     }
 }
 
-if (!function_exists('!show_status')) {
+if (! function_exists('!show_status')) {
     function show_status($status)
     {
         if (array_key_exists($status, Solution::$status)) {

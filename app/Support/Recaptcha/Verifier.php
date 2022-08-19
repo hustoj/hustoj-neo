@@ -44,18 +44,17 @@ class Verifier
             // A response can only be verified once from Google, so we need to
             // cache it to make it work in case we want to verify it multiple times.
             $this->verifiedResponses[] = $response;
+
             return true;
         }
 
         return false;
     }
 
-
     /**
      * Send verify request.
      *
-     * @param array $query
-     *
+     * @param  array  $query
      * @return array
      */
     protected function sendRequestVerify(array $query = [])
@@ -66,6 +65,4 @@ class Verifier
 
         return json_decode($response->getBody(), true);
     }
-
-
 }

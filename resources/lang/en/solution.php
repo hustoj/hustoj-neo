@@ -14,5 +14,5 @@ return [
     ],
     'alert' => [
         'special_judge_disabled' => 'special judge current disabled',
-    ]
+    ],
 ];

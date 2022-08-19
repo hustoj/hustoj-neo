@@ -11,13 +11,12 @@ class UserSolutionCountObserver
     private SolutionService $solutionService;
 
     /**
-     * @param SolutionService $solutionService
+     * @param  SolutionService  $solutionService
      */
     public function __construct(SolutionService $solutionService)
     {
         $this->solutionService = $solutionService;
     }
-
 
     public function created(Solution $solution)
     {
@@ -25,6 +24,7 @@ class UserSolutionCountObserver
         $user = User::query()->find($solution->user_id);
         if ($user == null) {
             app('log')->error("user {$solution->user_id} of solution {$solution->id} not found!");
+
             return;
         }
         $user->submit = $this->solutionService->getUserSubmit($user);
@@ -38,9 +38,10 @@ class UserSolutionCountObserver
         $user = User::query()->find($solution->user_id);
         if ($user == null) {
             app('log')->error("user {$solution->user_id} of solution {$solution->id} not found!");
+
             return;
         }
-        if (!$solution->isAccepted()) {
+        if (! $solution->isAccepted()) {
             return;
         }
         $user->submit = $this->solutionService->getUserSubmit($user);
