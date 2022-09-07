@@ -40,7 +40,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php $solutions = $summary->bestSolutions();$rankStart = ( request('page', 1) - 1 ) * $perPage;?>
+                <?php $solutions = $summary->bestSolutions();$rankStart = ( \Illuminate\Pagination\Paginator::resolveCurrentPage() - 1 ) * $perPage;?>
                 @foreach( $solutions as $solution)
                 <tr>
                     <td>{{ ++$rankStart }}</td>

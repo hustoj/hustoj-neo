@@ -1,7 +1,7 @@
 @extends('web.app')
 
 @section('title')
-    Problem Set Volume {{ request('page', 1) }} :: @parent
+    Problem Set Volume {{ \Illuminate\Pagination\Paginator::resolveCurrentPage() }} :: @parent
 @stop
 
 @section('content')

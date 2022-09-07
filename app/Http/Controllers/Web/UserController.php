@@ -8,6 +8,7 @@ use App\Http\Requests\User\EditRequest;
 use App\Http\Requests\User\PasswordRequest;
 use App\Services\User\UserSolutions;
 use App\Services\UserService;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\MessageBag;
 
 class UserController extends Controller
@@ -15,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $per_page = 100;
-        $offset = (request('page', 1) - 1) * $per_page + 1;
+        $offset = (Paginator::resolveCurrentPage() - 1) * $per_page + 1;
 
         $query = User::query();
         $query->where('status', User::ST_ACTIVE)
@@ -37,12 +38,12 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = app(UserService::class)->findByName($username);
-        if (! $user) {
+        if (!$user) {
             // user may not exist
             return redirect(route('home'))->withErrors('user is not exist!');
         }
 
-        if (! $user->isActive()) {
+        if (!$user->isActive()) {
             return back()->withErrors('User is not found!');
         }
 
