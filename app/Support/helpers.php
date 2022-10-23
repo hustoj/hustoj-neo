@@ -21,6 +21,25 @@ if (! function_exists('captcha_enabled')) {
     }
 }
 
+if (! function_exists('is_alpha')) {
+    /**
+     * detect is only alpha string
+     * @param $s
+     * @return bool
+     */
+    function is_alpha($s): bool
+    {
+        return preg_match('/^[a-zA-Z]+$/', $s);
+    }
+}
+
+if (! function_exists('current_page')) {
+    function current_page($name = 'page', $default = 1)
+    {
+        return \Illuminate\Pagination\Paginator::resolveCurrentPage($name, $default);
+    }
+}
+
 if (! function_exists('where_like')) {
     function where_like($term): string
     {
@@ -144,6 +163,7 @@ if (! function_exists('opening_contest')) {
 if (! function_exists('original_order')) {
     function original_order($order)
     {
+        $order = strtoupper($order);
         return ord($order) - ord('A');
     }
 }

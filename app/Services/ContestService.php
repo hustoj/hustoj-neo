@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Entities\Contest;
 use App\Entities\Permission;
 use App\Entities\Problem;
+use App\Exceptions\Contest\InvalidOrder;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -28,8 +29,15 @@ class ContestService
         return $perm;
     }
 
+    /**
+     * @throws InvalidOrder
+     */
     public function getProblemByOrder(Contest $contest, $order): Problem
     {
+        $order = strtoupper($order);
+        if (!is_alpha($order)) {
+            throw new InvalidOrder();
+        }
         return $contest->problems()
             ->wherePivot('order', '=', original_order($order))
             ->first();

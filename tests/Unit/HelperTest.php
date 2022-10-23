@@ -20,4 +20,13 @@ class HelperTest extends TestCase
         $this->assertEquals('200.00%', show_ratio(20, 10));
         $this->assertEquals('100.00%', show_ratio(10, 10));
     }
+
+    public function testIsAlpha()
+    {
+        $this->assertTrue(is_alpha('A'));
+        $this->assertTrue(is_alpha('a'));
+        $this->assertFalse(is_alpha('a1'));
+    }
+
 }
+
