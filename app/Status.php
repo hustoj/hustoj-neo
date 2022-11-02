@@ -4,18 +4,18 @@ namespace App;
 
 class Status
 {
-    const PENDING = 0;
-    const PENDING_REJUDGE = 1;
-    const COMPILING = 2;
-    const RUNNING = 3;
-    const ACCEPT = 4;
-    const PRESENTATION_ERROR = 5;
-    const WRONG_ANSWER = 6;
-    const TIME_LIMIT = 7;
-    const MEMORY_LIMIT = 8;
-    const OUTPUT_LIMIT = 9;
-    const RUNTIME_ERROR = 10;
-    const COMPILE_ERROR = 11;
-    const COMPILE_OK = 12;
-    const TEST_RUN = 13;
+    public const PENDING = 0;
+    public const PENDING_REJUDGE = 1;
+    public const COMPILING = 2;
+    public const RUNNING = 3;
+    public const ACCEPT = 4;
+    public const PRESENTATION_ERROR = 5;
+    public const WRONG_ANSWER = 6;
+    public const TIME_LIMIT = 7;
+    public const MEMORY_LIMIT = 8;
+    public const OUTPUT_LIMIT = 9;
+    public const RUNTIME_ERROR = 10;
+    public const COMPILE_ERROR = 11;
+    public const COMPILE_OK = 12;
+    public const TEST_RUN = 13;
 }

@@ -19,7 +19,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Reply extends Model
 {
-    use SoftDeletes, CustomDateFormat;
+    use SoftDeletes;
+    use CustomDateFormat;
 
     protected $fillable = [
         'user_id',

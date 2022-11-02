@@ -32,10 +32,13 @@ use Laratrust\Traits\LaratrustUserTrait;
  */
 class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable, LaratrustUserTrait, MustVerifyEmail, CustomDateFormat;
+    use Notifiable;
+    use LaratrustUserTrait;
+    use MustVerifyEmail;
+    use CustomDateFormat;
 
-    const ST_ACTIVE = 0;
-    const ST_INACTIVE = 1;
+    public const ST_ACTIVE = 0;
+    public const ST_INACTIVE = 1;
 
     /**
      * The attributes that are mass assignable.

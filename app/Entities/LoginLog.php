@@ -20,8 +20,8 @@ use Illuminate\Database\Eloquent\Model;
 class LoginLog extends Model
 {
     use CustomDateFormat;
-    const ST_OK = 0;
-    const ST_FAILED = 1;
+    public const ST_OK = 0;
+    public const ST_FAILED = 1;
 
     protected $table = 'logging';
 

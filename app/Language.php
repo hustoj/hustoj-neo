@@ -6,10 +6,10 @@ use Illuminate\Support\Arr;
 
 class Language
 {
-    const LANG_C = 0;
-    const LANG_CPP = 1;
-    const LANG_PAS = 2;
-    const LANG_JAVA = 3;
+    public const LANG_C = 0;
+    public const LANG_CPP = 1;
+    public const LANG_PAS = 2;
+    public const LANG_JAVA = 3;
 
     private static $languages = [
         self::LANG_C    => 'C',
