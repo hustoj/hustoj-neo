@@ -18,6 +18,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Judger extends Model
 {
-    const ST_ACTIVITY = 1;
-    const ST_DEACTIVATE = 0;
+    public const ST_ACTIVITY = 1;
+    public const ST_DEACTIVATE = 0;
 }

@@ -22,7 +22,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Topic extends Model
 {
-    use SoftDeletes, CustomDateFormat;
+    use SoftDeletes;
+    use CustomDateFormat;
 
     protected $fillable = [
         'contest_id',

@@ -23,13 +23,14 @@ use Illuminate\Support\Carbon;
  */
 class Contest extends Model
 {
-    use SoftDeletes, CustomDateFormat;
+    use SoftDeletes;
+    use CustomDateFormat;
 
-    const PRIVATE = 1;
-    const PUBLIC = 0;
+    public const PRIVATE = 1;
+    public const PUBLIC = 0;
 
-    const ST_NORMAL = 0;
-    const ST_HIDE = 1;
+    public const ST_NORMAL = 0;
+    public const ST_HIDE = 1;
 
     protected $casts = [
         'start_time' => 'datetime',

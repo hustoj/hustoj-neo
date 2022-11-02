@@ -7,8 +7,8 @@ use LogicException;
 
 class DataProvider
 {
-    const TYPE_IN = '.in';
-    const TYPE_OUT = '.out';
+    public const TYPE_IN = '.in';
+    public const TYPE_OUT = '.out';
 
     public function getData($id)
     {

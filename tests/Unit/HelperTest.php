@@ -27,6 +27,4 @@ class HelperTest extends TestCase
         $this->assertTrue(is_alpha('a'));
         $this->assertFalse(is_alpha('a1'));
     }
-
 }
-

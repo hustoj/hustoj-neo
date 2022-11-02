@@ -35,10 +35,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Problem extends Model
 {
-    use SoftDeletes, CustomDateFormat;
+    use SoftDeletes;
+    use CustomDateFormat;
 
-    const ST_NORMAL = 0;
-    const ST_HIDE = 1;
+    public const ST_NORMAL = 0;
+    public const ST_HIDE = 1;
 
     protected $fillable = [
         'title',
