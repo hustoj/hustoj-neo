@@ -40,7 +40,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php $solutions = $summary->bestSolutions();$rankStart = (current_page() - 1) * $perPage;?>
+                <?php $solutions = $summary->bestSolutions();
+                $rankStart = (current_page() - 1) * $perPage;?>
                 @foreach( $solutions as $solution)
                 <tr>
                     <td>{{ ++$rankStart }}</td>
