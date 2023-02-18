@@ -12,13 +12,13 @@
         "php": "^8.0.2",
         "ext-json": "*",
         "ext-zlib": "*",
-        "aws/aws-sdk-php-laravel": "~3.0",
+        "aws/aws-sdk-php-laravel": "~3.8.0",
         "guzzlehttp/guzzle": "^7.4",
-        "laravel/framework": "^9.11",
-        "laravel/tinker": "^2.0",
+        "laravel/framework": "^9.0",
+        "laravel/tinker": "^2.6",
         "laravel/ui": "^3.0",
         "santigarcor/laratrust": "~7.1",
-        "sentry/sentry-laravel": ">=2.1",
+        "sentry/sentry-laravel": ">=2.14.2",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "^12.0"
     },
     "require-dev": {
