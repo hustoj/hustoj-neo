@@ -19,7 +19,7 @@
         "laravel/ui": "^3.0",
         "santigarcor/laratrust": "~7.1",
         "sentry/sentry-laravel": ">=2.14.2",
-        "vladimir-yuldashev/laravel-queue-rabbitmq": "^12.0"
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^13.3.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
