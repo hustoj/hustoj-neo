@@ -25,11 +25,11 @@ class UserController extends Controller
 
         $users = $query->paginate($per_page);
 
-//        $this->repository->pushCriteria(new Where('status', User::ST_ACTIVE));
-//        $this->repository->pushCriteria(new OrderBy('solved', 'desc'));
-//        $this->repository->pushCriteria(new OrderBy('submit', 'asc'));
-//
-//        $users = $this->repository->paginate($per_page);
+        //        $this->repository->pushCriteria(new Where('status', User::ST_ACTIVE));
+        //        $this->repository->pushCriteria(new OrderBy('solved', 'desc'));
+        //        $this->repository->pushCriteria(new OrderBy('submit', 'asc'));
+        //
+        //        $users = $this->repository->paginate($per_page);
 
         return view('web.user.index', ['users' => $users, 'offset' => $offset]);
     }
