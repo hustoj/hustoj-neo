@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "bootstrap-dropdown-hover": "^4.2.0",
-    "echarts": "^4.2.1",
+    "echarts": "^5.4.3",
     "element-ui": "^2.12.0",
     "vue-bus": "^1.2.1",
     "vue-cookie": "^1.1.4",
