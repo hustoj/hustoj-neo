@@ -23,8 +23,9 @@ if (! function_exists('captcha_enabled')) {
 
 if (! function_exists('is_alpha')) {
     /**
-     * detect is only alpha string
-     * @param $s
+     * detect is only alpha string.
+     *
+     * @param  $s
      * @return bool
      */
     function is_alpha($s): bool
@@ -164,6 +165,7 @@ if (! function_exists('original_order')) {
     function original_order($order)
     {
         $order = strtoupper($order);
+
         return ord($order) - ord('A');
     }
 }

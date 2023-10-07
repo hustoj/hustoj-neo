@@ -35,9 +35,10 @@ class ContestService
     public function getProblemByOrder(Contest $contest, $order): Problem
     {
         $order = strtoupper($order);
-        if (!is_alpha($order)) {
+        if (! is_alpha($order)) {
             throw new InvalidOrder();
         }
+
         return $contest->problems()
             ->wherePivot('order', '=', original_order($order))
             ->first();

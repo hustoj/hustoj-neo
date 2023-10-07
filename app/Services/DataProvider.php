@@ -34,7 +34,7 @@ class DataProvider
     }
 
     /**
-     * @param $id
+     * @param  $id
      * @return array
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -47,7 +47,7 @@ class DataProvider
     }
 
     /**
-     * @param $id
+     * @param  $id
      * @return string
      */
     public function getDataPath($id)
@@ -56,7 +56,7 @@ class DataProvider
     }
 
     /**
-     * @param $id
+     * @param  $id
      * @return array
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException

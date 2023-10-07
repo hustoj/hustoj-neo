@@ -37,7 +37,7 @@ class JudgerService
     }
 
     /**
-     * @param $code
+     * @param  $code
      * @return Judger
      */
     public function getJudger($code)

@@ -27,7 +27,7 @@ class ProblemService
     }
 
     /**
-     * @param $problemId
+     * @param  $problemId
      * @return array
      */
     public function getResultCount($problemId)

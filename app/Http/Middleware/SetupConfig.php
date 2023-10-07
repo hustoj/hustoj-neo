@@ -7,7 +7,7 @@ use Closure;
 class SetupConfig
 {
     /**
-     * @param $request
+     * @param  $request
      * @param  \Closure  $next
      * @return mixed
      */

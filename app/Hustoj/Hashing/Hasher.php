@@ -107,7 +107,7 @@ class Hasher implements HashingContract
     /**
      * detect charactor is 0-9a-z.
      *
-     * @param $char
+     * @param  $char
      * @return bool
      */
     private function isCharactorInHexScope($char)
