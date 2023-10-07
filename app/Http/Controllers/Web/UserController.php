@@ -38,12 +38,12 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = app(UserService::class)->findByName($username);
-        if (!$user) {
+        if (! $user) {
             // user may not exist
             return redirect(route('home'))->withErrors('user is not exist!');
         }
 
-        if (!$user->isActive()) {
+        if (! $user->isActive()) {
             return back()->withErrors('User is not found!');
         }
 

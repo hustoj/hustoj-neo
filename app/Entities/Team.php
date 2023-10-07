@@ -157,7 +157,7 @@ class Team
     /**
      * 获取单个题目的罚时.
      *
-     * @param $pid
+     * @param  $pid
      * @return mixed
      */
     public function getPenaltyOfProblem($pid)
@@ -168,7 +168,7 @@ class Team
     /**
      * 获取题目的尝试次数.
      *
-     * @param $pid
+     * @param  $pid
      * @return mixed
      */
     public function getProblemWACount($pid)

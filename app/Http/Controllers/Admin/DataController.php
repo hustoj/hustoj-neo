@@ -31,7 +31,7 @@ abstract class DataController extends Controller
     }
 
     /**
-     * @param $id
+     * @param  $id
      * @return mixed
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
