@@ -2,7 +2,7 @@
 
 namespace App\Entities;
 
-use Laratrust\Models\LaratrustPermission;
+use Laratrust\Models\Permission as LaratrustPermission;
 
 /**
  * Class Permission.
