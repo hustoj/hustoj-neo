@@ -1,5 +1,13 @@
 /node_modules
+/public/admin/
+/public/css/admin.css
+/public/css/app.css
+/public/css/font-awesome.min.css
+/public/fonts/fontawesome-webfont.svg
+/public/fonts/glyphicons-halflings-regular.svg
 /public/hot
+/public/js/
+/public/mix-manifest.json
 /public/storage
 /storage/*.key
 /vendor
