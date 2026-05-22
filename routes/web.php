@@ -95,12 +95,12 @@ Route::get('/profile/', [
     'uses' => 'Web\UserController@profile',
 ]);
 Route::post('/profile', [
-    'as'         => 'user.edit',
+    'as'         => 'user.update',
     'uses'       => 'Web\UserController@edit',
     'middleware' => 'auth',
 ]);
 Route::post('/profile/password', [
-    'as'         => 'user.password',
+    'as'         => 'user.password.update',
     'uses'       => 'Web\UserController@password',
     'middleware' => 'auth',
 ]);

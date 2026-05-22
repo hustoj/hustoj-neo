@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="card-header">@lang('user.edit_profile')</div>
                     <div class="card-body">
-                        <form class="form-horizontal" method="post" action="{{ url(route('user.edit')) }}"
+                        <form class="form-horizontal" method="post" action="{{ url(route('user.update')) }}"
                               autocomplete="off">
                             @csrf
 
