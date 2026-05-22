@@ -4,30 +4,32 @@ namespace Database\Factories;
 
 use App\Entities\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
-    /**
-     * 工厂对应模型名称.
-     *
-     * @var string
-     */
     protected $model = User::class;
 
-    /**
-     * 定义模型默认状态
-     *
-     * @return array
-     */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'username' => fake()->unique()->userName(),
+            'email' => fake()->unique()->safeEmail(),
+            'nick' => fake()->name(),
+            'status' => User::ST_ACTIVE,
+            'access_at' => now(),
+            'email_level' => 0,
             'remember_token' => Str::random(10),
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterMaking(function (User $user) {
+            if (! $user->password) {
+                $user->password = Hash::make('password');
+            }
+        });
     }
 }

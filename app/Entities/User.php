@@ -3,8 +3,10 @@
 namespace App\Entities;
 
 use Carbon\Carbon;
+use Database\Factories\UserFactory;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Contracts\LaratrustUser;
@@ -33,10 +35,17 @@ use Laratrust\Traits\HasRolesAndPermissions;
  */
 class User extends Authenticatable implements MustVerifyEmailContract, LaratrustUser
 {
+    /** @use HasFactory<UserFactory> */
+    use HasFactory;
     use Notifiable;
     use HasRolesAndPermissions;
     use MustVerifyEmail;
     use CustomDateFormat;
+
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
+    }
 
     public const ST_ACTIVE = 0;
     public const ST_INACTIVE = 1;

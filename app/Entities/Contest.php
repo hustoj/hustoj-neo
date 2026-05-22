@@ -50,9 +50,7 @@ class Contest extends Model
 
     public function isOpen()
     {
-        $now = new Carbon();
-
-        return $now->between($this->start_time, $this->end_time);
+        return Carbon::now()->between($this->start_time, $this->end_time);
     }
 
     public function isEnd()
@@ -99,5 +97,14 @@ class Contest extends Model
     public function isAvailable()
     {
         return $this->status === 0;
+    }
+
+    public function time_left()
+    {
+        if ($this->isEnd()) {
+            return '0';
+        }
+
+        return Carbon::now()->diffForHumans($this->end_time, true);
     }
 }
