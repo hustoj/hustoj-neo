@@ -11,4 +11,11 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
     use CreatesTestEntities;
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['laratrust.use_cache' => false]);
+    }
 }

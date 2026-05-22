@@ -2,10 +2,13 @@
 
 namespace Tests\Concerns;
 
+use App\Entities\CompileInfo;
 use App\Entities\Contest;
 use App\Entities\Judger;
 use App\Entities\Problem;
+use App\Entities\RuntimeInfo;
 use App\Entities\Solution;
+use App\Entities\Topic;
 use App\Entities\User;
 use App\Status;
 use Database\Seeders\RoleTableSeeder;
@@ -15,6 +18,11 @@ trait CreatesTestEntities
     protected function createUser(array $attributes = []): User
     {
         return User::factory()->create($attributes);
+    }
+
+    protected function createVerifiedUser(array $attributes = []): User
+    {
+        return $this->createUser(array_merge(['email_verified_at' => now()], $attributes));
     }
 
     protected function createAdminUser(array $attributes = []): User
@@ -54,6 +62,14 @@ trait CreatesTestEntities
         ], $attributes));
     }
 
+    protected function attachProblemToContest(Contest $contest, Problem $problem, int $order = 0, ?string $title = null): void
+    {
+        $contest->problems()->attach($problem->id, [
+            'order' => $order,
+            'title' => $title ?? $problem->title,
+        ]);
+    }
+
     protected function createProblem(array $attributes = []): Problem
     {
         return Problem::query()->create(array_merge([
@@ -80,6 +96,40 @@ trait CreatesTestEntities
             'code_length' => 100,
             'ip' => '127.0.0.1',
             'result' => Status::PENDING,
+        ], $attributes));
+    }
+
+    protected function attachCompileInfo(Solution $solution, string $content = 'compilation failed'): CompileInfo
+    {
+        return CompileInfo::query()->create([
+            'solution_id' => $solution->id,
+            'content' => $content,
+        ]);
+    }
+
+    protected function attachRuntimeInfo(Solution $solution, string $content = 'segmentation fault'): RuntimeInfo
+    {
+        return RuntimeInfo::query()->create([
+            'solution_id' => $solution->id,
+            'content' => $content,
+        ]);
+    }
+
+    protected function createContestSolution(User $user, Problem $problem, Contest $contest, array $attributes = []): Solution
+    {
+        return $this->createSolution($user, $problem, array_merge([
+            'contest_id' => $contest->id,
+        ], $attributes));
+    }
+
+    protected function createTopic(User $user, array $attributes = []): Topic
+    {
+        return Topic::query()->create(array_merge([
+            'user_id' => $user->id,
+            'title' => 'Topic '.fake()->unique()->word(),
+            'content' => 'Topic body with enough detail for tests.',
+            'contest_id' => 0,
+            'problem_id' => null,
         ], $attributes));
     }
 }
