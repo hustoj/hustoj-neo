@@ -47,4 +47,25 @@ class CanAttendTest extends TestCase
 
         $this->assertFalse(can_attend($contest));
     }
+
+    public function testLoggedInUserCannotAttendPublicContestWithoutEnrollment()
+    {
+        $user = $this->createUser();
+        $contest = $this->createContest(['private' => Contest::PUBLIC]);
+
+        $this->actingAs($user);
+
+        $this->assertFalse(can_attend($contest));
+    }
+
+    public function testEnrolledUserCanAttendPublicContest()
+    {
+        $user = $this->createUser();
+        $contest = $this->createContest(['private' => Contest::PUBLIC]);
+        $contest->users()->attach($user->id);
+
+        $this->actingAs($user);
+
+        $this->assertTrue(can_attend($contest));
+    }
 }
