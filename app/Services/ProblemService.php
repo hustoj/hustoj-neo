@@ -34,7 +34,7 @@ class ProblemService
     {
         $query = Solution::query();
 
-        $query->getConnection()->statement('SET sql_mode = \'\'');
+        $this->relaxSqlMode($query->getConnection());
 
         return $query
             ->selectRaw('count(*) as user_count, result')
@@ -46,7 +46,7 @@ class ProblemService
     public function bestSolutions($problemId, $perPage = 50)
     {
         $query = Solution::query();
-        $query->getConnection()->statement('SET sql_mode = \'\'');
+        $this->relaxSqlMode($query->getConnection());
         $rawCount = 'count(*) as att';
         $rawGrade = 'min(10000000000000000000 + time_cost * 100000000000 + memory_cost * 100000) as score';
         $columns = ['id',
@@ -69,5 +69,12 @@ class ProblemService
             ->orderBy('id')
             ->groupBy('user_id')
             ->paginate($perPage);
+    }
+
+    private function relaxSqlMode($connection): void
+    {
+        if ($connection->getDriverName() === 'mysql') {
+            $connection->statement('SET sql_mode = \'\'');
+        }
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Entities\Contest;
+use App\Entities\Problem;
 use App\Entities\Solution;
 use App\Entities\Topic;
 use App\Entities\User;
+use App\Exceptions\Contest\InvalidOrder;
 use App\Http\Controllers\Controller;
 use App\Services\ContestService;
 use App\Services\Ranking;
@@ -44,7 +46,12 @@ class ContestController extends Controller
         /** @var Contest $contest */
         $contest = Contest::query()->findOrFail($id);
 
-        $problem = $this->contestService->getProblemByOrder($contest, $order);
+        try {
+            $problem = $this->resolveContestProblem($contest, $order);
+        } catch (InvalidOrder $exception) {
+            return back()->withErrors($exception->getMessage());
+        }
+
         if ($problem === null) {
             return back()->withErrors('Problem not found in contest!');
         }
@@ -67,9 +74,31 @@ class ContestController extends Controller
                 ->withErrors('Login first');
         }
 
-        $problem = $this->contestService->getProblemByOrder($contest, request('order'));
+        try {
+            $problem = $this->resolveContestProblem($contest, request('order'));
+        } catch (InvalidOrder $exception) {
+            return redirect(route('contest.view', $contest->id))
+                ->withErrors($exception->getMessage());
+        }
+
+        if ($problem === null) {
+            return redirect(route('contest.view', $contest->id))
+                ->withErrors('Problem not found in contest!');
+        }
 
         return view('web.contest.submit', compact('contest', 'problem'));
+    }
+
+    /**
+     * @throws InvalidOrder
+     */
+    private function resolveContestProblem(Contest $contest, $order): ?Problem
+    {
+        if ($order === null || $order === '') {
+            throw new InvalidOrder();
+        }
+
+        return $this->contestService->getProblemByOrder($contest, $order);
     }
 
     public function status($id)
