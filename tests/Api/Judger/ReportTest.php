@@ -50,4 +50,78 @@ class ReportTest extends TestCase
             'message' => 'auth code invalid',
         ]);
     }
+
+    public function testReportStoresCompileInfoOnCompileError()
+    {
+        $judger = $this->createJudger();
+        $user = $this->createUser();
+        $problem = $this->createProblem();
+        $solution = $this->createSolution($user, $problem, ['result' => Status::COMPILE_ERROR]);
+        $timestamp = time();
+
+        $response = $this->json(
+            'post',
+            '/judge/api/report',
+            [
+                'ts' => $timestamp,
+                'solution_id' => $solution->id,
+                'status' => Status::COMPILE_ERROR,
+                'compile_info' => 'syntax error near line 1',
+            ],
+            $this->judgerHeaders($judger, $timestamp)
+        );
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('compile_info', [
+            'solution_id' => $solution->id,
+            'content' => 'syntax error near line 1',
+        ]);
+    }
+
+    public function testReportStoresRuntimeInfoOnRuntimeError()
+    {
+        $judger = $this->createJudger();
+        $user = $this->createUser();
+        $problem = $this->createProblem();
+        $solution = $this->createSolution($user, $problem, ['result' => Status::RUNTIME_ERROR]);
+        $timestamp = time();
+
+        $response = $this->json(
+            'post',
+            '/judge/api/report',
+            [
+                'ts' => $timestamp,
+                'solution_id' => $solution->id,
+                'status' => Status::RUNTIME_ERROR,
+                'runtime_info' => 'SIGSEGV',
+            ],
+            $this->judgerHeaders($judger, $timestamp)
+        );
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('runtime_info', [
+            'solution_id' => $solution->id,
+            'content' => 'SIGSEGV',
+        ]);
+    }
+
+    public function testReportReturnsSuccessForMissingSolution()
+    {
+        $judger = $this->createJudger();
+        $timestamp = time();
+
+        $response = $this->json(
+            'post',
+            '/judge/api/report',
+            [
+                'ts' => $timestamp,
+                'solution_id' => 999999,
+                'status' => Status::ACCEPT,
+            ],
+            $this->judgerHeaders($judger, $timestamp)
+        );
+
+        $response->assertStatus(200);
+        $response->assertExactJson(['code' => 0]);
+    }
 }
