@@ -103,7 +103,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = $request->user();
 
-        if (app('hash')->make($request->input('password')) === $user->password) {
+        if (app('hash')->check($request->input('password'), $user->password)) {
             $user->password = app('hash')->make($request->input('password_new'));
             $user->save();
 

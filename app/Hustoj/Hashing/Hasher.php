@@ -3,7 +3,6 @@
 namespace App\Hustoj\Hashing;
 
 use Illuminate\Contracts\Hashing\Hasher as HashingContract;
-use Illuminate\Support\Arr;
 
 class Hasher implements HashingContract
 {
@@ -39,10 +38,11 @@ class Hasher implements HashingContract
      */
     public function make($value, array $options = [])
     {
-        $salt = Arr::get($options, 'salt');
-        if (! $salt) {
-            $this->generateSalt();
-        }
+        // 注意:必须用 array_key_exists 而非 Arr::get/isset,
+        // 否则会与 check() 传入空 salt 的兼容路径冲突,导致老用户登录失败。
+        $salt = array_key_exists('salt', $options)
+            ? $options['salt']
+            : $this->generateSalt();
 
         $hashed_password = sha1(md5($value).$salt, true);
 
@@ -65,8 +65,9 @@ class Hasher implements HashingContract
      */
     public function needsRehash($hashedValue, array $options = [])
     {
-        //todo: rehash old password to new password
-        return false;
+        // 老格式: sha1(20 字节) 无 salt -> base64 后 28 字符,decode 后 20 字节
+        // 新格式: sha1(20 字节) + 4 字节 salt -> base64 后 32 字符,decode 后 24 字节
+        return strlen((string) base64_decode($hashedValue, true)) < 24;
     }
 
     /**
