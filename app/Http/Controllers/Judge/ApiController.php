@@ -80,13 +80,4 @@ class ApiController extends Controller
         $request->validate();
         $this->judger = $request->getJudger();
     }
-
-    private function beat()
-    {
-        $redis = app('redis');
-        if ($redis && $this->judger) {
-            $key = implode(':', ['judger', 'beat']);
-            $redis->hset($key, $this->judger->id, time());
-        }
-    }
 }
