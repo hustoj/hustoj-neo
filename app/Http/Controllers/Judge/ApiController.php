@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Judge;
 use App\Entities\Problem;
 use App\Entities\Solution;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Judger\DataRequest;
 use App\Http\Requests\Judger\JudgerRequest;
 use App\Http\Requests\Judger\ReportRequest;
 use App\Services\DataProvider;
@@ -15,11 +16,11 @@ class ApiController extends Controller
     /** @var \App\Entities\Judger */
     public $judger;
 
-    public function data(JudgerRequest $request)
+    public function data(DataRequest $request)
     {
         $this->authorizeJudger($request);
 
-        $pid = $request->input('pid');
+        $pid = $request->getProblemId();
         Problem::query()->findOrFail($pid);
 
         try {

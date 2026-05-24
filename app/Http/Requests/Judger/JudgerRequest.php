@@ -5,6 +5,8 @@ namespace App\Http\Requests\Judger;
 use App\Entities\Judger;
 use App\Exceptions\Judger\JudgerCodeInvalid;
 use App\Http\Requests\Request;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class JudgerRequest extends Request
 {
@@ -40,5 +42,13 @@ class JudgerRequest extends Request
     public function getToken()
     {
         return $this->header('Token');
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'code' => 500,
+            'message' => $validator->errors()->first(),
+        ]));
     }
 }
