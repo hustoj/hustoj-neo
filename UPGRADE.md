@@ -123,7 +123,7 @@
   ];
   ```
 - `RouteServiceProvider` 删除。
-- `BroadcastServiceProvider` 不再注册;广播通道由 `bootstrap/app.php` 的 `withRouting(channels: __DIR__.'/../routes/channels.php')` 加载。`php artisan channel:list` 可能仍会提示未加载旧 Provider,但 `/broadcasting/auth` 路由和通道定义来自 `routes/channels.php`,运行时不依赖该 Provider。
+- `BroadcastServiceProvider` 不再注册;广播通道由 `bootstrap/app.php` 的 `withRouting(channels: __DIR__.'/../routes/channels.php')` 加载。已验证 `php artisan channel:list` 可正常列出 `routes/channels.php` 中的频道,`/broadcasting/auth` 路由也会由新骨架注册,运行时不依赖旧 Provider。
 - `HashServiceProvider` 必须用 `DeferrableProvider` 并同时提供 `hash` / `hash.driver`,否则 `Hash::driver()` 会回落到 Laravel 默认 `BcryptHasher`,旧 HUSTOJ 密码校验会失败。
 - 其余 Provider 一律不动其内部逻辑。
 
