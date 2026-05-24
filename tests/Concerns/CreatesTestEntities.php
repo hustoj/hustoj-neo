@@ -10,8 +10,10 @@ use App\Entities\RuntimeInfo;
 use App\Entities\Solution;
 use App\Entities\Topic;
 use App\Entities\User;
+use App\Services\JudgerAuthenticator;
 use App\Status;
 use Database\Seeders\RoleTableSeeder;
+use Illuminate\Support\Str;
 
 trait CreatesTestEntities
 {
@@ -40,13 +42,24 @@ trait CreatesTestEntities
         return Judger::factory()->create($attributes);
     }
 
-    protected function judgerHeaders(Judger $judger, ?int $timestamp = null): array
+    protected function judgerHeaders(
+        Judger $judger,
+        ?int $timestamp = null,
+        string $method = 'POST',
+        string $path = '/judge/api/heartbeat',
+        array $payload = [],
+        ?string $nonce = null
+    ): array
     {
         $timestamp ??= time();
+        $payload = array_merge($payload, ['ts' => $timestamp]);
+        $nonce ??= (string) Str::uuid();
 
         return [
             'Judge-Id' => (string) $judger->id,
-            'Token' => md5(sprintf('%s-%d', $judger->code, $timestamp)),
+            'Token-Version' => '2',
+            'Nonce' => $nonce,
+            'Token' => JudgerAuthenticator::signature($judger->code, $method, $path, $payload, $nonce),
         ];
     }
 

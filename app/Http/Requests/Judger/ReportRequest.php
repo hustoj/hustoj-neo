@@ -12,6 +12,7 @@ class ReportRequest extends JudgerRequest
     public function rules()
     {
         return [
+            'ts'          => 'required|int',
             'solution_id' => 'required|int',
             'status'      => 'required|int|between:2,12',
             'time_cost'   => 'int',

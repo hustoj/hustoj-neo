@@ -25,7 +25,7 @@ class DataTest extends TestCase
 
         $response = $this->get(
             '/judge/api/data?pid='.$problem->id.'&ts='.$timestamp,
-            $this->judgerHeaders($judger, $timestamp)
+            $this->judgerHeaders($judger, $timestamp, 'GET', '/judge/api/data', ['pid' => $problem->id])
         );
 
         $response->assertStatus(200);
@@ -50,7 +50,7 @@ class DataTest extends TestCase
 
         $response = $this->get(
             '/judge/api/data?pid='.$problem->id.'&ts='.$timestamp,
-            $this->judgerHeaders($judger, $timestamp)
+            $this->judgerHeaders($judger, $timestamp, 'GET', '/judge/api/data', ['pid' => $problem->id])
         );
 
         $response->assertStatus(200);
@@ -84,13 +84,13 @@ class DataTest extends TestCase
 
         $response = $this->get(
             '/judge/api/data?ts='.$timestamp,
-            $this->judgerHeaders($judger, $timestamp)
+            $this->judgerHeaders($judger, $timestamp, 'GET', '/judge/api/data')
         );
 
         $response->assertStatus(200);
 
         $payload = json_decode(gzdecode($response->getContent()), true);
         $this->assertSame(500, $payload['code']);
-        $this->assertSame('The pid field is required.', $payload['message']);
+        $this->assertSame('auth code invalid', $payload['message']);
     }
 }

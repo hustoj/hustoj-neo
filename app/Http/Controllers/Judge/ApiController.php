@@ -78,7 +78,6 @@ class ApiController extends Controller
 
     private function authorizeJudger(JudgerRequest $request)
     {
-        $request->validate();
         $this->judger = $request->getJudger();
     }
 }

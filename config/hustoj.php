@@ -4,6 +4,11 @@ return [
     'services' => [
         'judge' => [
             'status' => env('JUDGE_SERVICE_OK', true),
+            'auth' => [
+                'ttl' => (int) env('JUDGE_AUTH_TTL', 300),
+                'allow_legacy' => filter_var(env('JUDGE_AUTH_ALLOW_LEGACY', false), FILTER_VALIDATE_BOOLEAN),
+                'cache_store' => env('JUDGE_AUTH_CACHE_STORE', 'redis'),
+            ],
         ],
     ],
     'special_judge_enabled' => false,
