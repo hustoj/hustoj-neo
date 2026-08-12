@@ -24,6 +24,11 @@ return [
         'token' => env('POSTMARK_TOKEN'),
     ],
 
+    /*
+     * SES 邮件驱动凭据：被 Illuminate\Mail\MailManager 的 ses transport 读取
+     * （MailManager.php 处 config('services.ses')）。S3/SDK 的 AWS 凭据由
+     * config/filesystems.php 的 s3 disk 单独配置，不在此处。
+     */
     'ses' => [
         'key'    => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
