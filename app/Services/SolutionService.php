@@ -55,6 +55,7 @@ class SolutionService
 
         return Solution::query()->where('user_id', $userId)
             ->where('result', Status::ACCEPT)
-            ->count();
+            ->distinct('problem_id')
+            ->count('problem_id');
     }
 }
