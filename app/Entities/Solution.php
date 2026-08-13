@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $ip
  * @property int $code_length
  * @property Carbon $judged_at
+ * @property string|null $judge_token
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Contest $contest
@@ -63,6 +64,7 @@ class Solution extends Model
         'memory_cost',
         'code_length',
         'judged_at',
+        'judge_token',
     ];
 
     /**

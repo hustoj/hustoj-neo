@@ -41,6 +41,7 @@ class JudgeJob implements Jsonable
             'is_special' => $this->problem->spj,
 
             'solution_id' => $this->solution->id,
+            'judge_token' => $this->solution->judge_token,
             'code' => $this->solution->source->code,
             'language' => $this->solution->language,
         ];

@@ -13,11 +13,13 @@ class ReportTest extends TestCase
         $user = $this->createUser();
         $problem = $this->createProblem();
         $solution = $this->createSolution($user, $problem);
+        $solution->forceFill(['judge_token' => 'job-token'])->save();
         $timestamp = time();
 
         $payload = [
             'ts' => $timestamp,
             'solution_id' => $solution->id,
+            'judge_token' => 'job-token',
             'status' => Status::ACCEPT,
             'time_cost' => 120,
             'memory_cost' => 2048,
@@ -59,11 +61,13 @@ class ReportTest extends TestCase
         $user = $this->createUser();
         $problem = $this->createProblem();
         $solution = $this->createSolution($user, $problem, ['result' => Status::COMPILE_ERROR]);
+        $solution->forceFill(['judge_token' => 'compile-token'])->save();
         $timestamp = time();
 
         $payload = [
             'ts' => $timestamp,
             'solution_id' => $solution->id,
+            'judge_token' => 'compile-token',
             'status' => Status::COMPILE_ERROR,
             'compile_info' => 'syntax error near line 1',
         ];
@@ -88,11 +92,13 @@ class ReportTest extends TestCase
         $user = $this->createUser();
         $problem = $this->createProblem();
         $solution = $this->createSolution($user, $problem, ['result' => Status::RUNTIME_ERROR]);
+        $solution->forceFill(['judge_token' => 'runtime-token'])->save();
         $timestamp = time();
 
         $payload = [
             'ts' => $timestamp,
             'solution_id' => $solution->id,
+            'judge_token' => 'runtime-token',
             'status' => Status::RUNTIME_ERROR,
             'runtime_info' => 'SIGSEGV',
         ];
@@ -119,6 +125,7 @@ class ReportTest extends TestCase
         $payload = [
             'ts' => $timestamp,
             'solution_id' => 999999,
+            'judge_token' => 'missing-token',
             'status' => Status::ACCEPT,
         ];
 
@@ -131,5 +138,62 @@ class ReportTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertExactJson(['code' => 0]);
+    }
+
+    public function testReportRejectsWrongJudgeToken()
+    {
+        $judger = $this->createJudger();
+        $user = $this->createUser();
+        $problem = $this->createProblem();
+        $solution = $this->createSolution($user, $problem);
+        $solution->forceFill(['judge_token' => 'expected-token'])->save();
+        $timestamp = time();
+
+        $payload = [
+            'ts' => $timestamp,
+            'solution_id' => $solution->id,
+            'judge_token' => 'wrong-token',
+            'status' => Status::ACCEPT,
+        ];
+
+        $response = $this->json(
+            'post',
+            '/judge/api/report',
+            $payload,
+            $this->judgerHeaders($judger, $timestamp, 'POST', '/judge/api/report', $payload)
+        );
+
+        $response->assertStatus(200);
+        $response->assertExactJson([
+            'code' => 403,
+            'message' => 'judge token invalid',
+        ]);
+        $this->assertSame(Status::PENDING, $solution->fresh()->result);
+    }
+
+    public function testReportAllowsLegacyTaskWithoutJudgeToken()
+    {
+        $judger = $this->createJudger();
+        $user = $this->createUser();
+        $problem = $this->createProblem();
+        $solution = $this->createSolution($user, $problem);
+        $timestamp = time();
+
+        $payload = [
+            'ts' => $timestamp,
+            'solution_id' => $solution->id,
+            'status' => Status::ACCEPT,
+        ];
+
+        $response = $this->json(
+            'post',
+            '/judge/api/report',
+            $payload,
+            $this->judgerHeaders($judger, $timestamp, 'POST', '/judge/api/report', $payload)
+        );
+
+        $response->assertStatus(200);
+        $response->assertExactJson(['code' => 0]);
+        $this->assertSame(Status::ACCEPT, $solution->fresh()->result);
     }
 }

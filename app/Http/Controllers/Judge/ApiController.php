@@ -42,6 +42,12 @@ class ApiController extends Controller
         /** @var Solution $solution */
         $solution = Solution::query()->find($request->getSolutionId());
         if ($solution) {
+            if ($solution->judge_token && ! hash_equals((string) $solution->judge_token, $request->getJudgeToken())) {
+                return [
+                    'code' => 403,
+                    'message' => 'judge token invalid',
+                ];
+            }
             $solution->result = $request->input('status');
             if ($request->input('memory_cost')) {
                 $solution->memory_cost = $request->input('memory_cost');
