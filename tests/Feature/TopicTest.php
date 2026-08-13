@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Entities\Topic;
+use App\Entities\Contest;
 use Carbon\Carbon;
 use Tests\TestCase;
 
@@ -66,5 +67,51 @@ class TopicTest extends TestCase
         $response->assertRedirect(route('topic.list'));
         $response->assertSessionHasErrors();
         $this->assertSame(0, Topic::query()->count());
+    }
+
+    public function testGuestCannotViewPrivateContestTopic()
+    {
+        $owner = $this->createUser();
+        $contest = $this->createContest(['private' => Contest::PRIVATE]);
+        $topic = $this->createTopic($owner, ['contest_id' => $contest->id]);
+
+        $response = $this->get('/topic/'.$topic->id);
+
+        $response->assertRedirect(route('topic.list'));
+        $response->assertSessionHasErrors();
+    }
+
+    public function testContestParticipantCanViewPrivateContestTopic()
+    {
+        $participant = $this->createUser();
+        $contest = $this->createContest(['private' => Contest::PRIVATE]);
+        $contest->users()->attach($participant->id);
+        $topic = $this->createTopic($participant, ['contest_id' => $contest->id]);
+
+        $response = $this->actingAs($participant)->get('/topic/'.$topic->id);
+
+        $response->assertSuccessful();
+    }
+
+    public function testNonParticipantCannotCreatePrivateContestTopic()
+    {
+        config(['hustoj.user.topic.verified_after' => 1]);
+        $user = $this->createVerifiedUser([
+            'email_verified_at' => Carbon::now()->subMinutes(30),
+        ]);
+        $contest = $this->createContest(['private' => Contest::PRIVATE]);
+
+        $response = $this->actingAs($user)->post('/topic/store', [
+            'title' => 'Private clarify',
+            'content' => 'This clarify should not be accepted for outsiders.',
+            'contest_id' => $contest->id,
+        ]);
+
+        $response->assertRedirect(route('topic.list'));
+        $response->assertSessionHasErrors();
+        $this->assertDatabaseMissing('topics', [
+            'user_id' => $user->id,
+            'contest_id' => $contest->id,
+        ]);
     }
 }
