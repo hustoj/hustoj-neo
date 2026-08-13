@@ -52,6 +52,11 @@ Route::group(['middleware' => 'authorizeContest'], function () {
         'as'   => 'contest.submit',
         'uses' => 'Web\ContestController@submit',
     ]);
+    Route::post('/contest/{contest}/submit', [
+        'as'         => 'contest.solution.store',
+        'uses'       => 'Web\SolutionController@storeContest',
+        'middleware' => 'auth',
+    ])->middleware('verified');
     Route::get('/contest/{contest}/clarify', [
         'as'   => 'contest.clarify',
         'uses' => 'Web\ContestController@clarify',

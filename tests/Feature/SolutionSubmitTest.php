@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Entities\Solution;
+use App\Entities\Problem;
 use App\Status;
 use App\Task\SolutionQueue;
 use Tests\TestCase;
@@ -65,6 +66,52 @@ class SolutionSubmitTest extends TestCase
         $this->assertDatabaseHas('source_code', [
             'solution_id' => $solution->id,
             'code' => "int main() {\n  return 0;\n}",
+        ]);
+    }
+
+    public function testCannotSubmitHiddenProblem()
+    {
+        $user = $this->createVerifiedUser();
+        $problem = $this->createProblem(['status' => Problem::ST_HIDE]);
+
+        $response = $this->actingAs($user)->post('/solution/store', [
+            'problem_id' => $problem->id,
+            'language' => 1,
+            'code' => 'int main() { return 0; }',
+        ]);
+
+        $response->assertRedirect(route('problem.index'));
+        $response->assertSessionHasErrors();
+        $this->assertDatabaseMissing('solutions', [
+            'user_id' => $user->id,
+            'problem_id' => $problem->id,
+        ]);
+    }
+
+    public function testForgedContestFieldsAreIgnoredOnNormalSubmit()
+    {
+        $user = $this->createVerifiedUser();
+        $problem = $this->createProblem();
+        $contest = $this->createContest();
+
+        $this->mock(SolutionQueue::class, function ($mock) {
+            $mock->shouldReceive('add')->once();
+        });
+
+        $response = $this->actingAs($user)->post('/solution/store', [
+            'problem_id' => $problem->id,
+            'language' => 1,
+            'code' => 'int main() { return 0; }',
+            'contest_id' => $contest->id,
+            'order' => 12,
+        ]);
+
+        $response->assertRedirect(route('solution.index'));
+        $this->assertDatabaseHas('solutions', [
+            'user_id' => $user->id,
+            'problem_id' => $problem->id,
+            'contest_id' => 0,
+            'order' => 0,
         ]);
     }
 
