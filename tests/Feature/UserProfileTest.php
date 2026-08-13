@@ -41,6 +41,30 @@ class UserProfileTest extends TestCase
         $this->assertNull($user->email_verified_at);
     }
 
+    public function testUserCannotUpdateRankingAndStatusThroughProfile()
+    {
+        $user = $this->createUser([
+            'submit' => 1,
+            'solved' => 1,
+            'status' => 0,
+        ]);
+
+        $response = $this->from('/profile/')->actingAs($user)->post('/profile', [
+            'email' => $user->email,
+            'nick' => 'new nick',
+            'submit' => 999,
+            'solved' => 999,
+            'status' => 1,
+        ]);
+
+        $response->assertRedirect('/profile/');
+        $user->refresh();
+        $this->assertSame(1, $user->submit);
+        $this->assertSame(1, $user->solved);
+        $this->assertSame(0, $user->status);
+        $this->assertSame('new nick', $user->nick);
+    }
+
     public function testUserCanChangePassword()
     {
         $user = $this->createVerifiedUser();
