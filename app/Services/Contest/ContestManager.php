@@ -3,6 +3,7 @@
 namespace App\Services\Contest;
 
 use App\Entities\Contest;
+use App\Entities\Problem;
 use Carbon\Carbon;
 
 class ContestManager
@@ -44,10 +45,21 @@ class ContestManager
      */
     public function syncProblems($contest, $problemIds)
     {
+        $problems = Problem::query()
+            ->whereIn('id', $problemIds)
+            ->get()
+            ->keyBy('id');
+
         $relations = [];
         $index = 0;
         foreach ($problemIds as $id) {
-            $relations[$id] = ['order' => $index];
+            if (! $problems->has($id)) {
+                continue;
+            }
+            $relations[$id] = [
+                'order' => $index,
+                'title' => $problems[$id]->title,
+            ];
             $index++;
         }
         $contest->problems()->sync($relations);

@@ -51,7 +51,7 @@ class ContestController extends DataController
                 $manager->syncProblems($contest, request('problem_list', []));
             }
             if (request()->has('user_list')) {
-                $manager->syncProblems($contest, request('user_list', []));
+                $manager->syncUser($contest, request('user_list', []));
             }
         });
     }
@@ -74,7 +74,7 @@ class ContestController extends DataController
                 $manager->syncProblems($contest, request('problem_list', []));
             }
             if (request()->has('user_list')) {
-                $manager->syncProblems($contest, request('user_list', []));
+                $manager->syncUser($contest, request('user_list', []));
             }
         });
     }
