@@ -21,7 +21,7 @@ import App from './App.vue';
 import HtmlEditor from './components/HtmlEditor.vue';
 import routes from './routes';
 
-axios.defaults.baseURL = import.meta.env.VITE_ADMIN_URL;
+axios.defaults.baseURL = '/';
 axios.defaults.headers.common['Accept'] = 'application/json';
 
 axios.interceptors.response.use(function (response) {
