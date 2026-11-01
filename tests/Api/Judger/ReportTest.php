@@ -15,17 +15,19 @@ class ReportTest extends TestCase
         $solution = $this->createSolution($user, $problem);
         $timestamp = time();
 
+        $payload = [
+            'ts' => $timestamp,
+            'solution_id' => $solution->id,
+            'status' => Status::ACCEPT,
+            'time_cost' => 120,
+            'memory_cost' => 2048,
+        ];
+
         $response = $this->json(
             'post',
             '/judge/api/report',
-            [
-                'ts' => $timestamp,
-                'solution_id' => $solution->id,
-                'status' => Status::ACCEPT,
-                'time_cost' => 120,
-                'memory_cost' => 2048,
-            ],
-            $this->judgerHeaders($judger, $timestamp)
+            $payload,
+            $this->judgerHeaders($judger, $timestamp, 'POST', '/judge/api/report', $payload)
         );
 
         $response->assertStatus(200);
@@ -59,16 +61,18 @@ class ReportTest extends TestCase
         $solution = $this->createSolution($user, $problem, ['result' => Status::COMPILE_ERROR]);
         $timestamp = time();
 
+        $payload = [
+            'ts' => $timestamp,
+            'solution_id' => $solution->id,
+            'status' => Status::COMPILE_ERROR,
+            'compile_info' => 'syntax error near line 1',
+        ];
+
         $response = $this->json(
             'post',
             '/judge/api/report',
-            [
-                'ts' => $timestamp,
-                'solution_id' => $solution->id,
-                'status' => Status::COMPILE_ERROR,
-                'compile_info' => 'syntax error near line 1',
-            ],
-            $this->judgerHeaders($judger, $timestamp)
+            $payload,
+            $this->judgerHeaders($judger, $timestamp, 'POST', '/judge/api/report', $payload)
         );
 
         $response->assertStatus(200);
@@ -86,16 +90,18 @@ class ReportTest extends TestCase
         $solution = $this->createSolution($user, $problem, ['result' => Status::RUNTIME_ERROR]);
         $timestamp = time();
 
+        $payload = [
+            'ts' => $timestamp,
+            'solution_id' => $solution->id,
+            'status' => Status::RUNTIME_ERROR,
+            'runtime_info' => 'SIGSEGV',
+        ];
+
         $response = $this->json(
             'post',
             '/judge/api/report',
-            [
-                'ts' => $timestamp,
-                'solution_id' => $solution->id,
-                'status' => Status::RUNTIME_ERROR,
-                'runtime_info' => 'SIGSEGV',
-            ],
-            $this->judgerHeaders($judger, $timestamp)
+            $payload,
+            $this->judgerHeaders($judger, $timestamp, 'POST', '/judge/api/report', $payload)
         );
 
         $response->assertStatus(200);
@@ -110,15 +116,17 @@ class ReportTest extends TestCase
         $judger = $this->createJudger();
         $timestamp = time();
 
+        $payload = [
+            'ts' => $timestamp,
+            'solution_id' => 999999,
+            'status' => Status::ACCEPT,
+        ];
+
         $response = $this->json(
             'post',
             '/judge/api/report',
-            [
-                'ts' => $timestamp,
-                'solution_id' => 999999,
-                'status' => Status::ACCEPT,
-            ],
-            $this->judgerHeaders($judger, $timestamp)
+            $payload,
+            $this->judgerHeaders($judger, $timestamp, 'POST', '/judge/api/report', $payload)
         );
 
         $response->assertStatus(200);
