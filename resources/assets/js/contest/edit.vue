@@ -39,7 +39,7 @@
                     <el-button type="primary" plain :icon="Plus" @click="addProblem()">Add Problem</el-button>
                     <el-button v-if="private" type="primary" plain :icon="Plus" @click="addUser()">Add User</el-button>
                 </el-form-item>
-                <el-tabs type="border-card" :value="activePane">
+                <el-tabs type="border-card" v-model="activePane">
                     <el-tab-pane label="Problem" name="problemPane">
                         <el-table :data="problems" style="width: 100%">
                             <el-table-column prop="id" label="ID" width="80"></el-table-column>
