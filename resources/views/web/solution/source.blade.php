@@ -15,7 +15,7 @@
     <script type="text/javascript"
             src="{{ asset('assets/google-code-prettify/prettify.js?skin=sunburst') }}"></script>
     <script type="text/javascript">
-        $(function () {
+        document.addEventListener('DOMContentLoaded', function () {
             prettyPrint();
         });
     </script>

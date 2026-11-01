@@ -17,9 +17,8 @@ import '../sass/font-awesome.min.css';
 
 import axios from 'axios';
 
+import App from './App.vue';
 import HtmlEditor from './components/HtmlEditor.vue';
-import navbar from './components/navbar.vue';
-import ojfooter from './components/footer.vue';
 import routes from './routes';
 
 axios.defaults.baseURL = import.meta.env.VITE_ADMIN_URL;
@@ -45,14 +44,12 @@ const router = createRouter({
     routes: routes
 });
 
-const app = createApp({});
+const app = createApp(App);
 
 app.use(router);
 app.use(ElementPlus, { locale });
 app.config.globalProperties.$bus = mitt();
 app.config.globalProperties.$http = axios;
-app.component('navbar', navbar);
-app.component('ojfooter', ojfooter);
 app.component('vue-html5-editor', HtmlEditor);
 
 app.mount('#app');

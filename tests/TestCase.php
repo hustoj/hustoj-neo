@@ -17,5 +17,6 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         config(['laratrust.use_cache' => false]);
+        $this->withoutVite();
     }
 }
