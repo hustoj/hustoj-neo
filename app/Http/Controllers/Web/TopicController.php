@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Entities\Contest;
 use App\Entities\Topic;
 use App\Entities\User;
 use App\Exceptions\WebException;
@@ -25,6 +26,9 @@ class TopicController extends Controller
         /** @var Topic $topic */
         $topic = Topic::query()->find($id);
         if ($topic) {
+            if (! $this->canAccessTopic($topic)) {
+                return redirect(route('topic.list'))->withErrors('You cannot access this topic');
+            }
             $reply = [
                 'user_id' => app('auth')->guard()->id(),
                 'topic_id' => $id,
@@ -57,6 +61,10 @@ class TopicController extends Controller
             app(UserValidator::class)->validate($user);
         } catch (WebException $exception) {
             return redirect(route('topic.list'))->withErrors($exception->getMessage());
+        }
+
+        if (! $this->canCreateContestTopic((int) $request->getContestId())) {
+            return redirect(route('topic.list'))->withErrors('You cannot access this contest');
         }
 
         $data = [
@@ -102,6 +110,10 @@ class TopicController extends Controller
     public function show($id)
     {
         $topic = Topic::query()->findOrFail($id);
+        if (! $this->canAccessTopic($topic)) {
+            return redirect(route('topic.list'))->withErrors('You cannot access this topic');
+        }
+
         /** @var User $user */
         $user = auth()->user();
 
@@ -114,5 +126,34 @@ class TopicController extends Controller
             'topic' => $topic,
             'isUserCanReply' => $isUserCanReply,
         ]);
+    }
+
+    private function canAccessTopic(Topic $topic): bool
+    {
+        if ((int) $topic->contest_id < 1) {
+            return true;
+        }
+
+        return $this->canAccessContest((int) $topic->contest_id);
+    }
+
+    private function canCreateContestTopic(int $contestId): bool
+    {
+        if ($contestId < 1) {
+            return true;
+        }
+
+        return $this->canAccessContest($contestId);
+    }
+
+    private function canAccessContest(int $contestId): bool
+    {
+        /** @var Contest|null $contest */
+        $contest = Contest::query()->find($contestId);
+        if (! $contest || ! $contest->isAvailable()) {
+            return false;
+        }
+
+        return $contest->isPublic() || can_attend($contest);
     }
 }
