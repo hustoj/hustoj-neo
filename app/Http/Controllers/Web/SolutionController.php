@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Entities\Contest;
 use App\Entities\Problem;
 use App\Entities\Solution;
 use App\Entities\User;
+use App\Exceptions\Contest\InvalidOrder;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Solution\ContestStoreRequest;
 use App\Http\Requests\Solution\IndexRequest;
+use App\Http\Requests\Solution\StoreRequest;
+use App\Services\ContestService;
 use App\Services\UserService;
 use App\Status;
 use App\Task\SolutionQueue;
@@ -53,6 +58,9 @@ class SolutionController extends Controller
 
         /** @var Problem $problem */
         $problem = Problem::query()->findOrFail($id);
+        if (! $problem->isAvailable()) {
+            return redirect(route('problem.index'))->withErrors('Problem is not found!');
+        }
 
         if (! config('hustoj.special_judge_enabled') && $problem->isSpecialJudge()) {
             return redirect(route('problem.view', ['problem' => $id]))
@@ -62,23 +70,67 @@ class SolutionController extends Controller
         return view('web.problem.submit', ['problem' => $problem]);
     }
 
-    public function store()
+    public function store(StoreRequest $request)
+    {
+        /** @var Problem $problem */
+        $problem = Problem::query()->findOrFail($request->getProblemId());
+        if (! $problem->isAvailable()) {
+            return redirect(route('problem.index'))->withErrors('Problem is not found!');
+        }
+
+        if (! config('hustoj.special_judge_enabled') && $problem->isSpecialJudge()) {
+            return redirect(route('problem.view', ['problem' => $problem->id]))
+                ->withErrors(__('solution.alert.special_judge_disabled'));
+        }
+
+        return $this->createSolution($request, $problem, 0, 0);
+    }
+
+    public function storeContest($contestId, ContestStoreRequest $request, ContestService $contestService)
+    {
+        $contest = Contest::query()->findOrFail($contestId);
+        if ($contest->isEnd()) {
+            return redirect(route('contest.view', $contest->id))
+                ->withErrors('Contest is End!');
+        }
+
+        try {
+            $problem = $contestService->getProblemByOrder($contest, $request->getOrder());
+        } catch (InvalidOrder $exception) {
+            return redirect(route('contest.view', $contest->id))
+                ->withErrors($exception->getMessage());
+        }
+
+        if (! $problem || $problem->id !== $request->getProblemId()) {
+            return redirect(route('contest.view', $contest->id))
+                ->withErrors('Problem not found in contest!');
+        }
+
+        if (! config('hustoj.special_judge_enabled') && $problem->isSpecialJudge()) {
+            return redirect(route('contest.view', $contest->id))
+                ->withErrors(__('solution.alert.special_judge_disabled'));
+        }
+
+        return $this->createSolution($request, $problem, $contest->id, original_order($request->getOrder()));
+    }
+
+    private function createSolution(StoreRequest $request, Problem $problem, int $contestId, int $order)
     {
         $data = [
             'user_id' => app('auth')->guard()->id(),
-            'problem_id' => request('problem_id', 0),
-            'language' => request('language'),
+            'problem_id' => $problem->id,
+            'language' => $request->getLanguage(),
             'ip' => request()->ip(),
-            'order' => request('order', 0),
-            'contest_id' => request('contest_id', 0),
-            'code_length' => strlen(request('code')),
+            'order' => $order,
+            'contest_id' => $contestId,
+            'code_length' => strlen($request->getCode()),
             'result' => Status::PENDING,
         ];
 
         /** @var Solution $solution */
         $solution = Solution::query()->create($data);
         $solution->source()->create([
-            'code' => request('code', ''),
+            'code' => $request->getCode(),
         ]);
 
         app(SolutionQueue::class)->add($solution);
