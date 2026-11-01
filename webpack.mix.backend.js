@@ -15,5 +15,6 @@ mix.sass('resources/assets/sass/admin.scss', 'public/css')
         }
     })
     .js('resources/assets/js/app.js', 'public/admin/js')
+    .vue()
     .extract(['vue', 'vue-router', 'vue-bus', 'element-ui', 'axios', 'lodash',
         'jquery', 'echarts', 'vue-cookie'], 'public/admin/js/vendor.js');

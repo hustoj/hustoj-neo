@@ -2,17 +2,17 @@
   "private": true,
   "scripts": {
     "dev": "npm run development",
-    "development": "cross-env process.env.section=front NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "cross-env process.env.section=front npm run development -- --watch",
-    "watch-poll": "npm run watch -- --watch-poll",
-    "hot": "cross-env process.env.section=front NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "development": "cross-env section=front mix build",
+    "watch": "cross-env section=front mix watch",
+    "watch-poll": "npm run watch -- --watch-options-poll=1000",
+    "hot": "cross-env section=front mix watch --hot",
     "prod": "npm run production",
-    "production": "cross-env process.env.section=front NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "cross-env section=front mix build --production",
     "admin-dev": "npm run admin-development",
-    "admin-development": "cross-env process.env.section=backend NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "admin-watch": "cross-env process.env.section=backend NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "admin-development": "cross-env section=backend mix build",
+    "admin-watch": "cross-env section=backend mix watch",
     "admin-prod": "npm run admin-production",
-    "admin-production": "cross-env process.env.section=backend NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "admin-production": "cross-env section=backend mix build --production"
   },
   "devDependencies": {
     "axios": ">=0.21.1",
@@ -24,9 +24,12 @@
     "popper.js": "^1.12",
     "resolve-url-loader": "5.0.0",
     "sass": "^1.20.1",
-    "sass-loader": "7.*",
+    "sass-loader": "^12.6.0",
     "vue": "^2.5.17",
-    "vue-template-compiler": "^2.6.10"
+    "vue-loader": "^15.11.1",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^5.106.2",
+    "webpack-cli": "^4.10.0"
   },
   "dependencies": {
     "bootstrap-dropdown-hover": "^4.2.0",
