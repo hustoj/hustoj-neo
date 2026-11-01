@@ -14,6 +14,11 @@ This application still under construction, if you like improve it, please contac
 
 This version is not compatible with old version! The Judged is not upgrade! 
 
+## Requirements
+
+- PHP 8.3+
+- Laravel 13
+
 ## Install Tutorial
 
 1. Clone this repository
