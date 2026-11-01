@@ -75,6 +75,54 @@ class AuthFlowTest extends TestCase
         $this->assertGuest();
     }
 
+    public function testLegacyMd5PasswordUserCanLoginAndIsRehashed()
+    {
+        // Format A: 模拟从 C++ HUSTOJ 迁移过来的用户(纯 md5 密码)
+        $user = $this->createUser([
+            'username' => 'legacy-md5',
+            'password' => md5('password'),
+        ]);
+        $this->assertSame(32, strlen($user->password));
+
+        $response = $this->post('/login', [
+            'username' => 'legacy-md5',
+            'password' => 'password',
+        ]);
+
+        $response->assertRedirect('/');
+        $this->assertAuthenticatedAs($user);
+
+        // 登录成功后应自动 rehash 为 Format C(带 salt,base64 32 字符)
+        $user->refresh();
+        $this->assertNotSame(md5('password'), $user->password, '密码应已被自动升级');
+        $this->assertFalse(app('hash')->needsRehash($user->password));
+        $this->assertTrue(app('hash')->check('password', $user->password));
+    }
+
+    public function testLegacyEmptySaltPasswordUserCanLoginAndIsRehashed()
+    {
+        // Format B: 模拟 Hasher salt 丢失 bug 期间存的用户
+        $legacyHash = base64_encode(sha1(md5('password'), true));
+        $user = $this->createUser([
+            'username' => 'legacy-emptysalt',
+            'password' => $legacyHash,
+        ]);
+
+        $response = $this->post('/login', [
+            'username' => 'legacy-emptysalt',
+            'password' => 'password',
+        ]);
+
+        $response->assertRedirect('/');
+        $this->assertAuthenticatedAs($user);
+
+        // 登录成功后应自动 rehash 为 Format C
+        $user->refresh();
+        $this->assertNotSame($legacyHash, $user->password, '密码应已被自动升级');
+        $this->assertFalse(app('hash')->needsRehash($user->password));
+        $this->assertTrue(app('hash')->check('password', $user->password));
+    }
+
     public function testInactiveUserCannotLogin()
     {
         $this->createUser([

@@ -18,7 +18,9 @@ class HashServiceProviderTest extends TestCase
         $first = $hash->make('secret');
         $second = $hash->make('secret');
 
-        $this->assertSame($first, $second);
+        // 修复 salt 丢失 bug 后,两次 make 应产生不同 hash(各自随机 salt)
+        $this->assertNotSame($first, $second);
         $this->assertTrue($hash->check('secret', $first));
+        $this->assertTrue($hash->check('secret', $second));
     }
 }
