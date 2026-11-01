@@ -12,14 +12,13 @@ class JudgeJob implements Jsonable
     private Solution $solution;
     /** @var Problem */
     private Problem $problem;
+    private string $judgeToken;
 
-    /**
-     * @param  Solution  $solution
-     */
-    public function __construct(Solution $solution)
+    public function __construct(Solution $solution, string $judgeToken)
     {
         $this->solution = $solution;
         $this->problem = $solution->problem;
+        $this->judgeToken = $judgeToken;
     }
 
     public function setProblem(Problem $problem): void
@@ -41,6 +40,7 @@ class JudgeJob implements Jsonable
             'is_special' => $this->problem->spj,
 
             'solution_id' => $this->solution->id,
+            'judge_token' => $this->judgeToken,
             'code' => $this->solution->source->code,
             'language' => $this->solution->language,
         ];

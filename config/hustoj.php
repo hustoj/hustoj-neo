@@ -9,6 +9,11 @@ return [
                 'allow_legacy' => filter_var(env('JUDGE_AUTH_ALLOW_LEGACY', false), FILTER_VALIDATE_BOOLEAN),
                 'cache_store' => env('JUDGE_AUTH_CACHE_STORE', 'redis'),
             ],
+            'task_token' => [
+                'ttl' => (($ttl = env('JUDGE_TASK_TOKEN_TTL')) === null || $ttl === '') ? 604800 : (int) $ttl,
+                'cache_store' => env('JUDGE_TASK_TOKEN_CACHE_STORE'),
+                'lock_wait' => (int) env('JUDGE_TASK_TOKEN_LOCK_WAIT', 5),
+            ],
         ],
     ],
     'special_judge_enabled' => false,

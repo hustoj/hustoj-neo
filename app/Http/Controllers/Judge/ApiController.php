@@ -9,6 +9,10 @@ use App\Http\Requests\Judger\DataRequest;
 use App\Http\Requests\Judger\JudgerRequest;
 use App\Http\Requests\Judger\ReportRequest;
 use App\Services\DataProvider;
+use App\Services\JudgeTaskToken;
+use App\Status;
+use Illuminate\Contracts\Cache\LockTimeoutException;
+use Illuminate\Support\Facades\DB;
 use LogicException;
 
 class ApiController extends Controller
@@ -39,29 +43,28 @@ class ApiController extends Controller
     {
         $this->authorizeJudger($request);
 
-        /** @var Solution $solution */
-        $solution = Solution::query()->find($request->getSolutionId());
-        if ($solution) {
-            $solution->result = $request->input('status');
-            if ($request->input('memory_cost')) {
-                $solution->memory_cost = $request->input('memory_cost');
-            }
-            if ($request->input('time_cost')) {
-                $solution->time_cost = $request->input('time_cost');
-            }
-            if ($solution->isRuntimeError() && $request->input('runtime_info')) {
-                if ($info = $solution->runtimeInfo) {
-                    $info->delete();
-                }
-                $solution->runtimeInfo()->create(['content' => $request->input('runtime_info')]);
-            }
-            if ($solution->isCompileError() && $request->input('compile_info')) {
-                if ($info = $solution->compileInfo) {
-                    $info->delete();
-                }
-                $solution->compileInfo()->create(['content' => $request->input('compile_info')]);
-            }
-            $solution->save();
+        $status = (int) $request->input('status');
+        $burn = ! in_array($status, [Status::COMPILING, Status::RUNNING], true);
+
+        try {
+            $accepted = app(JudgeTaskToken::class)->consume(
+                $request->getSolutionId(),
+                $request->getJudgeToken(),
+                fn () => DB::transaction(fn () => $this->saveReport($request)),
+                $burn
+            );
+        } catch (LockTimeoutException) {
+            return response()->json([
+                'code' => 503,
+                'message' => 'judge token busy',
+            ], 503);
+        }
+
+        if (! $accepted) {
+            return [
+                'code' => 403,
+                'message' => 'judge token invalid',
+            ];
         }
 
         return [
@@ -79,5 +82,35 @@ class ApiController extends Controller
     private function authorizeJudger(JudgerRequest $request)
     {
         $this->judger = $request->getJudger();
+    }
+
+    private function saveReport(ReportRequest $request): void
+    {
+        /** @var Solution $solution */
+        $solution = Solution::query()->find($request->getSolutionId());
+        if (! $solution) {
+            return;
+        }
+
+        $solution->result = $request->input('status');
+        if ($request->input('memory_cost')) {
+            $solution->memory_cost = $request->input('memory_cost');
+        }
+        if ($request->input('time_cost')) {
+            $solution->time_cost = $request->input('time_cost');
+        }
+        if ($solution->isRuntimeError() && $request->input('runtime_info')) {
+            if ($info = $solution->runtimeInfo) {
+                $info->delete();
+            }
+            $solution->runtimeInfo()->create(['content' => $request->input('runtime_info')]);
+        }
+        if ($solution->isCompileError() && $request->input('compile_info')) {
+            if ($info = $solution->compileInfo) {
+                $info->delete();
+            }
+            $solution->compileInfo()->create(['content' => $request->input('compile_info')]);
+        }
+        $solution->save();
     }
 }

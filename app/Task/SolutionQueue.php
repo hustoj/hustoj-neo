@@ -2,8 +2,11 @@
 
 namespace App\Task;
 
+use App\Entities\Solution;
+use App\Services\JudgeTaskToken;
 use Illuminate\Contracts\Queue\Queue;
 use Illuminate\Queue\QueueManager;
+use RuntimeException;
 
 class SolutionQueue
 {
@@ -16,16 +19,21 @@ class SolutionQueue
         $this->queue = $manager->connection('judge');
     }
 
-    public function add($solution)
+    public function add(Solution $solution)
     {
-        $this->send(new JudgeJob($solution));
+        $this->send($solution);
     }
 
-    protected function send(JudgeJob $task)
+    protected function send(Solution $solution)
     {
         if (! config('hustoj.services.judge.status')) {
             return;
         }
-        $this->queue->pushRaw($task->toJson());
+
+        app(JudgeTaskToken::class)->dispatch($solution->id, function (string $token) use ($solution) {
+            if ($this->queue->pushRaw((new JudgeJob($solution, $token))->toJson()) === false) {
+                throw new RuntimeException('Unable to push judge task.');
+            }
+        });
     }
 }

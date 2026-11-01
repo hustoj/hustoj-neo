@@ -23,7 +23,7 @@ class JudgeJobTest extends TestCase
         ]);
         $solution->source()->create(['code' => 'print(1)']);
 
-        $job = new JudgeJob($solution->load(['problem', 'source']));
+        $job = new JudgeJob($solution->load(['problem', 'source']), 'task-token');
         $payload = json_decode($job->toJson(), true);
 
         $this->assertSame($problem->id, $payload['problem_id']);
@@ -31,6 +31,7 @@ class JudgeJobTest extends TestCase
         $this->assertSame(512, $payload['memory_limit']);
         $this->assertSame(1, $payload['is_special']);
         $this->assertSame($solution->id, $payload['solution_id']);
+        $this->assertSame('task-token', $payload['judge_token']);
         $this->assertSame('print(1)', $payload['code']);
         $this->assertSame(2, $payload['language']);
     }
@@ -43,7 +44,7 @@ class JudgeJobTest extends TestCase
         $solution = $this->createSolution($user, $problem);
         $solution->source()->create(['code' => 'x']);
 
-        $job = new JudgeJob($solution->load(['problem', 'source']));
+        $job = new JudgeJob($solution->load(['problem', 'source']), 'task-token');
         $job->setProblem(Problem::query()->find($other->id));
 
         $this->assertSame(3000, $job->asQueueInfo()['time_limit']);
