@@ -23,7 +23,7 @@
                 <div class="card">
                     <div class="card-header">@lang('user.edit_profile')</div>
                     <div class="card-body">
-                        <form class="form-horizontal" method="post" action="{{ url(route('user.password')) }}"
+                        <form class="form-horizontal" method="post" action="{{ url(route('user.password.update')) }}"
                               autocomplete="off">
                             <!-- CSRF Token -->
                         @csrf
