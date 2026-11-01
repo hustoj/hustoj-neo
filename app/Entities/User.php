@@ -7,7 +7,8 @@ use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laratrust\Traits\LaratrustUserTrait;
+use Laratrust\Contracts\LaratrustUser;
+use Laratrust\Traits\HasRolesAndPermissions;
 
 /**
  * Class User.
@@ -30,10 +31,10 @@ use Laratrust\Traits\LaratrustUserTrait;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class User extends Authenticatable implements MustVerifyEmailContract
+class User extends Authenticatable implements MustVerifyEmailContract, LaratrustUser
 {
     use Notifiable;
-    use LaratrustUserTrait;
+    use HasRolesAndPermissions;
     use MustVerifyEmail;
     use CustomDateFormat;
 

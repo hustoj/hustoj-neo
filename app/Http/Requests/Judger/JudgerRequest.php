@@ -12,7 +12,12 @@ class JudgerRequest extends Request
 
     public function validate()
     {
-        $origin = sprintf('%s-%d', $this->getJudger()->code, $this->input('ts'));
+        $judger = $this->getJudger();
+        if (! $judger) {
+            throw new JudgerCodeInvalid();
+        }
+
+        $origin = sprintf('%s-%d', $judger->code, $this->input('ts'));
         if ($this->getToken() != md5($origin)) {
             throw new JudgerCodeInvalid();
         }

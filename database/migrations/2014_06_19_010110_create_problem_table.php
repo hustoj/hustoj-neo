@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateProblemTable extends Migration
@@ -36,8 +37,10 @@ class CreateProblemTable extends Migration
             $table->softDeletes();
         });
 
-        $statement = "ALTER TABLE {$this->table} AUTO_INCREMENT = 1000;";
-        DB::unprepared($statement);
+        if (DB::connection()->getDriverName() === 'mysql') {
+            $statement = "ALTER TABLE {$this->table} AUTO_INCREMENT = 1000;";
+            DB::unprepared($statement);
+        }
     }
 
     /**

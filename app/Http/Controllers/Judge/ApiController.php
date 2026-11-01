@@ -15,21 +15,10 @@ class ApiController extends Controller
     /** @var \App\Entities\Judger */
     public $judger;
 
-    /**
-     * ApiController constructor.
-     *
-     * @param  JudgerRequest  $request
-     *
-     * @throws \App\Exceptions\Judger\JudgerCodeInvalid
-     */
-    public function __construct(JudgerRequest $request)
-    {
-        $request->validate();
-        $this->judger = $request->getJudger();
-    }
-
     public function data(JudgerRequest $request)
     {
+        $this->authorizeJudger($request);
+
         $pid = $request->input('pid');
         Problem::query()->findOrFail($pid);
 
@@ -47,6 +36,8 @@ class ApiController extends Controller
 
     public function report(ReportRequest $request)
     {
+        $this->authorizeJudger($request);
+
         /** @var Solution $solution */
         $solution = Solution::query()->find($request->getSolutionId());
         if ($solution) {
@@ -77,9 +68,17 @@ class ApiController extends Controller
         ];
     }
 
-    public function heartbeat()
+    public function heartbeat(JudgerRequest $request)
     {
+        $this->authorizeJudger($request);
+
         return '';
+    }
+
+    private function authorizeJudger(JudgerRequest $request)
+    {
+        $request->validate();
+        $this->judger = $request->getJudger();
     }
 
     private function beat()

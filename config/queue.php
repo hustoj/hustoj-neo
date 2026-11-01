@@ -78,7 +78,8 @@ return [
 
             'driver' => 'rabbitmq',
             'queue' => env('RABBITMQ_QUEUE', 'default'),
-            'connection' => PhpAmqpLib\Connection\AMQPLazyConnection::class,
+            // 'default' 走 AMQPConnectionFactory，内部 setIsLazy(true)，不再使用已废弃的 AMQPLazyConnection
+            'connection' => env('RABBITMQ_CONNECTION', 'default'),
 
             'hosts' => [
                 [
