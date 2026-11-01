@@ -32,7 +32,7 @@ class ContestService
     /**
      * @throws InvalidOrder
      */
-    public function getProblemByOrder(Contest $contest, $order): Problem
+    public function getProblemByOrder(Contest $contest, $order): ?Problem
     {
         $order = strtoupper($order);
         if (! is_alpha($order)) {
