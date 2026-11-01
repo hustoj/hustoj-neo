@@ -1,5 +1,5 @@
 <template>
-    <el-dialog width="80%" :title="title" size="small" :visible.sync="dialogFormVisible">
+    <el-dialog width="80%" :title="title" v-model="dialogFormVisible">
         <el-form :model="item" ref="form" label-width="120px">
             <el-form-item label="Key">
                 <el-input v-model="item.key"></el-input>
@@ -14,10 +14,12 @@
                 <el-input v-model="item.value"></el-input>
             </el-form-item>
         </el-form>
-        <div slot="footer" class="dialog-footer">
+        <template #footer>
+        <div class="dialog-footer">
             <el-button plain @click="dialogFormVisible = false">Cancel</el-button>
             <el-button type="primary" plain @click="save(item)">Save</el-button>
         </div>
+        </template>
     </el-dialog>
 </template>
 

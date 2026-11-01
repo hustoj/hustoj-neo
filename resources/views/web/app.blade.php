@@ -13,7 +13,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    @vite(['resources/assets/sass/app.scss', 'resources/assets/front/app.js'])
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -40,10 +40,6 @@
     </div>
 </div>
 @include('web.partials.footer')
-<!-- Scripts -->
-<script src="{{ asset('js/manifest.js')}}"></script>
-<script src="{{ asset('js/vendor.js')}}"></script>
-<script src="{{ asset('js/app.js')}}"></script>
 @yield('scripts')
 <div class="text-center pb-5 pt-3">
     © 2015 HUST ACMICPC TEAM. All Right Reserved.

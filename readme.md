@@ -84,8 +84,7 @@ This version is not compatible with old version! The Judged is not upgrade!
 
         ```bash
         npm install
-        npm run prod # build front web
-        npm run admin-prod # build admin front web
+        npm run build # build front + admin assets with Vite
         ```
 
 7. setup other configure

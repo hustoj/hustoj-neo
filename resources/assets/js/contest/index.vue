@@ -3,10 +3,10 @@
         <div class="search-bar">
             <el-form :inline="true" :model="params">
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" v-model="params.id" placeholder="ID"></el-input>
+                    <el-input @keyup.enter="search(params)" v-model="params.id" placeholder="ID"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" v-model="params.title" placeholder="Title"></el-input>
+                    <el-input @keyup.enter="search(params)" v-model="params.title" placeholder="Title"></el-input>
                 </el-form-item>
                 <el-form-item label="Status">
                     <el-select v-model="params.private" placeholder="All">
@@ -19,26 +19,26 @@
                 <el-button type="success" plain @click="handleAdd()">Add</el-button>
             </el-form>
         </div>
-        <el-table size="medium" v-loading.body="loading" :data="tableData" style="width: 100%">
+        <el-table size="default" v-loading="loading" :data="tableData" style="width: 100%">
             <el-table-column prop="id" label="ID" width="80"></el-table-column>
             <el-table-column prop="title" label="Title" width="600"></el-table-column>
             <el-table-column label="Private" width="100">
-                <template slot-scope="scope">
-                    {{ scope.row.private | privateStatus}}
+                <template #default="scope">
+                    {{ privateStatus(scope.row.private) }}
                 </template>
             </el-table-column>
             <el-table-column prop="updated_at" label="Updated At" width="180"></el-table-column>
             <el-table-column>
-                <template slot-scope="scope">
-                    <el-button type="primary" circle size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
-                    <el-button type="danger" circle size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
+                <template #default="scope">
+                    <el-button type="primary" circle size="small" :icon="Edit" @click="handleEdit(scope.row)"></el-button>
+                    <el-button type="danger" circle size="small" :icon="Delete" @click="handleDelete(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
         <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page.sync="params.page"
+                v-model:current-page="params.page"
                 :page-sizes="[20, 50, 100]"
                 :page-size="params.per_page"
                 layout="total, sizes, prev, pager, next, jumper"
@@ -51,8 +51,12 @@
 <script>
     import ContestEdit from "./edit.vue";
     import {privateStatus} from "../filter";
+    import { Edit, Delete } from '@element-plus/icons-vue';
 
     export default {
+        setup() {
+            return { Edit, Delete };
+        },
         components: {
             ContestEdit
         },
@@ -80,6 +84,7 @@
             '$route': 'loadData',
         },
         methods: {
+            privateStatus,
             search(params) {
                 this.loadData();
             },

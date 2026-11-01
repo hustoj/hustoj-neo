@@ -1,5 +1,5 @@
 <template>
-    <el-dialog width="80%" :title="title" size="large" :visible.sync="dialogFormVisible">
+    <el-dialog width="80%" :title="title" v-model="dialogFormVisible">
         <el-form :model="item" ref="form" label-width="120px">
             <el-tabs type="border-card">
                 <el-tab-pane label="Basic">
@@ -15,14 +15,14 @@
                         <el-col :span="6">
                             <el-form-item label="Time Limit">
                                 <el-input v-model="item.time_limit" placeholder="time limit">
-                                    <template slot="append">s</template>
+                                    <template #append>s</template>
                                 </el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :span="6">
                             <el-form-item label="Memory Limit">
                                 <el-input v-model="item.memory_limit" placeholder="memory limit">
-                                    <template slot="append">MB</template>
+                                    <template #append>MB</template>
                                 </el-input>
                             </el-form-item>
                         </el-col>
@@ -70,27 +70,29 @@
                                         :on-remove="handleRemove"
                                         :file-list="fileList"
                                         :auto-upload="false" style="width: 300px">
-                                    <el-button slot="trigger" plain type="primary">Choose</el-button>
+                                    <template #trigger><el-button plain type="primary">Choose</el-button></template>
                                     <el-button style="margin-left: 10px;" plain type="success"
                                                @click="submitUpload">Upload
                                     </el-button>
-                                    <div slot="tip" class="el-upload__tip">
-                                        support .in and .out files, take care of file size!
-                                    </div>
+                                    <template #tip>
+                                        <div class="el-upload__tip">
+                                            support .in and .out files, take care of file size!
+                                        </div>
+                                    </template>
                                 </el-upload>
                             </el-col>
                             <el-col :span=10>
                                 <el-card class="box-card">
-                                    <div slot="header" class="clearfix">
-                                        <span style="line-height: 18px;">Data File List</span>
-                                    </div>
+                                    <template #header>
+                                        <div class="clearfix">
+                                            <span style="line-height: 18px;">Data File List</span>
+                                        </div>
+                                    </template>
                                     <ul v-for="file in currentFileList" class="el-upload-list el-upload-list--text">
                                         <li class="el-upload-list__item is-ready">
                                             <!----><a class="el-upload-list__item-name" :href="accessFileUrl(file)">
-                                            <i class="el-icon-document"></i>{{ file }}
-                                        </a><label class="el-upload-list__item-status-label"><i
-                                                class="el-icon-upload-success el-icon-circle-check"></i></label><i
-                                                class="el-icon-close" @click="removeFile(file)"></i><!----><!----></li>
+                                            <el-icon><Document /></el-icon>{{ file }}
+                                        </a><label class="el-upload-list__item-status-label"><el-icon><CircleCheck /></el-icon></label><el-icon style="cursor: pointer"><Close @click="removeFile(file)" /></el-icon><!----><!----></li>
                                     </ul>
                                 </el-card>
                             </el-col>
@@ -99,16 +101,25 @@
                 </el-tab-pane>
             </el-tabs>
         </el-form>
-        <div slot="footer" class="dialog-footer">
+        <template #footer>
+        <div class="dialog-footer">
             <el-button plain @click="dialogFormVisible = false">Cancel</el-button>
             <el-button type="primary" plain @click="save(item)">Save</el-button>
         </div>
+        </template>
     </el-dialog>
 </template>
 
 <script>
 
+    import { Document, CircleCheck, Close } from '@element-plus/icons-vue';
+
     export default {
+        components: {
+            Document,
+            CircleCheck,
+            Close,
+        },
         data() {
             return {
                 dialogFormVisible: false,
@@ -178,13 +189,13 @@
                 this.item.output = content;
             },
             changeSpj() {
-                item.spj = 0;
+                this.item.spj = 0;
                 if (this.spj) {
-                    item.spj = 1;
+                    this.item.spj = 1;
                 }
             },
             beforeFilesUpload(file) {
-                this.attachedHeaders['X-XSRF-TOKEN'] = this.$cookie.get('XSRF-TOKEN');
+                this.attachedHeaders['X-XSRF-TOKEN'] = (document.cookie.match(/XSRF-TOKEN=([^;]+)/) || [])[1];
             },
             removeFile(file) {
                 let self = this;

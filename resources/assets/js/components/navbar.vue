@@ -8,11 +8,11 @@
             <el-menu-item index="/problem">Problem</el-menu-item>
             <el-menu-item index="/contest">Contest</el-menu-item>
             <el-menu-item index="/user">User</el-menu-item>
-            <el-submenu index="2">
-                <template slot="title">Manage</template>
+            <el-sub-menu index="2">
+                <template #title>Manage</template>
                 <el-menu-item index="/role">Role</el-menu-item>
                 <el-menu-item index="/settings">Setting</el-menu-item>
-            </el-submenu>
+            </el-sub-menu>
         </el-menu>
     </div>
 </template>

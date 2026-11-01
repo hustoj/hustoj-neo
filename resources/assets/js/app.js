@@ -4,88 +4,55 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+import './bootstrap';
 
-window.Vue = require('vue');
+import { createApp } from 'vue';
+import { createRouter, createWebHashHistory } from 'vue-router';
+import mitt from 'mitt';
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+import ElementPlus, { ElMessage } from 'element-plus';
+import locale from 'element-plus/es/locale/lang/en';
+import 'element-plus/dist/index.css';
+import '../sass/font-awesome.min.css';
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+import axios from 'axios';
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+import HtmlEditor from './components/HtmlEditor.vue';
+import navbar from './components/navbar.vue';
+import ojfooter from './components/footer.vue';
+import routes from './routes';
 
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-import VueRouter from "vue-router";
-Vue.use(VueRouter);
-
-import VueBus from 'vue-bus';
-Vue.use(VueBus);
-
-import ElementUI from "element-ui";
-import locale from 'element-ui/lib/locale/lang/en'
-import "element-ui/lib/theme-chalk/index.css";
-Vue.use(ElementUI, { locale });
-
-import axios from "axios";
-
-import VueCookie from "vue-cookie";
-Vue.use(VueCookie);
-
-import VueHtml5Editor from 'vue-html5-editor'
-let options = {};
-Vue.use(VueHtml5Editor, options);
-
-import navbar from "./components/navbar";
-Vue.component("navbar", navbar);
-import ojfooter from './components/footer';
-Vue.component("ojfooter", ojfooter);
-
-
-Vue.prototype.$http = axios;
-const BASE_URL = process.env.MIX_ADMIN_URL;
-axios.defaults.baseURL = BASE_URL;
+axios.defaults.baseURL = import.meta.env.VITE_ADMIN_URL;
 axios.defaults.headers.common['Accept'] = 'application/json';
 
 axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     if (error.response.status == 401) {
-        return window.location.href = BASE_URL;
+        return window.location.href = axios.defaults.baseURL;
     }
-    Vue.$message.error(response.statusText);
+    ElMessage.error(error.response.statusText);
 });
 
-import routes from './routes';
-
-
-const router = new VueRouter({
-    // mode: 'history',
-    hashbang: true,
-    saveScrollPosition: true,
-    transitionOnLoad: true,
-    scrollBehavior (to, from, savedPosition) {
+const router = createRouter({
+    history: createWebHashHistory(),
+    scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
-            return savedPosition
-        } else {
-            return {x: 0, y: 0}
+            return savedPosition;
         }
+        return { left: 0, top: 0 };
     },
     routes: routes
 });
 
-const app = new Vue({
-    router: router
-}).$mount("#app");
+const app = createApp({});
+
+app.use(router);
+app.use(ElementPlus, { locale });
+app.config.globalProperties.$bus = mitt();
+app.config.globalProperties.$http = axios;
+app.component('navbar', navbar);
+app.component('ojfooter', ojfooter);
+app.component('vue-html5-editor', HtmlEditor);
+
+app.mount('#app');

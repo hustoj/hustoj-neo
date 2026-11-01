@@ -1,6 +1,3 @@
-import Vue from 'vue';
-
-
 import home from "./pages/home.vue";
 import problemIndex from "./problem/index.vue";
 import userIndex from "./user/index.vue";
@@ -13,7 +10,7 @@ import NotFoundComponent from "./pages/404.vue";
 
 
 const routes = [
-    {path: '*', component: NotFoundComponent},
+    {path: '/:pathMatch(.*)*', component: NotFoundComponent},
     {path: '/', component: home, name: "home"},
     {path: '/problem', component: problemIndex, name: "problem.index"},
     {path: '/user', component: userIndex, name: "user.index"},

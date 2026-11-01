@@ -1,9 +1,9 @@
 <template>
     <div>
         <div class="search-bar">
-            <el-form :inline="true" :model="params" @submit.native.prevent>
+            <el-form :inline="true" :model="params" @submit.prevent>
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" v-model="params.name" placeholder="Role Name"></el-input>
+                    <el-input @keyup.enter="search(params)" v-model="params.name" placeholder="Role Name"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" plain @click="search(params)">Search</el-button>
@@ -11,22 +11,22 @@
                 </el-form-item>
             </el-form>
         </div>
-        <el-table size="medium" v-loading.body="loading" :data="tableData" style="width: 100%">
+        <el-table size="default" v-loading="loading" :data="tableData" style="width: 100%">
             <el-table-column prop="id" label="Role ID" width="80"></el-table-column>
             <el-table-column prop="name" label="Role Name" width="180"></el-table-column>
             <el-table-column prop="display_name" label="Display Name" width="180"></el-table-column>
             <el-table-column prop="description" label="Description" width="180"></el-table-column>
             <el-table-column label="">
-                <template slot-scope="scope">
-                    <el-button type="primary" circle size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
-                    <el-button type="danger" circle size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
+                <template #default="scope">
+                    <el-button type="primary" circle size="small" :icon="Edit" @click="handleEdit(scope.row)"></el-button>
+                    <el-button type="danger" circle size="small" :icon="Delete" @click="handleDelete(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
         <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page.sync="params.page"
+                v-model:current-page="params.page"
                 :page-sizes="[20, 50, 100]"
                 :page-size="params.per_page"
                 layout="total, sizes, prev, pager, next, jumper"
@@ -38,8 +38,12 @@
 
 <script>
     import RoleEdit from './edit.vue';
+    import { Edit, Delete } from '@element-plus/icons-vue';
 
     export default {
+        setup() {
+            return { Edit, Delete };
+        },
         components: {
             RoleEdit
         },
@@ -124,7 +128,7 @@
                         this.$message({
                             showClose: true,
                             message: response.statusText,
-                            type: alert,
+                            type: 'warning',
                         })
                     }
                 }.bind(this));

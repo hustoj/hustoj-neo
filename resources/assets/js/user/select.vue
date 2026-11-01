@@ -1,15 +1,15 @@
 <template>
-    <el-dialog title="Choose User" :visible.sync="dialogVisible" size="large">
+    <el-dialog title="Choose User" v-model="dialogVisible">
         <div class="head-bar">
             <el-form :inline="true" :model="params">
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" size="small" v-model="params.id" placeholder="ID"></el-input>
+                    <el-input @keyup.enter="search(params)" size="small" v-model="params.id" placeholder="ID"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" size="small" v-model="params.name" placeholder="Name"></el-input>
+                    <el-input @keyup.enter="search(params)" size="small" v-model="params.name" placeholder="Name"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" size="small" v-model="params.email" placeholder="email"></el-input>
+                    <el-input @keyup.enter="search(params)" size="small" v-model="params.email" placeholder="email"></el-input>
                 </el-form-item>
                 <el-form-item label="Status">
                     <el-select v-model="params.status" placeholder="All">
@@ -21,21 +21,21 @@
                 <el-button type="primary" plain @click="search(params)">Search</el-button>
             </el-form>
         </div>
-        <el-table v-loading.body="loading" :data="tableData" :row-class-name="tableRowClassName" style="width: 100%">
+        <el-table v-loading="loading" :data="tableData" :row-class-name="tableRowClassName" style="width: 100%">
             <el-table-column prop="id" label="ID" width="200"></el-table-column>
             <el-table-column prop="username" label="Name" width="200"></el-table-column>
             <el-table-column prop="nick" label="Nick" width="300"></el-table-column>
             <el-table-column prop="school" label="School" width="240"></el-table-column>
             <el-table-column label="">
-                <template slot-scope="scope">
-                    <el-button type="primary" plain icon="check" @click="handleSelect(scope.row)"></el-button>
+                <template #default="scope">
+                    <el-button type="primary" plain :icon="Check" @click="handleSelect(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
         <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page.sync="params.page"
+                v-model:current-page="params.page"
                 :page-sizes="[20, 50, 100]"
                 :page-size="params.per_page"
                 layout="total, sizes, prev, pager, next, jumper"
@@ -49,7 +49,11 @@
     }
 </style>
 <script>
+    import { Check } from '@element-plus/icons-vue';
     export default {
+        setup() {
+            return { Check };
+        },
         data() {
             return {
                 loading: false,
@@ -69,7 +73,7 @@
             })
         },
         methods: {
-            tableRowClassName(row, index) {
+            tableRowClassName({row}) {
                 if(row.status) {
                     return 'positive-row';
                 }
@@ -98,7 +102,7 @@
                         this.$message({
                             showClose: true,
                             message: response.statusText,
-                            type: alert,
+                            type: 'warning',
                         })
                     }
                 }.bind(this));

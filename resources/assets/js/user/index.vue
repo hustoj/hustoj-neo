@@ -3,13 +3,13 @@
         <div class="search-bar">
             <el-form :inline="true" :model="params">
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" v-model="params.id" placeholder="ID"></el-input>
+                    <el-input @keyup.enter="search(params)" v-model="params.id" placeholder="ID"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" v-model="params.name" placeholder="Account"></el-input>
+                    <el-input @keyup.enter="search(params)" v-model="params.name" placeholder="Account"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input @keyup.enter.native="search(params)" v-model="params.email" placeholder="email"></el-input>
+                    <el-input @keyup.enter="search(params)" v-model="params.email" placeholder="email"></el-input>
                 </el-form-item>
                 <el-form-item label="Status">
                     <el-select v-model="params.status" placeholder="All">
@@ -23,7 +23,7 @@
                 <el-button type="danger" plain @click="batchRemoveUser()">Remove Selected Users</el-button>
             </el-form>
         </div>
-        <el-table size="medium" v-loading.body="loading"
+        <el-table size="default" v-loading="loading"
                   :data="tableData"
                   @selection-change="handleSelectionChange"
                   :row-class-name="tableRowClassName"
@@ -36,42 +36,44 @@
             <el-table-column prop="username" label="Account" width="160"></el-table-column>
             <el-table-column prop="nick" label="Nick" width="180"></el-table-column>
             <el-table-column label="E-mail" width="240">
-                <template slot-scope="scope">
+                <template #default="scope">
                     <el-tooltip placement="top">
-                        <div slot="content" v-if="scope.row.email_verified_at">{{ scope.row.email_verified_at }}</div>
-                        <div slot="content" v-if="!scope.row.email_verified_at">not verified</div>
+                        <template #content>
+                            <div v-if="scope.row.email_verified_at">{{ scope.row.email_verified_at }}</div>
+                            <div v-if="!scope.row.email_verified_at">not verified</div>
+                        </template>
                         <el-button size="small" v-if="scope.row.email_verified_at" type="success" plain>{{ scope.row.email }}</el-button>
                         <el-button size="small" v-if="!scope.row.email_verified_at" plain>{{ scope.row.email }}</el-button>
                     </el-tooltip>
                 </template>
             </el-table-column>
             <el-table-column label="Submit/Accepted" width="150">
-                <template slot-scope="scope">
+                <template #default="scope">
                     {{ scope.row.submit }} / {{ scope.row.solved }}
                 </template>
             </el-table-column>
             <el-table-column prop="created_at" label="Registered At" width="160"></el-table-column>
             <el-table-column prop="last_access_at" label="Last Access at" width="200">
-                <template slot-scope="scope">
+                <template #default="scope">
                     <el-tooltip content="show more" placement="top">
-                        <el-button @click="showRecentLogging(scope.row)" type="text">{{ scope.row.access_at }} </el-button>
+                        <el-button @click="showRecentLogging(scope.row)" text>{{ scope.row.access_at }} </el-button>
                     </el-tooltip>
                 </template>
             </el-table-column>
             <el-table-column>
-                <template slot-scope="scope">
-                    <el-button type="warning" plain size="mini" @click="toggleStatus(scope.row.id, scope.row.status)">
-                        {{ scope.row.status | showStatusBtn }}
+                <template #default="scope">
+                    <el-button type="warning" plain size="small" @click="toggleStatus(scope.row.id, scope.row.status)">
+                        {{ showStatusBtn(scope.row.status) }}
                     </el-button>
-                    <el-button type="primary" circle size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
-                    <el-button type="danger" circle size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)"></el-button>
+                    <el-button type="primary" circle size="small" :icon="Edit" @click="handleEdit(scope.row)"></el-button>
+                    <el-button type="danger" circle size="small" :icon="Delete" @click="handleDelete(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
         <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page.sync="params.page"
+                v-model:current-page="params.page"
                 :page-sizes="[20, 50, 100]"
                 :page-size="params.per_page"
                 layout="total, sizes, prev, pager, next, jumper"
@@ -83,11 +85,11 @@
     </div>
 </template>
 <style scoped>
-    .el-table >>> .positive-row {
+    .el-table :deep(.positive-row) {
         background: oldlace;
     }
 
-    .el-table >>> .success-row {
+    .el-table :deep(.success-row) {
         background: #f0f9eb;
     }
 </style>
@@ -96,8 +98,12 @@
     import LoggingRecords from './logging.vue';
 
     import {showStatusBtn} from '../filter';
+    import { Edit, Delete } from '@element-plus/icons-vue';
 
     export default {
+        setup() {
+            return { Edit, Delete };
+        },
         components: {
             UserEdit,
             LoggingRecords
@@ -125,6 +131,7 @@
             '$route': 'loadData',
         },
         methods: {
+            showStatusBtn,
             tableRowClassName(params) {
                 let user = params.row;
 
@@ -248,7 +255,7 @@
                         this.$message({
                             showClose: true,
                             message: response.statusText,
-                            type: alert,
+                            type: 'warning',
                         })
                     }
                 }.bind(this));

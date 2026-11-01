@@ -1,5 +1,5 @@
 <template>
-    <el-dialog width="80%" :title="title" :visible.sync="dialogFormVisible">
+    <el-dialog width="80%" :title="title" v-model="dialogFormVisible">
         <el-table
             :data="loginRecords"
             style="width: 100%"
@@ -8,7 +8,7 @@
             <el-table-column prop="created_at" label="Login at" width="180">
             </el-table-column>
             <el-table-column label="Status" width="180">
-                <template slot-scope="scope">
+                <template #default="scope">
                     <span v-if="scope.row.status == 0">PASS</span>
                     <span v-if="scope.row.status == 1">FAILED</span>
                 </template>
@@ -16,17 +16,19 @@
             <el-table-column prop="ip" label="IP Address">
             </el-table-column>
         </el-table>
-        <span slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false" type="primary" plain size="mini">Close</el-button>
+        <template #footer>
+        <span class="dialog-footer">
+            <el-button @click="dialogFormVisible = false" type="primary" plain size="small">Close</el-button>
         </span>
+        </template>
     </el-dialog>
 </template>
 <style scoped>
-    .el-table >>> .positive-row {
+    .el-table :deep(.positive-row) {
         background: oldlace;
     }
 
-    .el-table >>> .success-row {
+    .el-table :deep(.success-row) {
         background: #f0f9eb;
     }
 </style>

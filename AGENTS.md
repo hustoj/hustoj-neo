@@ -11,9 +11,9 @@ This is a Laravel 13 HUSTOJ application. Core PHP code lives in `app/`: controll
 - `php artisan migrate --seed`: prepare schema and seed data.
 - `php artisan serve`: run the application locally.
 - `npm ci`: install frontend dependencies from `package-lock.json`.
-- `npm run dev`: build the public frontend assets.
-- `npm run admin-dev`: build backend/admin assets.
-- `npm run prod` and `npm run admin-prod`: create production bundles.
+- `npm run dev`: start the Vite dev server (public + admin assets).
+- `npm run build`: create production bundles for both public and admin assets.
+- Frontend uses Vue 3 + element-plus + Vite (migrated from laravel-mix/Vue 2).
 - `vendor/bin/phpunit`: run tests.
 
 ## Coding Style & Naming Conventions

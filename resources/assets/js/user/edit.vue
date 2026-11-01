@@ -1,5 +1,5 @@
 <template>
-    <el-dialog width="80%" :title="title" :visible.sync="dialogFormVisible">
+    <el-dialog width="80%" :title="title" v-model="dialogFormVisible">
         <el-form ref="form" :rules="userRules" label-width="160px" :model="user">
             <el-form-item label="Account" required>
                 <el-input v-model="user.username"></el-input>
@@ -35,10 +35,12 @@
                 ></el-transfer>
             </el-form-item>
         </el-form>
-        <div slot="footer" class="dialog-footer">
+        <template #footer>
+        <div class="dialog-footer">
             <el-button plain @click="dialogFormVisible = false">Cancel</el-button>
             <el-button type="primary" plain @click="save(user)">Save</el-button>
         </div>
+        </template>
     </el-dialog>
 </template>
 

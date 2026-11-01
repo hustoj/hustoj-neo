@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog width="80%" :title="title" size="large" :visible.sync="dialogFormVisible">
+        <el-dialog width="80%" :title="title" v-model="dialogFormVisible">
             <el-form ref="form" :model="item" label-width="90px">
                 <el-form-item label="Title">
                     <el-input v-model="item.title"></el-input>
@@ -11,7 +11,8 @@
                             <el-date-picker
                                     v-model="start_time"
                                     type="datetime"
-                                    format="yyyy-MM-dd HH:mm:ss"
+                                    format="YYYY-MM-dd HH:mm:ss"
+                                    value-format="YYYY-MM-dd HH:mm:ss"
                                     placeholder="Choose Contest Start Time">
                             </el-date-picker>
                         </el-form-item>
@@ -21,7 +22,8 @@
                             <el-date-picker
                                     v-model="end_time"
                                     type="datetime"
-                                    format="yyyy-MM-dd HH:mm:ss"
+                                    format="YYYY-MM-dd HH:mm:ss"
+                                    value-format="YYYY-MM-dd HH:mm:ss"
                                     placeholder="Choose Contest End Time">
                             </el-date-picker>
                         </el-form-item>
@@ -34,42 +36,44 @@
                     <vue-html5-editor name="contest.description" :content="item.description" :height="120" @change="updateDescription"></vue-html5-editor>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" plain icon="el-icon-plus" @click="addProblem()">Add Problem</el-button>
-                    <el-button v-if="private" type="primary" plain icon="el-icon-plus" @click="addUser()">Add User</el-button>
+                    <el-button type="primary" plain :icon="Plus" @click="addProblem()">Add Problem</el-button>
+                    <el-button v-if="private" type="primary" plain :icon="Plus" @click="addUser()">Add User</el-button>
                 </el-form-item>
                 <el-tabs type="border-card" :value="activePane">
-                    <el-tab-pane label="Problem" name="problemPane" size="small">
+                    <el-tab-pane label="Problem" name="problemPane">
                         <el-table :data="problems" style="width: 100%">
                             <el-table-column prop="id" label="ID" width="80"></el-table-column>
                             <el-table-column prop="title" label="Title" width="300"></el-table-column>
                             <el-table-column>
-                                <template slot-scope="scope">
-                                    <el-button type="danger" size="mini" plain icon="el-icon-delete" @click="handleDelete(scope.row, scope.$index)"></el-button>
-                                    <el-button type="primary" size="mini"  plain icon="el-icon-arrow-up" @click="handleUp(scope.row, scope.$index)" v-if="scope.$index != 0"></el-button>
-                                    <el-button type="primary" size="mini"  plain icon="el-icon-arrow-down" @click="handleDown(scope.row, scope.$index)" v-if="scope.$index != problems.length - 1"></el-button>
+                                <template #default="scope">
+                                    <el-button type="danger" size="small" plain :icon="Delete" @click="handleDelete(scope.row, scope.$index)"></el-button>
+                                    <el-button type="primary" size="small"  plain :icon="ArrowUp" @click="handleUp(scope.row, scope.$index)" v-if="scope.$index != 0"></el-button>
+                                    <el-button type="primary" size="small"  plain :icon="ArrowDown" @click="handleDown(scope.row, scope.$index)" v-if="scope.$index != problems.length - 1"></el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
                     </el-tab-pane>
-                    <el-tab-pane label="Users" v-if="private" name="userPane" size="small">
+                    <el-tab-pane label="Users" v-if="private" name="userPane">
                         <el-table :data="users" style="width: 100%">
                             <el-table-column prop="id" label="ID" width="120"></el-table-column>
                             <el-table-column prop="username" label="User Name" width="180"></el-table-column>
                             <el-table-column prop="nick" label="Nick" width="240"></el-table-column>
                             <el-table-column prop="school" label="School" width="160"></el-table-column>
                             <el-table-column fixed="right">
-                                <template slot-scope="scope">
-                                    <el-button type="danger" size="mini" plain icon="el-icon-delete" @click="userDelete(scope.row, scope.$index)"></el-button>
+                                <template #default="scope">
+                                    <el-button type="danger" size="small" plain :icon="Delete" @click="userDelete(scope.row, scope.$index)"></el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
                     </el-tab-pane>
                 </el-tabs>
             </el-form>
-            <div slot="footer" class="dialog-footer">
+            <template #footer>
+            <div class="dialog-footer">
                 <el-button plain @click="dialogFormVisible = false">Cancel</el-button>
                 <el-button type="primary" plain @click="save(item)">Save</el-button>
             </div>
+            </template>
         </el-dialog>
         <select-problem></select-problem>
         <select-user></select-user>
@@ -79,8 +83,12 @@
 <script>
     import selectProblem from "../problem/select.vue";
     import selectUser from "../user/select.vue";
+    import { Plus, Delete, ArrowUp, ArrowDown } from '@element-plus/icons-vue';
 
     export default {
+        setup() {
+            return { Plus, Delete, ArrowUp, ArrowDown };
+        },
         components: {
             selectProblem,
             selectUser
@@ -112,7 +120,7 @@
 
                 if(this.item.private) {
                     this.item.user_list = this.users.map(function(item) {
-                        return user.id;
+                        return item.id;
                     });
                 }
                 if (item.id) {

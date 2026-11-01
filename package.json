@@ -1,46 +1,28 @@
 {
-  "private": true,
-  "scripts": {
-    "dev": "npm run development",
-    "development": "cross-env section=front mix build",
-    "watch": "cross-env section=front mix watch",
-    "watch-poll": "npm run watch -- --watch-options-poll=1000",
-    "hot": "cross-env section=front mix watch --hot",
-    "prod": "npm run production",
-    "production": "cross-env section=front mix build --production",
-    "admin-dev": "npm run admin-development",
-    "admin-development": "cross-env section=backend mix build",
-    "admin-watch": "cross-env section=backend mix watch",
-    "admin-prod": "npm run admin-production",
-    "admin-production": "cross-env section=backend mix build --production"
-  },
-  "devDependencies": {
-    "axios": ">=0.21.1",
-    "bootstrap": "^4.0.0",
-    "cross-env": "^5.1",
-    "jquery": "^3.5",
-    "laravel-mix": "^6.0.49",
-    "lodash": "^4.17.13",
-    "popper.js": "^1.12",
-    "resolve-url-loader": "5.0.0",
-    "sass": "^1.20.1",
-    "sass-loader": "^12.6.0",
-    "vue": "^2.5.17",
-    "vue-loader": "^15.11.1",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "~5.106.2",
-    "webpack-cli": "^4.10.0"
-  },
-  "dependencies": {
-    "bootstrap-dropdown-hover": "^4.2.0",
-    "echarts": "^6.1.0",
-    "element-ui": "^2.12.0",
-    "vue-bus": "^1.2.1",
-    "vue-cookie": "^1.1.4",
-    "vue-html5-editor": "^1.1.1",
-    "vue-router": "^3.1.3"
-  },
-  "overrides": {
-    "yargs": "17.7.3"
-  }
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "dependencies": {
+        "@element-plus/icons-vue": "^2.3.1",
+        "@wangeditor/editor": "^5.1.23",
+        "@wangeditor/editor-for-vue": "^5.1.12",
+        "axios": "^1.21.0",
+        "bootstrap": "^4.0.0",
+        "echarts": "^6.1.0",
+        "element-plus": "^2.9.0",
+        "jquery": "^3.5",
+        "lodash": "^4.18.1",
+        "mitt": "^3.0.1",
+        "popper.js": "^1.12",
+        "vue": "^3.5.0",
+        "vue-router": "^4.5.0"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^6.0.0",
+        "laravel-vite-plugin": "^3.2.0",
+        "sass": "^1.20.1",
+        "vite": "^8.0.0"
+    }
 }

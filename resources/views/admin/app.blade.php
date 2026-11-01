@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>HUST OJ DashBoard</title>
-    <link rel="stylesheet" href="{{asset('css/admin.css')}}">
-    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
+    @vite(['resources/assets/sass/admin.scss', 'resources/assets/js/app.js'])
 </head>
 <body>
 <div id="app">
@@ -16,8 +15,5 @@
         <ojfooter></ojfooter>
     </div>
 </div>
-<script src="{{ asset('admin/js/manifest.js')}}"></script>
-<script src="{{ asset('admin/js/vendor.js') }}"></script>
-<script src="{{ asset('admin/js/app.js') }}"></script>
 </body>
 </html>
