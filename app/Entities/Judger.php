@@ -2,6 +2,8 @@
 
 namespace App\Entities;
 
+use Database\Factories\JudgerFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -18,6 +20,22 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Judger extends Model
 {
+    /** @use HasFactory<JudgerFactory> */
+    use HasFactory;
+
     public const ST_ACTIVITY = 1;
     public const ST_DEACTIVATE = 0;
+
+    protected $fillable = [
+        'name',
+        'description',
+        'code',
+        'status',
+        'category',
+    ];
+
+    protected static function newFactory(): JudgerFactory
+    {
+        return JudgerFactory::new();
+    }
 }
