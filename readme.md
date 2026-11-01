@@ -16,7 +16,7 @@ This version is not compatible with old version! The Judged is not upgrade!
 
 ## Requirements
 
-- PHP 8.3+
+- PHP 8.4+
 - Laravel 13
 
 ## Install Tutorial
