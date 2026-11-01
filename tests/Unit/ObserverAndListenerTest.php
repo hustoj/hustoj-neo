@@ -36,6 +36,23 @@ class ObserverAndListenerTest extends TestCase
         $this->assertSame(1, $user->solved);
     }
 
+    public function testSolutionAcceptedObserverCountsDistinctProblems()
+    {
+        $user = $this->createUser(['submit' => 0, 'solved' => 0]);
+        $problem = $this->createProblem();
+        $first = $this->createSolution($user, $problem, ['result' => Status::PENDING]);
+        $second = $this->createSolution($user, $problem, ['result' => Status::PENDING]);
+
+        $first->result = Status::ACCEPT;
+        $first->save();
+        $second->result = Status::ACCEPT;
+        $second->save();
+
+        $user->refresh();
+        $this->assertSame(2, $user->submit);
+        $this->assertSame(1, $user->solved);
+    }
+
     public function testUserDeletedObserverRemovesTopicsAndReplies()
     {
         $user = $this->createUser();
