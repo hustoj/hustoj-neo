@@ -70,7 +70,14 @@ class UserController extends Controller
         $user = auth()->user();
 
         if ($user) {
-            $user->fill($request->all());
+            $user->fill($request->only([
+                'email',
+                'nick',
+                'school',
+                'locale',
+                'email_level',
+                'language',
+            ]));
             $emailChanged = $user->isDirty('email');
             if ($emailChanged) {
                 $user->email_verified_at = null;
