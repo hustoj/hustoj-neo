@@ -6,11 +6,6 @@ use Tests\TestCase;
 
 class HelperTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
     public function testRatio()
     {
         $this->assertEquals('22.00%', show_ratio(22, 100));
@@ -26,5 +21,31 @@ class HelperTest extends TestCase
         $this->assertTrue(is_alpha('A'));
         $this->assertTrue(is_alpha('a'));
         $this->assertFalse(is_alpha('a1'));
+    }
+
+    public function testShowOrderAndOriginalOrder()
+    {
+        $this->assertSame('A', show_order(0));
+        $this->assertSame('B', show_order(1));
+        $this->assertSame(0, original_order('A'));
+        $this->assertSame(1, original_order('b'));
+    }
+
+    public function testDisplayPenalizeTime()
+    {
+        $this->assertSame('0:20:00', display_penalize_time(20 * 60));
+        $this->assertSame('1:05:07', display_penalize_time(3907));
+    }
+
+    public function testShowProblemIdForContestSolution()
+    {
+        $user = $this->createUser();
+        $problem = $this->createProblem();
+        $solution = $this->createSolution($user, $problem, [
+            'contest_id' => 1,
+            'order' => 2,
+        ]);
+
+        $this->assertSame('C', show_problem_id($solution));
     }
 }

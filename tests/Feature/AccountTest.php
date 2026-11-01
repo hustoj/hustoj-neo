@@ -16,9 +16,28 @@ class AccountTest extends TestCase
                  ->assertSee('_token');
     }
 
-    public function testProfile()
+    public function testGuestIsRedirectedFromProfile()
     {
         $response = $this->get('/profile');
         $response->assertRedirect('/');
+    }
+
+    public function testAuthenticatedUserCanViewProfile()
+    {
+        $user = $this->createUser(['nick' => 'Tester']);
+
+        $response = $this->actingAs($user)->get('/profile/');
+
+        $response->assertSuccessful()
+                 ->assertSee('Tester');
+    }
+
+    public function testAuthenticatedUserIsRedirectedFromLogin()
+    {
+        $user = $this->createUser();
+
+        $response = $this->actingAs($user)->get('/login');
+
+        $response->assertRedirect('/home');
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Tests\Api\Judger;
 
-use App\Entities\Judger;
 use Tests\TestCase;
 
 class HeartBeatTest extends TestCase
@@ -19,28 +18,17 @@ class HeartBeatTest extends TestCase
 
     public function testValidJudger()
     {
-        $judger = $this->getValidJudger();
+        $judger = $this->createJudger();
+        $timestamp = time();
 
-        if (! $judger) {
-            $this->markTestIncomplete('No Valid Judger');
+        $response = $this->json(
+            'post',
+            '/judge/api/heartbeat',
+            ['ts' => $timestamp],
+            $this->judgerHeaders($judger, $timestamp)
+        );
 
-            return;
-        }
-        $response = $this->json('post', '/judge/api/heartbeat', [], ['Judge-Code' => $judger->code]);
         $response->assertStatus(200);
         $response->assertSee('');
-    }
-
-    /**
-     * @return Judger
-     */
-    private function getValidJudger()
-    {
-        $judger = Judger::query()
-                        ->where('status', Judger::ST_ACTIVITY)
-                        ->orderBy('id', 'desc')
-                        ->first();
-
-        return $judger;
     }
 }
