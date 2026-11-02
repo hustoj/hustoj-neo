@@ -50,4 +50,28 @@ class RouteRegistrationTest extends TestCase
         $this->assertContains(\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks::class, $middleware);
         $this->assertContains(\App\Http\Middleware\TrustProxies::class, $middleware);
     }
+
+    public function testEventListenersAreRegisteredExactlyOnce()
+    {
+        $rawListeners = app('events')->getRawListeners();
+
+        $this->assertSame(
+            [\Illuminate\Auth\Listeners\SendEmailVerificationNotification::class],
+            $rawListeners[\Illuminate\Auth\Events\Registered::class] ?? []
+        );
+        $this->assertSame(
+            [\App\Listeners\LoginListener::class.'@handle'],
+            $rawListeners[\Illuminate\Auth\Events\Login::class] ?? []
+        );
+        $this->assertSame(
+            [\App\Listeners\LoginListener::class.'@handle'],
+            $rawListeners[\Illuminate\Auth\Events\Failed::class] ?? []
+        );
+
+        $queryListeners = array_values(array_filter(
+            $rawListeners[\Illuminate\Database\Events\QueryExecuted::class] ?? [],
+            static fn ($listener) => is_string($listener) && str_starts_with($listener, \App\Listeners\DatabaseListener::class)
+        ));
+        $this->assertSame([\App\Listeners\DatabaseListener::class.'@handle'], $queryListeners);
+    }
 }

@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 
 class LoginListener
 {
-    public function handle($event)
+    public function handle(Login|Failed $event)
     {
         if (! $event->user) {
             // no such user in system, don't record it

@@ -119,11 +119,11 @@
       App\Providers\AppServiceProvider::class,
       App\Providers\AuthServiceProvider::class,
       App\Providers\CaptchaServiceProvider::class,
-      App\Providers\EventServiceProvider::class,
       App\Hustoj\Hashing\HashServiceProvider::class,
   ];
   ```
 - `RouteServiceProvider` 删除。
+- `EventServiceProvider` 删除;由 `Application::configure()->withEvents()` 自动发现 `app/Listeners` 并注册邮箱验证监听器。
 - `BroadcastServiceProvider` 不再注册;广播通道由 `bootstrap/app.php` 的 `withRouting(channels: __DIR__.'/../routes/channels.php')` 加载。已验证 `php artisan channel:list` 可正常列出 `routes/channels.php` 中的频道,`/broadcasting/auth` 路由也会由新骨架注册,运行时不依赖旧 Provider。
 - `HashServiceProvider` 必须用 `DeferrableProvider` 并同时提供 `hash` / `hash.driver`,否则 `Hash::driver()` 会回落到 Laravel 默认 `BcryptHasher`,旧 HUSTOJ 密码校验会失败。
 - 其余 Provider 一律不动其内部逻辑。
